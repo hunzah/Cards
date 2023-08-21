@@ -18,45 +18,49 @@
   position: relative;
   width: 24px;
   height: 24px;
-}
 
-.checkboxContainer::before {
-  content: '';
+  &::before {
+    content: '';
 
-  position: absolute;
-  z-index: -1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-  width: 32px;
-  height: 32px;
-  margin: 0;
-  padding: 0;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
 
-  background-color: var(--color-dark-900);
-  border-radius: 50%;
+    background-color: var(--color-dark-900);
+    border-radius: 50%;
 
-  transition: background-color 0.2s ease;
-}
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
 
-.checkboxContainer:hover::before {
-  background-color: var(--color-dark-500);
-}
+  &:hover::before {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: var(--color-dark-500);
+  }
 
-.checkboxContainer:active::before,
-.checkboxContainer:focus::before {
-  background-color: var(--color-dark-100);
-}
+  &:active::before,
+  &:focus::before {
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: var(--color-dark-100);
+  }
 
-.text {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-s);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-s);
-  color: var(--light-100, #fff);
-}
+  .text {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-s);
+    color: var(--light-100, #fff);
 
-.textContent {
-  white-space: nowrap;
+    .textContent {
+      white-space: nowrap;
+    }
+  }
 }
