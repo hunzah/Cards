@@ -1,22 +1,21 @@
 .checkboxRoot {
+  position: relative;
+
   display: flex;
   gap: 8px;
   align-items: center;
 
-  width: 24px;
-  height: 24px;
+  max-width: 100%;
+  max-height: 100%;
   margin: 0;
   padding: 0;
 
-  background-color: var(--color-dark-900);
+  background-color: transparent;
   border: none;
 }
 
-// styles for checkbox when it's active
-
 .checkboxContainer {
   position: relative;
-  align-items: center;
   width: 24px;
   height: 24px;
 }
@@ -24,7 +23,7 @@
 .checkboxContainer::before {
   content: '';
 
-  position: relative;
+  position: absolute;
   z-index: -1;
   top: 50%;
   left: 50%;
@@ -35,20 +34,22 @@
   margin: 0;
   padding: 0;
 
+  background-color: var(--color-dark-900);
   border-radius: 50%;
-}
 
-.checkboxContainer:active::before {
-  background-color: var(--color-dark-100);
+  transition: background-color 0.2s ease;
 }
-
-// styles for checkbox when it's on hover
 
 .checkboxContainer:hover::before {
   background-color: var(--color-dark-500);
 }
 
-.textContainer {
+.checkboxContainer:active::before,
+.checkboxContainer:focus::before {
+  background-color: var(--color-dark-100);
+}
+
+.text {
   font-family: var(--font-family-primary);
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);

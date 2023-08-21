@@ -12,6 +12,7 @@ type PropsType = {
   disabled?: boolean
   required?: boolean
   id?: string
+  className?: string
 }
 
 export const Checkbox = (props: PropsType) => {
@@ -33,7 +34,7 @@ export const Checkbox = (props: PropsType) => {
           <img src={checkboxBorderSvg} alt="checkbox-border" className={s.customCheckboxSvg} />
         )}
       </div>
-      <label className={s.textContainer}>
+      <label className={s.textContainer} aria-label={text}>
         <span className={s.textContent}>{text}</span>
       </label>
     </CheckboxRadix.Root>

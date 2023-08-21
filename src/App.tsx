@@ -1,3 +1,14 @@
+import { useState } from 'react'
+
+import { Checkbox } from './components/ui/checkbox'
+
 export function App() {
-  return <div>Hello</div>
+  const [checked, setChecked] = useState(false)
+
+  return (
+    <div>
+      <Checkbox checked={checked} onChange={setChecked} text={'check-box'} />
+      Hello
+    </div>
+  )
 }

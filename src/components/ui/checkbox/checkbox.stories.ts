@@ -47,18 +47,3 @@ export const UncheckedWithText: Story = {
     text: 'check-box',
   },
 }
-
-export const DisabledChecked: Story = {
-  args: {
-    checked: false,
-    text: 'check-box',
-    disabled: true,
-  },
-}
-export const DisabledUnchecked: Story = {
-  args: {
-    checked: false,
-    text: 'check-box',
-    disabled: true,
-  },
-}
