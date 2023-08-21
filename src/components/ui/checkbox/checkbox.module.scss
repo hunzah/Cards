@@ -1,8 +1,7 @@
-.CheckboxRoot {
-  all: initial;
-
+.checkboxRoot {
+  display: flex;
+  gap: 8px;
   align-items: center;
-  justify-content: center;
 
   width: 24px;
   height: 24px;
@@ -13,6 +12,50 @@
   border: none;
 }
 
-.CustomCheckboxSvg {
-  width: 100%;
+// styles for checkbox when it's active
+
+.checkboxContainer {
+  position: relative;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+.checkboxContainer::before {
+  content: '';
+
+  position: relative;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+
+  border-radius: 50%;
+}
+
+.checkboxContainer:active::before {
+  background-color: var(--color-dark-100);
+}
+
+// styles for checkbox when it's on hover
+
+.checkboxContainer:hover::before {
+  background-color: var(--color-dark-500);
+}
+
+.textContainer {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-s);
+  color: var(--light-100, #fff);
+}
+
+.textContent {
+  white-space: nowrap;
 }
