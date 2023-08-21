@@ -1,0 +1,18 @@
+.CheckboxRoot {
+  all: initial;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--color-dark-900);
+  border: none;
+}
+
+.CustomCheckboxSvg {
+  width: 100%;
+}
