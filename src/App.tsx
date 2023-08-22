@@ -7,7 +7,7 @@ export function App() {
 
   return (
     <div>
-      <Checkbox checked={checked} onChange={setChecked} text={'check-box'} />
+      <Checkbox checked={checked} onChange={setChecked} text={'check-box'} disabled={true} />
       Hello
     </div>
   )
