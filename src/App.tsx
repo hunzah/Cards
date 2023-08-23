@@ -10,7 +10,7 @@ export function App() {
   return (
     <div>
       <Checkbox checked={checked} onChange={setChecked} disabled={false} />
-      <Typography.Large>Subheading</Typography.Large>
+      <Typography variant="link1">Subheading</Typography>
       Hello
     </div>
   )

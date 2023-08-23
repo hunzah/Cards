@@ -8,12 +8,12 @@ export type PropsOf<TTag extends ReactTag> = TTag extends ElementType
 
 export type ReactTag = keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 
-type TypographyType<Tag extends ReactTag> = {
+type TypographyPropsType = {
   children: ReactNode
   className?: string
-  component?: Tag
+  component?: keyof JSX.IntrinsicElements
   variant?: keyof typeof VARIANTS
-} & PropsOf<Tag>
+}
 
 type IntrinsicElementKeys = keyof JSX.IntrinsicElements
 
@@ -31,33 +31,23 @@ const VARIANTS: Record<string, IntrinsicElementKeys> = {
   link2: 'a',
 } as const
 
-const createTypography = <T extends ReactTag>(basicClassName: keyof typeof VARIANTS) => {
-  return ({ children, className, component, variant, ...rest }: TypographyType<T>) => {
-    const Component = component || basicClassName
+export const Typography = ({
+  children,
+  className,
+  component,
+  variant,
+  ...rest
+}: TypographyPropsType) => {
+  const Component = component || 'span'
 
-    const classNames = className ? `${s[basicClassName]} ${className}` : s[basicClassName]
+  const classNames = className || ''
+  const variantClassName = variant ? s[variant] : ''
 
-    const variantStyles = variant ? VARIANTS[variant] : basicClassName
+  const combinedClassNames = `${classNames} ${variantClassName}`
 
-    return (
-      <Component variant={variantStyles} className={classNames} {...rest}>
-        {children}
-      </Component>
-    )
-  }
-}
-
-export const Typography = {
-  Large: createTypography('large'),
-  H1: createTypography('h1'),
-  H2: createTypography('h2'),
-  H3: createTypography('h3'),
-  Body1: createTypography('body1'),
-  Body2: createTypography('body2'),
-  Subtitle1: createTypography('subtitle1'),
-  Subtitle2: createTypography('subtitle2'),
-  Caption: createTypography('caption'),
-  Overline: createTypography('overline'),
-  Link1: createTypography('link1'),
-  Link2: createTypography('link2'),
+  return (
+    <Component className={combinedClassNames} {...rest}>
+      {children}
+    </Component>
+  )
 }
