@@ -10,7 +10,9 @@ export function App() {
   return (
     <div>
       <Checkbox checked={checked} onChange={setChecked} disabled={false} />
-      <Typography variant="link1">Subheading</Typography>
+      <Typography variant="body2" component={'h3'}>
+        Subheading
+      </Typography>
       Hello
     </div>
   )

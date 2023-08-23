@@ -20,7 +20,7 @@
 }
 
 .h3 {
-  @include typography(var(--font-size-m), var(--line-height-m), var(--font-weight-bold));
+  @include typography(var(--font-size-s), var(--line-height-m), var(--font-weight-bold));
 }
 
 .body1 {

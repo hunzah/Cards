@@ -8,28 +8,26 @@ export type PropsOf<TTag extends ReactTag> = TTag extends ElementType
 
 export type ReactTag = keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 
+type TypographyVariantTypes =
+  | 'large'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'body1'
+  | 'body2'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'caption'
+  | 'overline'
+  | 'link1'
+  | 'link2'
+
 type TypographyPropsType = {
   children: ReactNode
   className?: string
   component?: keyof JSX.IntrinsicElements
-  variant?: keyof typeof VARIANTS
+  variant?: TypographyVariantTypes
 }
-
-type IntrinsicElementKeys = keyof JSX.IntrinsicElements
-
-const VARIANTS: Record<string, IntrinsicElementKeys> = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  body1: 'p',
-  body2: 'p',
-  subtitle1: 'p',
-  subtitle2: 'p',
-  caption: 'span',
-  overline: 'p',
-  link1: 'a',
-  link2: 'a',
-} as const
 
 export const Typography = ({
   children,
