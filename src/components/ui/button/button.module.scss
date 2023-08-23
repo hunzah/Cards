@@ -1,6 +1,28 @@
 .primary {
-  background-color: red;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 6px 28px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary-500, #8C61FF);
+  border-radius: 4px;
+  box-shadow: 0px 4px 18px 0px rgba(140, 97, 255, 0.35);
+  &:hover {
+    background: var(--primary-300, #A280FF);
+  }
+  &:active {
+    background: var(--primary-700, #704ECC);
+  }
+  &:disabled {
+    background-color: var(--primary-900, #382766);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--info-700, #2F68CC);
+    background: var(--primary-500, #8C61FF);
+  }
 }
+
 
 .secondary {
   background-color: green;
@@ -17,3 +39,4 @@
 .fullWidth {
   width: 100%;
 }
+
