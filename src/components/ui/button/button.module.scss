@@ -96,7 +96,8 @@
   padding: 6px 0px;
   align-items: flex-start;
   gap: 10px;
-
+  background-color: var(--color-dark-900);
+  color:  var(--primary-500, #8C61FF);
   &:hover {
     color: var(--primary-700,  #704ECC);
   }
@@ -119,5 +120,5 @@ a:visited {
   color:  var(--primary-500, #8C61FF);
 }
 .fullWidth {
-  width: 100%;
+
 }

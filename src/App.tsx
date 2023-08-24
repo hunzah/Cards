@@ -14,11 +14,11 @@ export function App() {
       <Checkbox checked={checked} onChange={setChecked} text={'check-box'} disabled={false} />
       Hello
         <div>
-            <Button className={s.button} >Hello</Button>
-            <Button className={s.button}  variant="secondary"><img src={""}/> qweWeW</Button>
-            <Button className={s.button}  variant="tertiary"> qweWeW</Button>
-            <Button className={s.button}  variant="tertiary"><img src={""}/> qweWeW</Button>
-            <Button className={s.button} as={"a"} href={"/link"} disabled variant="link"> <img src={""}/> as link</Button>
+            <Button className={s.button} > <img src={asd}/>Hello</Button>
+            <Button className={s.button}  variant="secondary"><img src={asd}/> qweWeW</Button>
+            <Button className={s.button}  variant="tertiary"><img src={asd}/> qweWeW</Button>
+            <Button className={s.button}  variant="tertiary"><img src={asd}/>qweWeW</Button>
+            <Button className={s.button} as={"a"} href={"/link"} disabled variant="link">as link</Button>
         </div>
     </div>
   )
