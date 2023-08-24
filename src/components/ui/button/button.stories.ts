@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from './'
+import asd from "../../../assets/images/Layer 2.svg"
 
 const meta = {
   title: 'Components/Button',
@@ -10,6 +11,7 @@ const meta = {
     variant: {
       options: ['primary', 'secondary', 'tertiary', 'link'],
       control: { type: 'radio' },
+      img:asd
     },
   },
 } satisfies Meta<typeof Button>
@@ -21,6 +23,13 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     children: 'Primary Button',
+    disabled: false,
+  },
+}
+export const PrimaryWithIcon: Story = {
+  args: {
+    variant: 'primary',
+    children: "as" ,
     disabled: false,
   },
 }
