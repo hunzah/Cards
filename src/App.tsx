@@ -21,7 +21,6 @@ export function App() {
       Hello
         <div>
             <Button className={s.button} > <img src={asd}/>Hello</Button>
-            <Button className={s.button}  variant="secondary"><img src={asd}/> qweWeW</Button>
             <Button className={s.button}  variant="tertiary"><img src={asd}/> qweWeW</Button>
             <Button className={s.button}  variant="tertiary">qweWeW</Button>
 
