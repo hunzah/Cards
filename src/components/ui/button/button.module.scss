@@ -92,9 +92,32 @@
 }
 
 .link {
-  background-color: yellow;
-}
+  display: inline-flex;
+  padding: 6px 0px;
+  align-items: flex-start;
+  gap: 10px;
 
+  &:hover {
+    color: var(--primary-700,  #704ECC);
+  }
+  &:active {
+    color: var(--primary-300,  #A280FF);
+  }
+  &:disabled {
+    color:  var(--primary-900, #382766);
+  }
+
+  &:focus-visible {
+    background-color: var(--color-dark-900);
+    outline: 2px solid var(--info-700, #2F68CC);
+    color:  var(--primary-500, #8C61FF);
+    border-radius: 30px;
+  }
+
+}
+a:visited {
+  color:  var(--primary-500, #8C61FF);
+}
 .fullWidth {
   width: 100%;
 }
