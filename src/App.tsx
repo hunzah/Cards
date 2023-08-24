@@ -7,6 +7,8 @@ import s from "./components/ui/button/button.module.scss"
 
 import { Typography } from '@/components/ui/typography'
 
+import { Card } from '@/components/ui/card'
+
 export function App() {
   const [checked, setChecked] = useState(false)
 
@@ -18,6 +20,7 @@ export function App() {
       </Typography>
         <>asd</>
       <Checkbox checked={checked} onChange={setChecked} text={'check-box'} disabled={false} />
+      <Card />
       Hello
         <div>
             <Button className={s.button} > <img src={asd}/>Hello</Button>

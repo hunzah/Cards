@@ -1,4 +1,5 @@
 .container {
+<<<<<<< HEAD
   width: 100%;
   height: 100%;
 
@@ -8,4 +9,10 @@
 
   stroke: #313131;
   stroke-width: 1px;
+=======
+  flex-shrink: 0;
+  width: 420px;
+  height: 552px;
+  background-color: var(--color-dark-700);
+>>>>>>> card-component
 }
