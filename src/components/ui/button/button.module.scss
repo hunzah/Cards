@@ -1,22 +1,32 @@
-.primary {
-  cursor: pointer;
+.button {
   display: inline-flex;
   padding: 6px 28px;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  background: var(--primary-500, #8C61FF);
+  text-decoration: none;
+  cursor: pointer;
   border-radius: 4px;
   box-shadow: 0px 4px 18px 0px rgba(140, 97, 255, 0.35);
+
+}
+
+.primary {
+
+  background: var(--primary-500, #8C61FF);
+
   &:hover {
     background: var(--primary-300, #A280FF);
   }
+
   &:active {
     background: var(--primary-700, #704ECC);
   }
+
   &:disabled {
     background-color: var(--primary-900, #382766);
   }
+
   &:focus-visible {
     outline: 2px solid var(--info-700, #2F68CC);
     background: var(--primary-500, #8C61FF);
@@ -25,11 +35,60 @@
 
 
 .secondary {
-  background-color: green;
+  border-radius: 4px;
+  background: var(--dark-300, #4C4C4C);
+
+  &:hover {
+    background: var(--dark-100, #808080);
+  }
+
+  &:active {
+    background: var(--dark-500, #333);
+  }
+
+  &:disabled {
+    background: var(--dark-300, #4C4C4C);
+    box-shadow: 0px 2px 10px 0px rgba(109, 109, 109, 0.25);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--info-700, #2F68CC);
+    background: var(--dark-300, #4C4C4C);
+  }
 }
 
+
 .tertiary {
-  background-color: blue;
+  height: 36px;
+  padding: 8px 28px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background-color: var(--color-dark-900);
+  border: 1px solid var(--primary-500, #8C61FF);
+  color: var(--primary-500, #8C61FF);
+
+
+
+  &:hover {
+    border: 1px solid var(--primary-700, #704ECC);
+    background: var(--dark-500, #333);
+  }
+  &:active {
+    border: 1px solid var(--primary-700, #704ECC);
+    background: var(--primary-900, #382766);
+  }
+  &:disabled {
+    border: 1px solid var(--primary-900, #382766);
+    background-color: var(--color-dark-900);
+  }
+
+  &:focus-visible {
+    background-color: var(--color-dark-900);
+    outline: 2px solid var(--info-700, #2F68CC);
+  }
+
 }
 
 .link {
@@ -39,4 +98,3 @@
 .fullWidth {
   width: 100%;
 }
-

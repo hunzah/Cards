@@ -2,19 +2,22 @@ import { useState } from 'react'
 
 import { Checkbox } from './components/ui/checkbox'
 import {Button} from "@/components/ui/button";
+ import asd from "../src/assets/images/Layer 2.svg"
+import s from "./components/ui/button/button.module.scss"
 
 export function App() {
   const [checked, setChecked] = useState(false)
 
   return (
     <div>
+        <>asd</>
       <Checkbox checked={checked} onChange={setChecked} text={'check-box'} disabled={false} />
       Hello
-        <Button variant={"tertiary"} as={"a"} href={"https://www.youtube.com/"} target={"_blank"} fullWidth> button </Button>
-        <Button  as="a" href={"/link"}>Hello</Button>
-        <Button variant="primary" href={"/link"} disabled >Hello</Button>
-        <Button>Hello</Button>
-
+        <div>
+            <Button className={s.button} as="a" href={"/link"}>Hello</Button>
+            <Button className={s.button}  variant="secondary"><img src={asd}/> qweWeW</Button>
+            <Button onClick={()=>console.log("sad")} className={s.button}  variant="tertiary"> qweWeW</Button>
+        </div>
     </div>
   )
 }
