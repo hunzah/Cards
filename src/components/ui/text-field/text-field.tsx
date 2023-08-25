@@ -62,6 +62,7 @@ export const TextField = (
     setInputValue(newValue)
     onChangeValue && onChangeValue(newValue)
   }
+  //todo need to fix function with change input value
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isShowClearButton && e.key === 'Enter' && onEnter) {
       onEnter(e)
