@@ -7,16 +7,17 @@ import s from './text-field.module.scss'
 import closeImg from '@/assets/icons/close.svg'
 import eyeImg from '@/assets/icons/eye-outline.svg'
 import searchImg from '@/assets/icons/searchOutline.svg'
+import { Label } from '@/components/ui/label/Label.tsx'
 
 export type TextFieldProps = {
   inputIsSearch: boolean
-  inputType: string
+  inputType: 'text' | 'password'
+  label?: string
   value?: string
   inputName?: string
   errorMessage?: string
   onClearClick?: () => void
-  onEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void
-  onChangeValue?: (newValue: string) => void
+  onChangeValue?: (e: string) => void
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = (
@@ -24,18 +25,17 @@ export const TextField = (
 ) => {
   const {
     inputType,
-    inputName,
+    label,
     inputIsSearch,
     errorMessage = false,
     onClearClick,
-    onEnter,
     onChangeValue,
   } = props
 
-  const [inputValue, setInputValue] = useState<string>('')
+  //const [inputValue, setInputValue] = useState<string>('')
   const [internalInput, setInternalInput] = useState<string>(inputType)
 
-  const isShowClearButton = inputIsSearch && onClearClick && inputValue
+  const isShowClearButton = inputIsSearch && onClearClick && props.value
   const inputIsPassword = inputType === 'password'
   const showError = errorMessage && errorMessage.length > 0
 
@@ -59,17 +59,12 @@ export const TextField = (
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue: string = e.target.value
 
-    setInputValue(newValue)
+    //setInputValue(newValue)
     onChangeValue && onChangeValue(newValue)
   }
-  //todo need to fix function with change input value
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isShowClearButton && e.key === 'Enter' && onEnter) {
-      onEnter(e)
-    }
-  }
+
   const onClickHandler = () => {
-    onClearClick && !inputIsPassword && setInputValue('')
+    onClearClick && !inputIsPassword && props.value?.length
     inputIsPassword &&
       setInternalInput(previousValue => (previousValue === 'password' ? 'text' : 'password'))
   }
@@ -77,11 +72,10 @@ export const TextField = (
   return (
     <div className={s.inputMain}>
       <div className={s.internalBlock}>
-        <label>
-          {inputName && !inputIsSearch && <span className={s.inputName}>{inputName}</span>}
+        <Label label={label && label}>
           <div className={s.inputContainer}>
             {inputIsSearch && (
-              <button className={s.searchButton}>
+              <button className={s.searchButton} type={'button'}>
                 <img src={searchImg} alt={'search logo'} />
               </button>
             )}
@@ -89,22 +83,21 @@ export const TextField = (
               className={styleNameForInput}
               type={internalInput}
               placeholder={props.placeholder}
-              value={inputValue}
-              onKeyDown={handleKeyDown}
+              value={props.value}
               onChange={onChangeHandler}
             />
             {isShowClearButton && (
-              <button onClick={onClickHandler} className={s.clearSearchButton}>
+              <button onClick={onClickHandler} className={s.clearSearchButton} type={'button'}>
                 <img src={closeImg} alt={'search logo'} />
               </button>
             )}
             {inputIsPassword && (
-              <button onClick={onClickHandler} className={s.showPasswordButton}>
+              <button onClick={onClickHandler} className={s.showPasswordButton} type={'button'}>
                 <img src={eyeImg} alt={'search logo'} />
               </button>
             )}
           </div>
-        </label>
+        </Label>
         {showError && <div className={s.error}>{errorMessage}</div>}
       </div>
     </div>

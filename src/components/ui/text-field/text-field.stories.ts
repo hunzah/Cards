@@ -6,13 +6,13 @@ const meta = {
   title: 'Components/text-field',
   component: TextField,
   /*argTypes: {
-                                inputType: {
-                                  options: ['text', 'password'],
-                                },
-                                inputIsSearch: {
-                                  options: [true, false],
-                                },
-                              },*/
+                                  inputType: {
+                                    options: ['text', 'password'],
+                                  },
+                                  inputIsSearch: {
+                                    options: [true, false],
+                                  },
+                                },*/
 } satisfies Meta<typeof TextField>
 
 export default meta
@@ -57,17 +57,6 @@ export const TextFieldSearch: Story = {
     inputType: 'text',
     inputIsSearch: true,
     placeholder: 'Enter text',
-  },
-}
-
-export const KeyDownEnterTextFieldSearch: Story = {
-  args: {
-    inputType: 'text',
-    inputIsSearch: true,
-    placeholder: 'Enter text',
-    onEnter: e => {
-      alert(e.key)
-    },
   },
 }
 
