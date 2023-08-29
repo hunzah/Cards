@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useController, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { Button } from '../../ui/button'
-import { TextField } from '../../ui/text-field'
 
 import { ControlledCheckbox } from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox.tsx'
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field/controlled-text-field.tsx'
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -18,7 +18,6 @@ type FormValues = z.input<typeof loginSchema>
 export const LoginForm = () => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(loginSchema) })
@@ -27,46 +26,26 @@ export const LoginForm = () => {
     console.log(data)
   }
 
-  /*const {
-          field: { value, onChange },
-        } = useController({
-          name: 'rememberMe',
-          control,
-          defaultValue: false,
-        })*/
-
-  const emailControl = useController({
-    name: 'email',
-    control,
-    defaultValue: '',
-  })
-
-  const passwordControl = useController({
-    name: 'password',
-    control,
-    defaultValue: '',
-  })
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        {...register('email')}
+      <ControlledTextField
+        defaultValue={''}
         errorMessage={errors.email?.message}
-        value={emailControl.field.value}
-        onChangeValue={emailControl.field.onChange}
         inputIsSearch={false}
         inputType={'text'}
         label={'email'}
+        name={'email'}
+        control={control}
       />
-      <TextField
-        value={passwordControl.field.value}
-        onChangeValue={passwordControl.field.onChange}
+      <ControlledTextField
+        defaultValue={''}
         errorMessage={errors.password?.message}
-        label={'password'}
         inputIsSearch={false}
         inputType={'password'}
+        label={'password'}
+        name={'password'}
+        control={control}
       />
-      {/* <Checkbox label={'remember me'} onChange={onChange} checked={value} />*/}
       <ControlledCheckbox label={'remember me'} name={'rememberMe'} control={control} />
       <Button type="submit">Submit</Button>
     </form>
