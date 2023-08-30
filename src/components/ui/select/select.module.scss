@@ -1,0 +1,43 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 210px;
+  height: 36px;
+  padding: 0 15px;
+
+  background-color: var(--color-dark-900);
+  border: 2px solid var(--color-dark-100);
+  border-radius: 2px;
+}
+
+.button:focus {
+  border: 2px solid var(--info-700, #2f68cc);
+}
+
+.button:hover {
+  background-color: var(--color-dark-300);
+  border: 2px solid var(--color-dark-100);
+}
+
+.content {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+
+  width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+
+  background-color: var(--color-dark-900);
+  border: 1px solid var(--dark-300, #4c4c4c);
+  border-radius: 2px;
+}
+
+.disabled {
+  opacity: 0.4;
+}
+
+.item:hover {
+  background: var(--primary-900, #382766);
+}
