@@ -14,7 +14,7 @@ export function App() {
 
   return (
     <div>
-      <Select options={['a', 'b', 'c']} />
+      <Select options={[{ option: 'a' }, { option: 'b' }, { option: 'c' }]} />
       <Checkbox checked={checked} onChange={setChecked} disabled={false} />
       <Typography variant="body2" component={'h3'}>
         Subheading

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Select } from './'
+import { OptionType, Select } from './'
 
 const meta = {
   title: 'Components/Select',
@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     options: {
-      control: 'Array<string>',
+      control: 'Array<OptionType>',
     },
     isDisabled: {
       control: 'boolean',
@@ -21,13 +21,21 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    options: ['Select-box', 'Select-box', 'Select-box'],
+    options: [
+      { id: 1, option: 'Select-box' },
+      { id: 2, option: 'Select-box' },
+      { id: 3, option: 'Select-box' },
+    ],
   },
 }
 
 export const Disabled: Story = {
   args: {
-    options: ['Select-box', 'Select-box', 'Select-box'],
+    options: [
+      { id: 1, option: 'Select-box' },
+      { id: 2, option: 'Select-box' },
+      { id: 3, option: 'Select-box' },
+    ],
     isDisabled: true,
   },
 }

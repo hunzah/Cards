@@ -5,7 +5,9 @@ import selectArrow from '../../../assets/images/select-arrow.svg'
 
 import s from './select.module.scss'
 
-type OptionType = {
+import { Typography } from '@/components/ui/typography'
+
+export type OptionType = {
   id?: string | number
   option: string
 }
@@ -37,27 +39,23 @@ export const Select = (props: SelectPropsType) => {
   } = props
 
   const classNames = {
-    // disabled: clsx(isDisabled && s.disabled),
     button: clsx(s.button, isDisabled && s.disabled),
     content: clsx(s.content, contentClassName && contentClassName),
     item: clsx(s.item, itemClassName && itemClassName),
   }
 
   return (
-    <SelectRadix.Root required={required}>
+    <SelectRadix.Root required={required} disabled={isDisabled}>
       <SelectRadix.Trigger className={classNames.button}>
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
         <SelectRadix.Value style={{ backgroundColor: 'black' }} placeholder={placeholder} />
       </SelectRadix.Trigger>
       <SelectRadix.Portal>
-        <SelectRadix.Content className={classNames.content}>
-          <SelectRadix.Viewport className="SelectViewport">
-            <SelectRadix.Group>
-              <SelectItem className={classNames.item} options={options} />
-            </SelectRadix.Group>
+        <SelectRadix.Content className={classNames.content} position="popper">
+          <SelectRadix.Group>
+            <SelectItem className={classNames.item} options={options} />
+          </SelectRadix.Group>
 
-            <SelectRadix.Separator className="SelectSeparator" />
-          </SelectRadix.Viewport>
           <SelectRadix.ScrollDownButton className="SelectScrollButton"></SelectRadix.ScrollDownButton>
         </SelectRadix.Content>
       </SelectRadix.Portal>
@@ -69,7 +67,11 @@ const SelectItem = (props: SelectItemPropsType) => {
 
   const items = options.map((el, i) => (
     <SelectRadix.Item key={el.id ? el.id : i} value={el.option} className={className} {...rest}>
-      <SelectRadix.ItemText>{el.option}</SelectRadix.ItemText>
+      <SelectRadix.ItemText>
+        <Typography variant={'body1'} component={'span'}>
+          {el.option}
+        </Typography>
+      </SelectRadix.ItemText>
     </SelectRadix.Item>
   ))
 
