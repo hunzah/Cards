@@ -7,6 +7,7 @@ import { Checkbox } from './components/ui/checkbox'
 
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import { Select, SelectDemo } from '@/components/ui/select'
 
 export function App() {
   const [checked, setChecked] = useState(false)
@@ -36,6 +37,7 @@ export function App() {
         <Button className={s.button} as={'a'} href={'/link'} variant="link">
           as link
         </Button>
+        <SelectDemo />
       </div>
     </div>
   )
