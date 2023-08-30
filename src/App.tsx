@@ -7,10 +7,12 @@ import { Checkbox } from './components/ui/checkbox'
 
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import {Slider} from "@/components/ui/slider";
+import TabSwitcher from "@/components/ui/tab-switcher/tab-switcher";
 
 export function App() {
   const [checked, setChecked] = useState(false)
-
+const switches =  [1,2,3]
   return (
     <div>
       <Checkbox checked={checked} onChange={setChecked} disabled={false} />
@@ -32,10 +34,14 @@ export function App() {
         <Button className={s.button} variant="tertiary">
           qweWeW
         </Button>
+          <Button className={s.button} variant="tertiary" disabled>
+          qweWeW
+        </Button>
 
         <Button className={s.button} as={'a'} href={'/link'} variant="link">
           as link
         </Button>
+<TabSwitcher switches/>
       </div>
     </div>
   )

@@ -1,0 +1,60 @@
+.tabSwitchersContainer {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-start;
+}
+
+.tabSwitchers {
+  display: flex;
+}
+
+.tabSwitcher {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 24px;
+
+  background-color: var(--dark-700, #171717);
+  border: 1px solid var(--dark-300, #4C4C4C);
+  border-radius: 0 2px 2px 0;
+
+  &:hover {
+    background: var(--dark-300, #4C4C4C);
+    border: 1px solid var(--dark-100, #808080);
+    border-radius: 0 2px 2px 0;
+
+  }
+
+
+  &:active {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 24px;
+
+    background: var(--primary-500, #8C61FF);
+    border-radius: 0 2px 2px 0;
+  }
+
+&:disabled{
+  color: var(--dark-300, #4C4C4C);
+  background: var(--dark-700, #171717);
+  border: 1px solid var(--dark-300, #4C4C4C);
+  border-radius: 0 2px 2px 0;
+}
+
+
+  &:focus-visible {
+    background: var(--dark-700, #171717);
+    border-radius: 0 2px 2px 0;
+    outline: 2px solid var(--info-900, #234E99);
+  }
+}
+

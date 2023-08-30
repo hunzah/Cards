@@ -26,6 +26,7 @@ export const Slider = (props: PropsType) => {
         minStepsBetweenThumbs={1}
         max={100}
         step={1}
+
       >
         <SliderRadix.Track className={s.SliderTrack}>
           <SliderRadix.Range className={s.SliderRange} />
