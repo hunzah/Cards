@@ -1,12 +1,9 @@
-
 type PropsType = {
-    svg:string
+  svg: string
 }
 
-const ComponentWithSvg = (props:PropsType) => {
-    return (
-       <img src={props.svg}/>
-    );
-};
+const ComponentWithSvg = (props: PropsType) => {
+  return <img src={props.svg} alt="svg-component" />
+}
 
-export default ComponentWithSvg;
+export default ComponentWithSvg

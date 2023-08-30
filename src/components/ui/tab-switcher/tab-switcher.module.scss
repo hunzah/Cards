@@ -18,17 +18,15 @@
 
   padding: 6px 24px;
 
-  background-color: var(--dark-700, #171717);
-  border: 1px solid var(--dark-300, #4C4C4C);
+  background-color: var(--color-dark-700, #171717);
+  border: 1px solid var(--color-dark-300, #4c4c4c);
   border-radius: 0 2px 2px 0;
 
   &:hover {
-    background: var(--dark-300, #4C4C4C);
-    border: 1px solid var(--dark-100, #808080);
+    background: var(--color-dark-300, #4c4c4c);
+    border: 1px solid var(--color-dark-100, #808080);
     border-radius: 0 2px 2px 0;
-
   }
-
 
   &:active {
     cursor: pointer;
@@ -39,27 +37,30 @@
 
     padding: 6px 24px;
 
-    background: var(--primary-500, #8C61FF);
-    border: 1px solid var(--dark-300, #4C4C4C);
+    background: var(--color-accent-500);
+    border: 1px solid var(--color-dark-300, #4c4c4c);
     border-radius: 0 2px 2px 0;
   }
 
-&:disabled{
-  color: var(--dark-300, #4C4C4C);
-  background: var(--dark-700, #171717);
-  border: 1px solid var(--dark-300, #4C4C4C);
-  border-radius: 0 2px 2px 0;
-}
+  &:disabled {
+    cursor: auto;
 
+    color: var(--color-dark-300, #4c4c4c);
+
+    opacity: 0.4;
+    background: var(--color-dark-700, #171717);
+    border: 1px solid var(--color-dark-300, #4c4c4c);
+    border-radius: 0 2px 2px 0;
+  }
 
   &:focus-visible {
-    background: var(--dark-700, #171717);
+    background: var(--color-dark-700, #171717);
     border-radius: 0 2px 2px 0;
-    outline: 2px solid var(--info-900, #234E99);
+    outline: 2px solid var(--color-info-900);
   }
 }
 
-.activeTabSwitcher{
+.activeTabSwitcher {
   cursor: pointer;
 
   display: flex;
@@ -68,7 +69,7 @@
 
   padding: 6px 24px;
 
-  background: var(--primary-500, #8C61FF);
-  border: 1px solid var(--dark-300, #4C4C4C);
+  background: var(--color-accent-500, #8c61ff);
+  border: 1px solid var(--color-dark-300);
   border-radius: 0 2px 2px 0;
 }
