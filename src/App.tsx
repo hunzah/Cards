@@ -27,9 +27,6 @@ export function App() {
             <div>
                 <Button className={s.button}>
                     {' '}
-{/*
-                    <BookmarkIcon width="16" height="16" />
-*/}
                     <ComponentWithSvg svg={Layer2}/>
                     Hello
                 </Button>
