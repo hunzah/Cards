@@ -37,7 +37,7 @@ export function App() {
         <Button className={s.button} as={'a'} href={'/link'} variant="link">
           as link
         </Button>
-        <Select />
+        <Select options={['a', 'b', 'c']} />
       </div>
     </div>
   )
