@@ -8,19 +8,18 @@ const meta = {
   title: 'Components/Tab-Switcher',
   component: TabSwitcher,
   tags: ['autodocs'],
-  argTypes: {
-isActive:{
-  control:"boolean"
-}
+  argTypes:
+{switches:[{id: "number", switchTitle: "string", disabled: "boolean"}]
+
   },
 } satisfies Meta<typeof TabSwitcher>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
+export const TabSwither: Story = {
   args: {
-    children: 'Primary Button',
+  /*  childen: meta.argTypes.switches[0]*/
   },
 }
 

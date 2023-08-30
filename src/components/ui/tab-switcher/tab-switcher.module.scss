@@ -40,6 +40,7 @@
     padding: 6px 24px;
 
     background: var(--primary-500, #8C61FF);
+    border: 1px solid var(--dark-300, #4C4C4C);
     border-radius: 0 2px 2px 0;
   }
 
@@ -68,5 +69,6 @@
   padding: 6px 24px;
 
   background: var(--primary-500, #8C61FF);
+  border: 1px solid var(--dark-300, #4C4C4C);
   border-radius: 0 2px 2px 0;
 }

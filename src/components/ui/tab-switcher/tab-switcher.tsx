@@ -1,4 +1,4 @@
-import {Button} from "@/components/ui/button";
+
 import s from "./tab-switcher.module.scss"
 import {useState} from "react";
 import {Typography} from "@/components/ui/typography";
