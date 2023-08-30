@@ -14,6 +14,7 @@ export function App() {
 
   return (
     <div>
+      <Select options={['a', 'b', 'c']} />
       <Checkbox checked={checked} onChange={setChecked} disabled={false} />
       <Typography variant="body2" component={'h3'}>
         Subheading
@@ -37,7 +38,6 @@ export function App() {
         <Button className={s.button} as={'a'} href={'/link'} variant="link">
           as link
         </Button>
-        <Select options={['a', 'b', 'c']} />
       </div>
     </div>
   )

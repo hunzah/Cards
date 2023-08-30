@@ -1,32 +1,37 @@
-import { useState } from 'react'
-
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
-import arrowCloseIcon from '../../../assets/images/select-close-arrow.svg'
-import arrowOpenIcon from '../../../assets/images/select-open-arrow.svg'
+import selectArrow from '../../../assets/images/select-arrow.svg'
 
 import s from './select.module.scss'
 
-type PropsType = {
+type OptionType = {
+  id?: string | number
+  option: string
+}
+
+type SelectPropsType = {
   contentClassName?: string
   itemClassName?: string
   isDisabled?: boolean
-  options: string[]
+  options: OptionType[]
   defaultValue?: string
   name?: string
   placeholder?: string
   required?: boolean
 }
 
-export const Select = (props: PropsType) => {
+type SelectItemPropsType = {
+  options: OptionType[]
+  className: string
+}
+
+export const Select = (props: SelectPropsType) => {
   const {
-    isDisabled,
+    isDisabled = false,
     options,
-    defaultValue,
     contentClassName,
     itemClassName,
-    name,
     required,
     placeholder,
   } = props
@@ -38,43 +43,35 @@ export const Select = (props: PropsType) => {
     item: clsx(s.item, itemClassName && itemClassName),
   }
 
-  const mappedOptions = options.map((el, i) => {
-    return (
-      <SelectRadix.Item key={i} value={el} placeholder={'fdsfg'} className={classNames.item}>
-        {el}
-      </SelectRadix.Item>
-    )
-  })
-
-  const [isSelectOpen, setIsSelectIsOpen] = useState(false)
-
   return (
-    <SelectRadix.Root
-      value={'ds'}
-      disabled={isDisabled}
-      open={isSelectOpen}
-      onOpenChange={() => setIsSelectIsOpen(!isSelectOpen)}
-      name={name}
-      required={required}
-    >
+    <SelectRadix.Root required={required}>
       <SelectRadix.Trigger className={classNames.button}>
-        <SelectRadix.Value placeholder="Pick an option" />
-
-        <SelectRadix.Icon>
-          {isSelectOpen ? (
-            // <ChevronDownIcon />
-            <img src={arrowCloseIcon} alt={'arrow-close-icon-for-select'} />
-          ) : (
-            // <ChevronUpIcon />
-            <img src={arrowOpenIcon} alt={'arrow-open-icon-for-select'} />
-          )}
-        </SelectRadix.Icon>
+        <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
+        <SelectRadix.Value style={{ backgroundColor: 'black' }} placeholder={placeholder} />
       </SelectRadix.Trigger>
       <SelectRadix.Portal>
-        <SelectRadix.Content alignOffset={0} className={classNames.content} position="popper">
-          {mappedOptions}
+        <SelectRadix.Content className={classNames.content}>
+          <SelectRadix.Viewport className="SelectViewport">
+            <SelectRadix.Group>
+              <SelectItem className={classNames.item} options={options} />
+            </SelectRadix.Group>
+
+            <SelectRadix.Separator className="SelectSeparator" />
+          </SelectRadix.Viewport>
+          <SelectRadix.ScrollDownButton className="SelectScrollButton"></SelectRadix.ScrollDownButton>
         </SelectRadix.Content>
       </SelectRadix.Portal>
     </SelectRadix.Root>
   )
+}
+const SelectItem = (props: SelectItemPropsType) => {
+  const { options, className, ...rest } = props
+
+  const items = options.map((el, i) => (
+    <SelectRadix.Item key={el.id ? el.id : i} value={el.option} className={className} {...rest}>
+      <SelectRadix.ItemText>{el.option}</SelectRadix.ItemText>
+    </SelectRadix.Item>
+  ))
+
+  return <>{items}</>
 }
