@@ -1,9 +1,10 @@
 import * as SelectRadix from '@radix-ui/react-select'
 
+import arrowIcon from '../../../assets/images/select-arrow.svg'
 // import s from './select.module.scss'
 
 type PropsType = {
-  isDisabled: boolean
+  isDisabled?: boolean
 }
 
 export const Select = (props: PropsType) => {
@@ -13,7 +14,9 @@ export const Select = (props: PropsType) => {
     <SelectRadix.Root value={'ds'} disabled={isDisabled}>
       <SelectRadix.Trigger>
         <SelectRadix.Value />
-        <SelectRadix.Icon></SelectRadix.Icon>
+        <SelectRadix.Icon>
+          <img src={arrowIcon} alt={'arrow-icon-for-select'} />
+        </SelectRadix.Icon>
       </SelectRadix.Trigger>
     </SelectRadix.Root>
   )
