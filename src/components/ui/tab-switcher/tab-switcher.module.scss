@@ -58,3 +58,15 @@
   }
 }
 
+.activeTabSwitcher{
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 24px;
+
+  background: var(--primary-500, #8C61FF);
+  border-radius: 0 2px 2px 0;
+}
