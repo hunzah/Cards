@@ -1,1 +1,1 @@
-export * from './slider.tsx'
+export * from '../slider/slider.tsx'
