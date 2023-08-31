@@ -17,8 +17,6 @@ export type CheckboxProps = {
   className?: string
 }
 
-export const Checkbox = (props: PropsType) => {
-  const { checked, text, disabled, onChange, required, id } = props
 export const Checkbox = (props: CheckboxProps) => {
   const { checked, label, disabled, onChange, required, id } = props
 
@@ -46,8 +44,6 @@ export const Checkbox = (props: CheckboxProps) => {
       <div className={s.checkboxContainer}>
         <img src={checkboxImageSrc} alt="checkbox" className={s.customCheckboxSvg} />
       </div>
-      <label className={s.textContainer} aria-label={text}>
-        <span className={`${s.textContent} ${disabled ? s.textDisabled : ''}`}>{text}</span>
       <label className={s.textContainer} aria-label={label}>
         <span className={`${s.textContent} ${disabled ? s.textDisabled : ''}`}>{label}</span>
       </label>
