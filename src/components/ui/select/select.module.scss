@@ -25,7 +25,10 @@
 }
 
 .content {
-  transform: translate(0, 0) !important;
+  position: fixed;
+
+  //transform: translate(-10.00174px, 0);
+  //left: -10px;
 
   display: flex;
   flex-direction: column;
@@ -58,6 +61,6 @@
   }
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-}
+//::-webkit-scrollbar {
+//  width: 10px;
+//}
