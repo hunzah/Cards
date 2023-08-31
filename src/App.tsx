@@ -9,6 +9,7 @@ import ComponentWithSvg from '@/components/ComponentWithSVG'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tab-switcher'
 import { Typography } from '@/components/ui/typography'
+import { ForgotPassword } from '@/components/ui/auth-forgot-password/forgot-password.tsx'
 
 export function App() {
   const [checked, setChecked] = useState(false)
@@ -46,6 +47,7 @@ export function App() {
           as link
         </Button>
         <TabSwitcher switches={switches} />
+        <ForgotPassword />
       </div>
     </div>
   )
