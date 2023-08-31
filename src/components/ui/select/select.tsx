@@ -53,13 +53,13 @@ export const Select = (props: SelectPropsType) => {
   )
 
   return (
-    <SelectRadix.Root required={required} disabled={isDisabled} open={true}>
+    <SelectRadix.Root required={required} disabled={isDisabled}>
       <SelectRadix.Trigger className={classNames.button}>
         <SelectRadix.Value placeholder={defaultPlaceholder} />
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
       </SelectRadix.Trigger>
       <SelectRadix.Portal>
-        <SelectRadix.Content className={classNames.content}>
+        <SelectRadix.Content className={classNames.content} position="popper">
           <SelectRadix.Group>
             <SelectRadix.Label>
               <SelectItem className={classNames.item} options={options} />
