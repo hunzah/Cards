@@ -13,7 +13,7 @@ export const ForgotPassword = () => {
           Forgot your password?
         </Typography>
         <div className={s.inputContainer}>
-          <TextField inputType="email" inputIsSearch={true} inputName={'Email'} />
+          <TextField inputType="email" inputIsSearch={false} inputName="Email" />
           <Typography className={`${s.text} ${s.textContainer}`} variant="body2">
             Enter your email address and we will send you further instructions
           </Typography>

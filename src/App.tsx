@@ -6,10 +6,10 @@ import s from './components/ui/button/button.module.scss'
 import { Checkbox } from './components/ui/checkbox'
 
 import ComponentWithSvg from '@/components/ComponentWithSVG'
+import { ForgotPassword } from '@/components/ui/auth-forgot-password/forgot-password.tsx'
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tab-switcher'
 import { Typography } from '@/components/ui/typography'
-import { ForgotPassword } from '@/components/ui/auth-forgot-password/forgot-password.tsx'
 
 export function App() {
   const [checked, setChecked] = useState(false)
