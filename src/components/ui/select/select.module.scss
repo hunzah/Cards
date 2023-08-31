@@ -1,11 +1,10 @@
 .button {
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: space-between;
 
   width: 240px;
   height: 36px;
-  padding-right: 10px;
 
   background-color: var(--color-dark-900);
   border: 2px solid var(--color-dark-100);
@@ -26,20 +25,32 @@
 }
 
 .content {
+  //position: fixed;
+  //top: 36px;
+
   display: flex;
-  gap: 12px;
+  flex-direction: column;
   justify-content: center;
+
+  //width: 100%;
 
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
 
   background-color: var(--color-dark-900);
+  border: 2px solid var(--color-dark-100);
+  border-top: none;
 }
 
 .item {
-  padding-bottom: 12px;
+  padding: 6px 11px;
   border: none;
   outline: none;
+
+  &:hover {
+    opacity: 0.7;
+    background: var(--primary-900, #382766);
+  }
 }
 
 .disabled {
@@ -48,8 +59,4 @@
   &:hover {
     background-color: var(--color-dark-900);
   }
-}
-
-.item:hover {
-  background: var(--primary-900, #382766);
 }

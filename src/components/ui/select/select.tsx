@@ -44,19 +44,27 @@ export const Select = (props: SelectPropsType) => {
     item: clsx(s.item, itemClassName && itemClassName),
   }
 
+  const defaultPlaceholder = placeholder ? (
+    placeholder
+  ) : (
+    <Typography variant={'body1'} component={'span'}>
+      pick an option
+    </Typography>
+  )
+
   return (
     <SelectRadix.Root required={required} disabled={isDisabled}>
       <SelectRadix.Trigger className={classNames.button}>
+        <SelectRadix.Value placeholder={defaultPlaceholder} />
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
-        <SelectRadix.Value style={{ backgroundColor: 'black' }} placeholder={placeholder} />
       </SelectRadix.Trigger>
       <SelectRadix.Portal>
-        <SelectRadix.Content className={classNames.content} position="popper">
+        <SelectRadix.Content className={classNames.content} position={'popper'}>
           <SelectRadix.Group>
-            <SelectItem className={classNames.item} options={options} />
+            <SelectRadix.Label>
+              <SelectItem className={classNames.item} options={options} />
+            </SelectRadix.Label>
           </SelectRadix.Group>
-
-          <SelectRadix.ScrollDownButton className="SelectScrollButton"></SelectRadix.ScrollDownButton>
         </SelectRadix.Content>
       </SelectRadix.Portal>
     </SelectRadix.Root>
@@ -66,7 +74,7 @@ const SelectItem = (props: SelectItemPropsType) => {
   const { options, className, ...rest } = props
 
   const items = options.map((el, i) => (
-    <SelectRadix.Item key={el.id ? el.id : i} value={el.option} className={className} {...rest}>
+    <SelectRadix.Item key={el.id ? el.id : i++} value={el.option} className={className} {...rest}>
       <SelectRadix.ItemText>
         <Typography variant={'body1'} component={'span'}>
           {el.option}

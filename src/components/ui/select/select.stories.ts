@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
 
-import { OptionType, Select } from './'
+import { Select } from './'
 
 const meta = {
   title: 'Components/Select',
@@ -22,9 +22,9 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     options: [
-      { id: 1, option: 'Select-box' },
-      { id: 2, option: 'Select-box' },
-      { id: 3, option: 'Select-box' },
+      { id: 1, option: 'Select-box1' },
+      { id: 2, option: 'Select-box2' },
+      { id: 3, option: 'Select-box3' },
     ],
   },
 }
