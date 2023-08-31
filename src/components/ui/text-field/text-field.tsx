@@ -7,7 +7,7 @@ import s from './text-field.module.scss'
 import closeImg from '@/assets/icons/close.svg'
 import eyeImg from '@/assets/icons/eye-outline.svg'
 import searchImg from '@/assets/icons/searchOutline.svg'
-import { Label } from '@/components/ui/label/Label.tsx'
+import { Label } from '@/components/ui/label/label.tsx'
 
 export type TextFieldProps = {
   inputIsSearch: boolean
