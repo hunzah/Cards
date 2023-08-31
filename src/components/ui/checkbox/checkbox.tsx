@@ -7,10 +7,10 @@ import disabledUncheckedImg from '../../../assets/images/disabled-checkbox-unche
 
 import s from './checkbox.module.scss'
 
-type PropsType = {
+export type CheckboxProps = {
   checked: boolean
   onChange: (checked: boolean) => void
-  text?: string
+  label?: string
   disabled?: boolean
   required?: boolean
   id?: string
@@ -19,6 +19,8 @@ type PropsType = {
 
 export const Checkbox = (props: PropsType) => {
   const { checked, text, disabled, onChange, required, id } = props
+export const Checkbox = (props: CheckboxProps) => {
+  const { checked, label, disabled, onChange, required, id } = props
 
   let checkboxImageSrc: string = checkboxBorderImg
 
@@ -46,6 +48,8 @@ export const Checkbox = (props: PropsType) => {
       </div>
       <label className={s.textContainer} aria-label={text}>
         <span className={`${s.textContent} ${disabled ? s.textDisabled : ''}`}>{text}</span>
+      <label className={s.textContainer} aria-label={label}>
+        <span className={`${s.textContent} ${disabled ? s.textDisabled : ''}`}>{label}</span>
       </label>
     </CheckboxRadix.Root>
   )

@@ -60,17 +60,6 @@ export const TextFieldSearch: Story = {
   },
 }
 
-export const KeyDownEnterTextFieldSearch: Story = {
-  args: {
-    inputType: 'text',
-    inputIsSearch: true,
-    placeholder: 'Enter text',
-    onEnter: e => {
-      alert(e.key)
-    },
-  },
-}
-
 export const TextFieldSearchError: Story = {
   args: {
     inputType: 'text',
