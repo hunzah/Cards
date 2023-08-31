@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>
 export const TextFieldStandard: Story = {
   args: {
     inputType: 'text',
-    placeholder: 'Enter text',
+    inputName: 'Input',
     inputIsSearch: false,
   },
 }
@@ -30,7 +30,8 @@ export const TextFieldStandardError: Story = {
   args: {
     inputType: 'text',
     inputIsSearch: false,
-    errorMessage: 'Some error',
+    errorMessage: 'Error!',
+    inputName: 'Error',
   },
 }
 
@@ -39,7 +40,7 @@ export const TextFieldLogin: Story = {
     inputType: 'text',
     inputIsSearch: false,
     placeholder: 'Enter login',
-    inputName: 'Login',
+    inputName: 'Input',
   },
 }
 
@@ -47,8 +48,8 @@ export const TextFieldLoginError: Story = {
   args: {
     inputType: 'text',
     inputIsSearch: false,
-    inputName: 'Login',
-    errorMessage: 'Some error',
+    inputName: 'Input',
+    errorMessage: 'Error!',
   },
 }
 
@@ -64,7 +65,7 @@ export const TextFieldSearchError: Story = {
   args: {
     inputType: 'text',
     inputIsSearch: true,
-    errorMessage: 'Some error',
+    errorMessage: 'Error!',
   },
 }
 
@@ -72,7 +73,7 @@ export const TextFieldPassword: Story = {
   args: {
     inputType: 'password',
     inputIsSearch: false,
-    inputName: 'Password',
+    inputName: 'Input',
   },
 }
 
@@ -80,8 +81,8 @@ export const TextFieldPasswordError: Story = {
   args: {
     inputType: 'password',
     inputIsSearch: false,
-    inputName: 'Password',
+    inputName: 'Input',
     placeholder: 'Enter password',
-    errorMessage: 'Some error',
+    errorMessage: 'Error!',
   },
 }

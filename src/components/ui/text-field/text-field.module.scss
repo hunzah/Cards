@@ -1,11 +1,6 @@
 .inputMain {
-  flex-shrink: 0;
-
-  width: 324px;
-  height: 100px;
-  padding: 20px;
-
-  background: var(--color-dark-900);
+  width: 284px;
+  height: 60px;
 }
 
 .internalBlock {
@@ -24,11 +19,6 @@
 }
 
 .inputName {
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-s);
-  font-weight: var(--font-weight-regular);
-  font-style: normal;
-  line-height: 24px;
   color: var(--color-dark-100);
 }
 
@@ -38,10 +28,6 @@
   padding-right: 32px;
   padding-left: 12px;
 
-  font-size: var(--font-size-m);
-  font-weight: var(--font-weight-regular);
-  font-style: normal;
-  line-height: 24px;
   color: var(--color-dark-100);
 
   background: var(--color-dark-900);
@@ -53,6 +39,7 @@
   }
 
   &.error {
+    color: var(--color-danger-300);
     border-color: var(--color-danger-300);
   }
 
@@ -75,10 +62,6 @@
   padding-right: 32px;
   padding-left: 12px;
 
-  font-size: var(--font-size-m);
-  font-weight: var(--font-weight-regular);
-  font-style: normal;
-  line-height: 24px;
   color: var(--color-dark-100);
 
   background: var(--color-dark-900);
@@ -90,6 +73,7 @@
   }
 
   &.error {
+    color: var(--color-danger-300);
     border-color: var(--color-danger-300);
   }
 
@@ -112,11 +96,6 @@
   padding-right: 26px;
   padding-left: 30px;
 
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-m);
-  font-weight: var(--font-weight-regular);
-  font-style: normal;
-  line-height: 24px;
   color: var(--color-dark-100);
 
   background: var(--color-dark-900);
