@@ -8,7 +8,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   fullWidth?: boolean
   className?: string
   img?: string
-  children: ReactNode
+  children?: ReactNode
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(
