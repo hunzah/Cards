@@ -24,7 +24,7 @@ export function App() {
       <Typography variant="body2" component={'h3'}>
         Subheading
       </Typography>
-      <Checkbox checked={checked} onChange={setChecked} text={'check-box'} disabled={false} />
+      <Checkbox checked={checked} onChange={setChecked} label={'check-box'} disabled={false} />
       Hello
       <div>
         <Button className={s.button}>
