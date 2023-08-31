@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>
 export const TextFieldStandard: Story = {
   args: {
     inputType: 'text',
-    placeholder: 'Enter text',
+    placeholder: 'Input',
     inputIsSearch: false,
   },
 }
@@ -38,7 +38,7 @@ export const TextFieldLogin: Story = {
   args: {
     inputType: 'text',
     inputIsSearch: false,
-    placeholder: 'Enter login',
+    placeholder: 'Input',
     inputName: 'Login',
   },
 }
@@ -56,7 +56,7 @@ export const TextFieldSearch: Story = {
   args: {
     inputType: 'text',
     inputIsSearch: true,
-    placeholder: 'Enter text',
+    placeholder: 'Input search',
   },
 }
 
@@ -64,7 +64,7 @@ export const KeyDownEnterTextFieldSearch: Story = {
   args: {
     inputType: 'text',
     inputIsSearch: true,
-    placeholder: 'Enter text',
+    placeholder: 'Input search',
     onEnter: e => {
       alert(e.key)
     },
@@ -76,6 +76,7 @@ export const TextFieldSearchError: Story = {
     inputType: 'text',
     inputIsSearch: true,
     errorMessage: 'Some error',
+    placeholder: 'Input search',
   },
 }
 

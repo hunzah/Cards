@@ -7,6 +7,7 @@ import s from './text-field.module.scss'
 import closeImg from '@/assets/icons/close.svg'
 import eyeImg from '@/assets/icons/eye-outline.svg'
 import searchImg from '@/assets/icons/searchOutline.svg'
+import { Typography } from '@/components/ui/typography'
 
 export type TextFieldProps = {
   inputIsSearch: boolean
@@ -78,7 +79,11 @@ export const TextField = (
     <div className={s.inputMain}>
       <div className={s.internalBlock}>
         <label>
-          {inputName && !inputIsSearch && <span className={s.inputName}>{inputName}</span>}
+          {inputName && !inputIsSearch && (
+            <Typography className={s.inputName} variant="body2">
+              {inputName}
+            </Typography>
+          )}
           <div className={s.inputContainer}>
             {inputIsSearch && (
               <button className={s.searchButton}>

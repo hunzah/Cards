@@ -13,24 +13,22 @@ export const ForgotPassword = () => {
           Forgot your password?
         </Typography>
         <div className={s.inputContainer}>
-          <Typography className={s.text} variant="body2" component="span">
-            Email
-          </Typography>
-          <TextField inputIsSearch={true} inputType={'Email'} inputName={'Email'} />
+          <TextField inputType="email" inputIsSearch={true} inputName={'Email'} />
           <Typography className={`${s.text} ${s.textContainer}`} variant="body2">
             Enter your email address and we will send you further instructions
           </Typography>
         </div>
         <Button className={s.button} variant={'primary'}>
-          {' '}
           <Typography variant={'subtitle2'}>Send Instructions</Typography>
         </Button>
         <Typography className={`${s.text} ${s.text2Container}`} variant="body2">
           Did you remember your password?
         </Typography>
-        <Button variant="link">
-          <Typography variant={'subtitle2'}>Try logging in</Typography>
-        </Button>
+        <a>
+          <Typography className={s.link} variant={'h3'}>
+            Try logging in
+          </Typography>
+        </a>
       </Card>
     </div>
   )
