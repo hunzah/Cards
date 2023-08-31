@@ -8,6 +8,7 @@ import closeImg from '@/assets/icons/close.svg'
 import eyeImg from '@/assets/icons/eye-outline.svg'
 import searchImg from '@/assets/icons/searchOutline.svg'
 import { Label } from '@/components/ui/label/label.tsx'
+import { Typography } from '@/components/ui/typography'
 
 export type TextFieldProps = {
   inputIsSearch: boolean
@@ -72,6 +73,11 @@ export const TextField = (
   return (
     <div className={s.inputMain}>
       <div className={s.internalBlock}>
+        {props.inputName && !inputIsSearch && (
+          <Typography className={s.inputName} variant="body2">
+            {props.inputName}
+          </Typography>
+        )}
         <Label label={label && label}>
           <div className={s.inputContainer}>
             {inputIsSearch && (
