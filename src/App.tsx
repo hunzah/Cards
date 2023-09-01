@@ -6,6 +6,7 @@ import s from './components/ui/button/button.module.scss'
 import { Checkbox } from './components/ui/checkbox'
 
 import { SignUp } from '@/components/auth/sign-up'
+import { SignIn } from '@/components/auth/sing-in'
 import ComponentWithSvg from '@/components/ComponentWithSVG'
 import { ForgotPassword } from '@/components/ui/auth-forgot-password/forgot-password.tsx'
 import { Button } from '@/components/ui/button'
@@ -53,7 +54,10 @@ export function App() {
         <TabSwitcher switches={switches} />
         <ForgotPassword />
       </div>
-      <SignUp onSubmit={handleFormSubmitted} />
+      <div style={{ display: 'flex', margin: '5px' }}>
+        <SignUp onSubmit={handleFormSubmitted} />
+        <SignIn onSubmit={handleFormSubmitted} />
+      </div>
     </div>
   )
 }
