@@ -13,7 +13,7 @@ const loginSchema = z.object({
   rememberMe: z.boolean(),
 })
 
-type FormValues = z.input<typeof loginSchema>
+type FormValues = z.infer<typeof loginSchema>
 
 export const LoginForm = () => {
   const {
