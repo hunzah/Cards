@@ -18,7 +18,7 @@ export type CheckboxProps = {
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-  const { checked, label, disabled, onChange, required, id } = props
+  const { checked, className, label, disabled, onChange, required, id } = props
 
   let checkboxImageSrc: string = checkboxBorderImg
 
@@ -34,7 +34,7 @@ export const Checkbox = (props: CheckboxProps) => {
 
   return (
     <CheckboxRadix.Root
-      className={s.checkboxRoot}
+      className={`${s.checkboxRoot} ${className}`}
       checked={checked}
       onCheckedChange={onChange}
       disabled={disabled}
