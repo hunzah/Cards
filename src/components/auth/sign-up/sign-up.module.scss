@@ -51,6 +51,10 @@
   text-decoration-line: underline;
 
   background-color: var(--color-dark-700);
+
+  &:hover {
+    cursor: default;
+  }
 }
 
 .textField {
