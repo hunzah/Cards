@@ -5,6 +5,7 @@ import Layer2 from '../src/assets/images/Layer 2.svg'
 import s from './components/ui/button/button.module.scss'
 import { Checkbox } from './components/ui/checkbox'
 
+import { SignUp } from '@/components/auth/sign-up'
 import ComponentWithSvg from '@/components/ComponentWithSVG'
 import { ForgotPassword } from '@/components/ui/auth-forgot-password/forgot-password.tsx'
 import { Button } from '@/components/ui/button'
@@ -18,6 +19,9 @@ export function App() {
     { id: 2, switchTitle: 'second', disabled: false },
     { id: 3, switchTitle: 'third', disabled: true },
   ]
+  const handleFormSubmitted = (data: any) => {
+    console.log(data)
+  }
 
   return (
     <div>
@@ -49,6 +53,7 @@ export function App() {
         <TabSwitcher switches={switches} />
         <ForgotPassword />
       </div>
+      <SignUp onSubmit={handleFormSubmitted} />
     </div>
   )
 }

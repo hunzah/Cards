@@ -16,6 +16,7 @@ export type TextFieldProps = {
   label?: string
   value?: string
   inputName?: string
+  className?: string
   errorMessage?: string
   onClearClick?: () => void
   onChangeValue?: (e: string) => void
@@ -27,6 +28,7 @@ export const TextField = (
   const {
     inputType,
     label,
+    className,
     inputIsSearch,
     errorMessage = false,
     onClearClick,
@@ -41,9 +43,9 @@ export const TextField = (
   const showError = errorMessage && errorMessage.length > 0
 
   const inputClassName = {
-    standardInput: clsx(s.inputStandard, showError && s.error),
-    searchInput: clsx(s.inputSearch, showError && s.error),
-    passwordInput: clsx(s.inputPassword, showError && s.error),
+    standardInput: clsx(s.inputStandard, showError && s.error, className),
+    searchInput: clsx(s.inputSearch, showError && s.error, className),
+    passwordInput: clsx(s.inputPassword, showError && s.error, className),
   }
 
   function getStyleNameForInput(isPassword: boolean, isSearch: boolean) {
