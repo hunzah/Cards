@@ -1,0 +1,96 @@
+.card {
+  max-width: 420px;
+  height: 528px;
+  margin: 0 auto;
+  padding: 33px 36px 29px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  width: 100%;
+  margin-top: 27px;
+  margin-bottom: 12px;
+}
+
+.checkbox {
+  width: 140px;
+  height: 36px;
+  margin-bottom: 6px;
+  font-family: var(--font-family-primary);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 348px;
+  height: 36px;
+  margin-top: 66px;
+  margin-bottom: 20px;
+  padding: 6px 28px;
+}
+
+.buttonLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 56px;
+  height: 24px;
+  margin: 0 auto;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-m);
+  color: var(--color-accent-500);
+  text-decoration-line: underline;
+
+  background-color: var(--color-dark-700);
+
+  &:hover {
+    cursor: default;
+  }
+}
+
+.buttonForgotPasswordContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonForgotPassword {
+  width: 113px;
+  height: 24px;
+  font-size: var(--font-size-s);
+  background-color: var(--color-dark-700);
+
+  &:hover {
+    cursor: default;
+  }
+}
+
+.textField {
+  width: 346px;
+  height: 58px;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 11px;
+
+  text-align: center;
+}
