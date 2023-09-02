@@ -1,5 +1,5 @@
 import {clsx} from "clsx";
-import {ComponentPropsWithoutRef, ElementRef, forwardRef} from "react";
+import {ComponentPropsWithoutRef, ElementRef, forwardRef, useState} from "react";
 import s from './table.module.scss'
 import {Typography} from "@/components/ui/typography";
 
@@ -78,36 +78,43 @@ export const TableHead = forwardRef<ElementRef<'thead'>, ComponentPropsWithoutRe
 const headCells = [
     {
         id: 'name',
-        numeric: false,
-        disablePadding: true,
+        numeric: 1,
+        disablePadding: 53,
         label: 'Dessert (100g serving)',
     },
     {
         id: 'calories',
-        numeric: true,
-        disablePadding: false,
+        numeric: 2,
+        disablePadding: 5,
         label: 'Calories',
     },
     {
         id: 'fat',
-        numeric: true,
-        disablePadding: false,
+        numeric: 3,
+        disablePadding: 2,
         label: 'Fat (g)',
     },
     {
         id: 'carbs',
-        numeric: true,
-        disablePadding: false,
+        numeric: 4,
+        disablePadding: 3,
         label: 'Carbs (g)',
     },
     {
         id: 'protein',
-        numeric: true,
-        disablePadding: false,
+        numeric: 5,
+        disablePadding: 3,
         label: 'Protein (g)',
     },
 ];
+
+type Columns = keyof typeof headCells[number]
 export const TableContainer = () => {
+    const [order, setOrder] = useState<"asc" | "desc">("desc")
+    const [acolumn, setacolumn] = useState<Columns>("id")
+    const columns = Object.keys(headCells[0]) as Columns
+
+
     function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
         if (b[orderBy] < a[orderBy]) {
             return -1;
@@ -117,21 +124,40 @@ export const TableContainer = () => {
         }
         return 0;
     }
-    return  (
+
+    console.log(order, acolumn, columns)
+    return (
         <Table>
             <TableHead>
                 <TableRow>
-                    <TableHeadCell>Questions</TableHeadCell>
-                    <TableHeadCell>Answer</TableHeadCell>
-                    <TableHeadCell onClick={descendingComparator} >Last Updated</TableHeadCell>
-                    <TableHeadCell>Grade</TableHeadCell>
+                    {columns.map(tc => {
+
+                        const onclickHandler = () => {
+                            if (tc === acolumn) {
+                                setOrder(prevOrder => prevOrder === "asc" ? "desc" : "asc")
+                            } else {
+                                setacolumn(tc)
+                                setOrder("desc")
+                            }
+                        }
+
+                        return <TableHeadCell onClick={onclickHandler}>{tc}</TableHeadCell>
+
+
+                    })}
+
                 </TableRow>
             </TableHead>
             <TableBody>
-                <TableRow>
-                    <TableCell>Drsdfsdfs</TableCell>
-                    <TableCell>3,0s00</TableCell>
-                    <TableCell>third</TableCell>
+                {headCells.map(hc=>{
+                    return <TableRow>
+                        {columns.map((cell,index)=> <TableCell>{hc[cell]}</TableCell> )}
+                    </TableRow>
+                })}
+              {/*  <TableRow>
+                    <TableCell>Drsdfsdxfs</TableCell>
+                    <TableCell>3,as</TableCell>
+                    <TableCell>red</TableCell>
                     <TableCell>12</TableCell>
                 </TableRow>
                 <TableRow>
@@ -145,7 +171,7 @@ export const TableContainer = () => {
                     <TableCell>18,0s00</TableCell>
                     <TableCell>18,000</TableCell>
                     <TableCell>12</TableCell>
-                </TableRow>
+                </TableRow>*/}
             </TableBody>
         </Table>
     )
