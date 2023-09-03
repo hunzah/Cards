@@ -15,6 +15,7 @@ export const AuthForm = () => {
         buttonName="Send Instructions"
         textAfterSubmitButton="Did you remember your password?"
         linkButtonAtTheEnd="Try logging in"
+        checkbox
       />
     </>
   )

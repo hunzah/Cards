@@ -8,7 +8,7 @@ import { Button } from '../../ui/button'
 import s from './auth-template-card.module.scss'
 
 import { Card } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
+import { ControlledCheckbox } from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox.tsx'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field'
 import { Label } from '@/components/ui/label'
 import { Typography } from '@/components/ui/typography'
@@ -18,6 +18,7 @@ const signUpSchema = z
     email: z.string().email(),
     password: z.string().min(3),
     passwordConfirmation: z.string().min(3),
+    rememberMe: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data.passwordConfirmation) {
@@ -71,6 +72,7 @@ export const AuthTemplateCard = (props: Props) => {
       email: '',
       password: '',
       passwordConfirmation: '',
+      rememberMe: false,
     },
   })
 
@@ -116,7 +118,6 @@ export const AuthTemplateCard = (props: Props) => {
                 className={s.textField}
               />
               <Label label={passwordLabel && passwordLabel} />
-              {/*{checkbox && <ControlledCheckbox name="rememberMe" label="Remember me" />}*/}
             </div>
           )}
           {passwordConfirmationInput && (
@@ -132,7 +133,14 @@ export const AuthTemplateCard = (props: Props) => {
               className={s.textField}
             />
           )}
-          {checkbox && <Checkbox onChange={() => console.log()} checked={true} />}
+          {checkbox && (
+            <ControlledCheckbox
+              label={'Remember me'}
+              name={'rememberMe'}
+              control={control}
+              labelClassName={s.checkboxText}
+            />
+          )}
         </div>
         <div className={s.buttonsContainer}>
           <Button type={'submit'} variant={'primary'} className={s.button}>
