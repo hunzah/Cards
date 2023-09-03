@@ -2,7 +2,7 @@ import s from './forgot-password.module.scss'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { TextField } from '@/components/ui/text-field'
+import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field/controlled-text-field.tsx'
 import { Typography } from '@/components/ui/typography'
 
 export const ForgotPassword = () => {
@@ -13,7 +13,8 @@ export const ForgotPassword = () => {
           Forgot your password?
         </Typography>
         <div className={s.inputContainer}>
-          <TextField
+          <ControlledTextField
+            name="email"
             inputType="text"
             inputIsSearch={false}
             inputName="Email"

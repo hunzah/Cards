@@ -6,7 +6,6 @@ import s from './components/ui/button/button.module.scss'
 import { Checkbox } from './components/ui/checkbox'
 
 import { SignUp } from '@/components/auth/sign-up'
-import { SignIn } from '@/components/auth/sing-in'
 import ComponentWithSvg from '@/components/ComponentWithSVG'
 import { ForgotPassword } from '@/components/ui/auth-forgot-password/forgot-password.tsx'
 import { Button } from '@/components/ui/button'
@@ -58,6 +57,14 @@ export function App() {
         <SignUp onSubmit={handleFormSubmitted} />
         <SignIn onSubmit={handleFormSubmitted} />
       </div>
+      {/*<Select*/}
+      {/*  options={[*/}
+      {/*    { id: 1, option: '1' },*/}
+      {/*    { id: 2, option: '2' },*/}
+      {/*    { id: 3, option: '3' },*/}
+      {/*  ]}*/}
+      {/*/>*/}
+      <AuthForm />
     </div>
   )
 }
