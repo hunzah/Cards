@@ -1,16 +1,18 @@
-import { AuthForm } from '@/components/auth/auth-form/auth-form.tsx'
+import { CreateNewPassword } from '@/components/auth/create-new-password/create-new-password.tsx'
+import { ForgotPasswordForm } from '@/components/auth/forgot-password-form/forgot-password-form.tsx'
+import { SignIn } from '@/components/auth/sign-in-form/sign-in-form.tsx'
+import { SignUp } from '@/components/auth/sign-up'
 
 export function App() {
   return (
     <div>
-      {/*<Select*/}
-      {/*  options={[*/}
-      {/*    { id: 1, option: '1' },*/}
-      {/*    { id: 2, option: '2' },*/}
-      {/*    { id: 3, option: '3' },*/}
-      {/*  ]}*/}
-      {/*/>*/}
-      <AuthForm />
+      <ForgotPasswordForm />
+      <hr></hr>
+      <SignIn />
+      <hr></hr>
+      <SignUp />
+      <hr></hr>
+      <CreateNewPassword />
     </div>
   )
 }

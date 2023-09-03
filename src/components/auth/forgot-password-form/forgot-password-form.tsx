@@ -1,6 +1,8 @@
+import s from './forgot-password.module.scss'
+
 import { AuthTemplateCard } from '@/components/auth/auth-template-card'
 
-export const AuthForm = () => {
+export const ForgotPasswordForm = () => {
   const handleFormSubmitted = (data: any) => {
     console.log(data)
   }
@@ -15,7 +17,8 @@ export const AuthForm = () => {
         buttonName="Send Instructions"
         textAfterSubmitButton="Did you remember your password?"
         linkButtonAtTheEnd="Try logging in"
-        checkbox
+        className={s.form}
+        titleClassName={s.title}
       />
     </>
   )

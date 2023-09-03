@@ -1,8 +1,8 @@
-import s from './sign-up.module.scss'
+import s from './sign-in.module.scss'
 
 import { AuthTemplateCard } from '@/components/auth/auth-template-card'
 
-export const SignUp = () => {
+export const SignIn = () => {
   const handleFormSubmitted = (data: any) => {
     console.log(data)
   }
@@ -11,13 +11,13 @@ export const SignUp = () => {
     <>
       <AuthTemplateCard
         onSubmit={handleFormSubmitted}
-        title="Sign Up"
+        title="Sign In"
         emailInput
         passwordInput
-        confirmPasswordInput
-        buttonName="Sign Up"
+        buttonName="Sign In"
         textAfterSubmitButton="Don't have an account?"
         linkButtonAtTheEnd="Sign Up"
+        checkbox
         className={s.form}
         titleClassName={s.title}
       />
