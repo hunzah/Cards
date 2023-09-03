@@ -9,12 +9,12 @@ export const AuthForm = () => {
     <>
       <AuthTemplateCard
         onSubmit={handleFormSubmitted}
-        title="Forgot your password?"
+        title="Sign In"
         emailInput
-        emailLabel="Enter your email address and we will send you further instructions "
-        buttonName="Send Instructions"
-        textAfterSubmitButton="Did you remember your password?"
-        linkButtonAtTheEnd="Try logging in"
+        passwordInput
+        buttonName="Sign In"
+        textAfterSubmitButton="Don't have an account?"
+        linkButtonAtTheEnd="Sign Up"
       />
     </>
   )
