@@ -11,10 +11,9 @@ export const ForgotPasswordForm = () => {
     <>
       <AuthTemplateCard
         onSubmit={handleFormSubmitted}
-        title="Sign In"
+        title="Forgot your password?"
         emailInput
-        passwordInput
-        emailLabel="Enter your email address and we will send you further instructions "
+        emailLabel="Enter your email address and we will send you further instructions"
         buttonName="Send Instructions"
         textAfterSubmitButton="Did you remember your password?"
         linkButtonAtTheEnd="Try logging in"
