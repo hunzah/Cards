@@ -5,14 +5,14 @@ import { TextField } from './text-field.tsx'
 const meta = {
   title: 'Components/text-field',
   component: TextField,
-  /*argTypes: {
-                                inputType: {
-                                  options: ['text', 'password'],
-                                },
-                                inputIsSearch: {
-                                  options: [true, false],
-                                },
-                              },*/
+  argTypes: {
+    inputType: {
+      options: ['text', 'password'],
+    },
+    inputIsSearch: {
+      options: [true, false],
+    },
+  },
 } satisfies Meta<typeof TextField>
 
 export default meta

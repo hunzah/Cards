@@ -1,6 +1,8 @@
+import s from './sign-in.module.scss'
+
 import { AuthTemplateCard } from '@/components/auth/auth-template-card'
 
-export const AuthForm = () => {
+export const SignIn = () => {
   const handleFormSubmitted = (data: any) => {
     console.log(data)
   }
@@ -15,6 +17,9 @@ export const AuthForm = () => {
         buttonName="Sign In"
         textAfterSubmitButton="Don't have an account?"
         linkButtonAtTheEnd="Sign Up"
+        checkbox
+        className={s.form}
+        titleClassName={s.title}
       />
     </>
   )
