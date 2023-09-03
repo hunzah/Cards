@@ -43,6 +43,8 @@ type Props = {
   passwordConfirmationInput?: boolean
   checkbox?: boolean
   buttonName: string
+  textAfterSubmitButton: string
+  linkButtonAtTheEnd: string
 }
 export const AuthTemplateCard = (props: Props) => {
   const {
@@ -55,6 +57,8 @@ export const AuthTemplateCard = (props: Props) => {
     passwordConfirmationInput,
     checkbox,
     buttonName,
+    textAfterSubmitButton,
+    linkButtonAtTheEnd,
   } = props
   const {
     control,
@@ -135,10 +139,10 @@ export const AuthTemplateCard = (props: Props) => {
             {buttonName}
           </Button>
           <Typography className={s.text} variant="body2">
-            Already have an account?
+            {textAfterSubmitButton}
           </Typography>
           <Button type={'link'} as={'a'} className={s.buttonLink}>
-            Sign In
+            {linkButtonAtTheEnd}
           </Button>
         </div>
       </form>
