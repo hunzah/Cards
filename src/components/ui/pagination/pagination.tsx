@@ -8,22 +8,21 @@ import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
   elements: any[]
-  perPage?: number
+  elemsOnPerPage?: number
 }
 
 export const Pagination = (props: PropsType) => {
-  const { elements } = props
-  const [perPage, setPerPage] = useState(10)
+  const { elements, elemsOnPerPage } = props
+  const [perPage, setPerPage] = useState(elemsOnPerPage ? elemsOnPerPage : 10)
   const [currentPage, setCurrentPage] = useState(1)
-  const lastElementIndex = currentPage * perPage
-  const firstElementIndex = lastElementIndex - perPage
-  // элементы которые будут отображаться на каждой странице currentElement необходимо передавать в компоненты которых необходимо пагинировать
-  const currentElement = elements.slice(firstElementIndex, lastElementIndex)
+  // элементы которые будут отображаться на каждой странице.Необходимо Код расскоментировать и currentElement передавть в компонент который необходимо пагинировать
+  // const lastElementIndex = currentPage * perPage
+  // const firstElementIndex = lastElementIndex - perPage
+  // const currentElement = elements.slice(firstElementIndex, lastElementIndex)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
   return (
     <div className={s.root}>
-      <Countries countries={currentElement} />
       <PagLogic
         elements={elements}
         elementsPerPage={perPage}
@@ -40,8 +39,4 @@ export const Pagination = (props: PropsType) => {
       </Typography>
     </div>
   )
-}
-
-const Countries = ({ countries }: any) => {
-  return countries.map((country: { name: string }, i: any) => <div key={i}>{country.name}</div>)
 }

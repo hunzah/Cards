@@ -43,20 +43,21 @@ export const Select = (props: PropsType) => {
     content: clsx(s.content, contentClassName && contentClassName),
     item: clsx(s.item, itemClassName && itemClassName),
   }
-  // const selectedValue = placeholder ? placeholder : options[0]
+
   const [selectedValue, setSelectedValue] = useState(defaultValue ? defaultValue : options[0])
+
   return (
-    <SelectRadix.Root required={required} disabled={isDisabled}>
+    <SelectRadix.Root
+      required={required}
+      disabled={isDisabled}
+      onValueChange={e => onChange(Number(e))}
+    >
       <SelectRadix.Trigger className={classNames.button}>
         <SelectRadix.Value placeholder={selectedValue} className={s.placeholder} />
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
       </SelectRadix.Trigger>
 
-      <SelectRadix.Content
-        className={classNames.content}
-        position="popper"
-        onClick={event => console.log(event)}
-      >
+      <SelectRadix.Content className={classNames.content} position="popper" collisionPadding={0}>
         <SelectRadix.Group>
           <SelectRadix.Label>
             <SelectItem
