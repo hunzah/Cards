@@ -10,7 +10,7 @@ import s from './select.module.scss'
 import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
-  options: number[]
+  options: number[] | string[]
   // onChange: (value: number) => void
   contentClassName?: string
   itemClassName?: string
@@ -22,8 +22,7 @@ type PropsType = {
 }
 
 type SelectItemPropsType = {
-  options: number[]
-  // onChange: (value: number) => void
+  options: number[] | string[]
   className: string
   setSelectedValue: any
 }
