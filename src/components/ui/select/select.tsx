@@ -11,7 +11,7 @@ import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
   options: number[] | string[]
-  // onChange: (value: number) => void
+  onChange: (value: number) => void
   contentClassName?: string
   itemClassName?: string
   isDisabled?: boolean
@@ -31,7 +31,7 @@ export const Select = (props: PropsType) => {
   const {
     isDisabled = false,
     options,
-    // onChange,
+    onChange,
     contentClassName,
     itemClassName,
     required,
@@ -45,13 +45,6 @@ export const Select = (props: PropsType) => {
   }
   // const selectedValue = placeholder ? placeholder : options[0]
   const [selectedValue, setSelectedValue] = useState(defaultValue ? defaultValue : options[0])
-
-  // const handleValueChange = (value: number | undefined) => {
-  //   onChange(value)
-  //   setSelectedValue(value)
-  //   console.log(value)
-  // }
-
   return (
     <SelectRadix.Root required={required} disabled={isDisabled}>
       <SelectRadix.Trigger className={classNames.button}>
@@ -59,13 +52,16 @@ export const Select = (props: PropsType) => {
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
       </SelectRadix.Trigger>
 
-      <SelectRadix.Content className={classNames.content} position="popper" onChane={}>
+      <SelectRadix.Content
+        className={classNames.content}
+        position="popper"
+        onClick={event => console.log(event)}
+      >
         <SelectRadix.Group>
           <SelectRadix.Label>
             <SelectItem
               className={classNames.item}
               options={options}
-              // onChange={handleValueChange}
               setSelectedValue={setSelectedValue}
             />
           </SelectRadix.Label>

@@ -42,6 +42,7 @@ export const usePagination = (props: PropsType) => {
 
     return pageNumbers
   }
+  const pageNumbers = generatePageNumbers()
 
-  return { generatePageNumbers }
+  return { pageNumbers }
 }

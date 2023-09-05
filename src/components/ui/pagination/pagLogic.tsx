@@ -11,6 +11,7 @@ type PropsType = {
   onChange: (page: number) => void
   elementsPerPage: number
   setCurrentPage: (elementsPerPage: any) => void
+  setPerPage: (value: number) => void
 }
 
 export const PagLogic = (props: PropsType) => {
@@ -26,8 +27,7 @@ export const PagLogic = (props: PropsType) => {
     setCurrentPage((prev: number) => prev + 1)
   }
 
-  const paginationData = usePagination({ totalPages, currentPage })
-  const pageNumbers = paginationData.generatePageNumbers()
+  const { pageNumbers } = usePagination({ totalPages, currentPage })
 
   return (
     <div className={s.pagination}>

@@ -9,11 +9,11 @@ import { Typography } from '@/components/ui/typography'
 type PropsType = {
   elements: any[]
   perPage?: number
-  children: any
 }
 
 export const Pagination = (props: PropsType) => {
-  const { elements, perPage = 10 } = props
+  const { elements } = props
+  const [perPage, setPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
   const lastElementIndex = currentPage * perPage
   const firstElementIndex = lastElementIndex - perPage
@@ -23,6 +23,7 @@ export const Pagination = (props: PropsType) => {
 
   return (
     <div className={s.root}>
+      <Countries countries={currentElement} />
       <PagLogic
         elements={elements}
         elementsPerPage={perPage}
@@ -30,16 +31,17 @@ export const Pagination = (props: PropsType) => {
         onChange={paginate}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        setPerPage={setPerPage}
       />
       <Typography variant="body2" className={s.selectContainer}>
         Показать
-        <Select options={[10, 20, 30, 50, 100]} defaultValue={10} />
+        <Select options={[10, 20, 30, 50, 100]} defaultValue={10} onChange={setPerPage} />
         на странице
       </Typography>
     </div>
   )
 }
 
-// const Countries = ({ countries }: any) => {
-//   return countries.map((country: { name: string }, i: any) => <div key={i}>{country.name}</div>)
-// }
+const Countries = ({ countries }: any) => {
+  return countries.map((country: { name: string }, i: any) => <div key={i}>{country.name}</div>)
+}
