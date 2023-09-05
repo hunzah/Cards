@@ -7,16 +7,11 @@ import s from './select.module.scss'
 
 import { Typography } from '@/components/ui/typography'
 
-export type OptionType = {
-  id?: string | number
-  option: string
-}
-
-type SelectPropsType = {
+type PropsType = {
   contentClassName?: string
   itemClassName?: string
   isDisabled?: boolean
-  options: OptionType[]
+  options: string[]
   defaultValue?: string
   name?: string
   placeholder?: string
@@ -24,11 +19,11 @@ type SelectPropsType = {
 }
 
 type SelectItemPropsType = {
-  options: OptionType[]
+  options: string[]
   className: string
 }
 
-export const Select = (props: SelectPropsType) => {
+export const Select = (props: PropsType) => {
   const {
     isDisabled = false,
     options,
@@ -43,19 +38,12 @@ export const Select = (props: SelectPropsType) => {
     content: clsx(s.content, contentClassName && contentClassName),
     item: clsx(s.item, itemClassName && itemClassName),
   }
-
-  const defaultPlaceholder = placeholder ? (
-    placeholder
-  ) : (
-    <Typography variant={'body1'} component={'span'}>
-      pick an option
-    </Typography>
-  )
+  const selectedValue = placeholder ? placeholder : options[0]
 
   return (
-    <SelectRadix.Root required={required} disabled={isDisabled} open={true}>
+    <SelectRadix.Root required={required} disabled={isDisabled}>
       <SelectRadix.Trigger className={classNames.button}>
-        <SelectRadix.Value placeholder={defaultPlaceholder} />
+        <SelectRadix.Value placeholder={selectedValue} className={s.placeholder} />
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
       </SelectRadix.Trigger>
 
@@ -72,15 +60,17 @@ export const Select = (props: SelectPropsType) => {
 const SelectItem = (props: SelectItemPropsType) => {
   const { options, className, ...rest } = props
 
-  const items = options.map((el, i) => (
-    <SelectRadix.Item key={el.id ? el.id : i++} value={el.option} className={className} {...rest}>
-      <SelectRadix.ItemText>
-        <Typography variant={'body1'} component={'span'}>
-          {el.option}
-        </Typography>
-      </SelectRadix.ItemText>
-    </SelectRadix.Item>
-  ))
-
-  return <>{items}</>
+  return (
+    <>
+      {options.map((option, i) => (
+        <SelectRadix.Item key={i} value={option} className={className} {...rest}>
+          <SelectRadix.ItemText>
+            <Typography variant={'body1'} component={'span'}>
+              {option}
+            </Typography>
+          </SelectRadix.ItemText>
+        </SelectRadix.Item>
+      ))}
+    </>
+  )
 }

@@ -1,18 +1,43 @@
-import { CreateNewPassword } from '@/components/auth/create-new-password-form'
-import { ForgotPasswordForm } from '@/components/auth/forgot-password-form/forgot-password-form.tsx'
-import { SignIn } from '@/components/auth/sign-in-form'
-import { SignUp } from '@/components/auth/sign-up-form'
+import { Pagination } from '@/components/ui/pagination/pagination.tsx'
+
+const countryNames = [
+  { name: 'Russia' },
+  { name: 'Belarusia' },
+  { name: 'Ukraine' },
+  { name: 'USA' },
+  { name: 'Uganda' },
+  { name: 'Uruguay' },
+  { name: 'Chili' },
+  { name: 'Canada' },
+  { name: 'France' },
+  { name: 'Litva' },
+  { name: 'Dagestan' },
+  { name: 'Myau' },
+  { name: 'Myau' },
+  { name: 'Myau' },
+  { name: 'Myau' },
+  { name: 'France' },
+  { name: 'Litva' },
+  { name: 'Dagestan' },
+  { name: 'Myau' },
+  { name: 'Myau' },
+  { name: 'Bali' },
+  { name: 'Balya' },
+  { name: 'Balya' },
+  { name: 'USA' },
+  { name: 'Uganda' },
+  { name: 'Uruguay' },
+  { name: 'Chili' },
+  { name: 'USA' },
+  { name: 'Uganda' },
+  { name: 'Uruguay' },
+  { name: 'Chili' },
+]
 
 export function App() {
   return (
     <div>
-      <ForgotPasswordForm />
-      <hr></hr>
-      <SignIn />
-      <hr></hr>
-      <SignUp />
-      <hr></hr>
-      <CreateNewPassword />
+      <Pagination totalPages={33} elements={countryNames} />
     </div>
   )
 }

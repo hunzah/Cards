@@ -3,9 +3,6 @@
   align-items: center;
   justify-content: space-between;
 
-  width: 240px;
-  height: 36px;
-
   background-color: var(--color-dark-900);
   border: 2px solid var(--color-dark-100);
 }
@@ -29,8 +26,6 @@
   transform-origin: var(--radix-select-content-transform-origin);
   transform: translate(-10.00174px, 0);
 
-  //left: -10px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,6 +41,7 @@
 
 .item {
   padding: 6px 11px;
+  font-size: 10px;
   border: none;
   outline: none;
 
@@ -62,7 +58,3 @@
     background-color: var(--color-dark-900);
   }
 }
-
-//::-webkit-scrollbar {
-//  width: 10px;
-//}
