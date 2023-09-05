@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
@@ -8,29 +10,33 @@ import s from './select.module.scss'
 import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
+  options: number[]
+  // onChange: (value: number) => void
   contentClassName?: string
   itemClassName?: string
   isDisabled?: boolean
-  options: string[]
-  defaultValue?: string
+  defaultValue?: number
   name?: string
   placeholder?: string
   required?: boolean
 }
 
 type SelectItemPropsType = {
-  options: string[]
+  options: number[]
+  // onChange: (value: number) => void
   className: string
+  setSelectedValue: any
 }
 
 export const Select = (props: PropsType) => {
   const {
     isDisabled = false,
     options,
+    // onChange,
     contentClassName,
     itemClassName,
     required,
-    placeholder,
+    defaultValue,
   } = props
 
   const classNames = {
@@ -38,7 +44,14 @@ export const Select = (props: PropsType) => {
     content: clsx(s.content, contentClassName && contentClassName),
     item: clsx(s.item, itemClassName && itemClassName),
   }
-  const selectedValue = placeholder ? placeholder : options[0]
+  // const selectedValue = placeholder ? placeholder : options[0]
+  const [selectedValue, setSelectedValue] = useState(defaultValue ? defaultValue : options[0])
+
+  // const handleValueChange = (value: number | undefined) => {
+  //   onChange(value)
+  //   setSelectedValue(value)
+  //   console.log(value)
+  // }
 
   return (
     <SelectRadix.Root required={required} disabled={isDisabled}>
@@ -50,7 +63,12 @@ export const Select = (props: PropsType) => {
       <SelectRadix.Content className={classNames.content} position="popper">
         <SelectRadix.Group>
           <SelectRadix.Label>
-            <SelectItem className={classNames.item} options={options} />
+            <SelectItem
+              className={classNames.item}
+              options={options}
+              // onChange={handleValueChange}
+              setSelectedValue={setSelectedValue}
+            />
           </SelectRadix.Label>
         </SelectRadix.Group>
       </SelectRadix.Content>
@@ -58,12 +76,12 @@ export const Select = (props: PropsType) => {
   )
 }
 const SelectItem = (props: SelectItemPropsType) => {
-  const { options, className, ...rest } = props
+  const { options, className, setSelectedValue, ...rest } = props
 
   return (
     <>
       {options.map((option, i) => (
-        <SelectRadix.Item key={i} value={option} className={className} {...rest}>
+        <SelectRadix.Item key={i} value={option.toString()} className={className} {...rest}>
           <SelectRadix.ItemText>
             <Typography variant={'body1'} component={'span'}>
               {option}
