@@ -34,7 +34,12 @@ export const Pagination = (props: PropsType) => {
       />
       <Typography variant="body2" className={s.selectContainer}>
         Показать
-        <Select options={[10, 20, 30, 50, 100]} defaultValue={10} onChange={setPerPage} />
+        <Select
+          options={[10, 20, 30, 50, 100]}
+          defaultValue={10}
+          onChange={setPerPage}
+          textStyle="body2"
+        />
         на странице
       </Typography>
     </div>

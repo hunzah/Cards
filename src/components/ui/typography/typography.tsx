@@ -10,7 +10,7 @@ export type PropsOf<TTag extends ReactTag> = TTag extends ElementType
 
 export type ReactTag = keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 
-type TypographyVariantTypes =
+export type TypographyVariantTypes =
   | 'large'
   | 'h1'
   | 'h2'

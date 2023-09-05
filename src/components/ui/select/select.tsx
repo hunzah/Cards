@@ -7,7 +7,7 @@ import selectArrow from '../../../assets/images/select-arrow.svg'
 
 import s from './select.module.scss'
 
-import { Typography } from '@/components/ui/typography'
+import { Typography, TypographyVariantTypes } from '@/components/ui/typography'
 
 type PropsType = {
   options: number[] | string[]
@@ -19,12 +19,14 @@ type PropsType = {
   name?: string
   placeholder?: string
   required?: boolean
+  textStyle: TypographyVariantTypes
 }
 
 type SelectItemPropsType = {
   options: number[] | string[]
   className: string
   setSelectedValue: any
+  textStyle: TypographyVariantTypes
 }
 
 export const Select = (props: PropsType) => {
@@ -36,6 +38,7 @@ export const Select = (props: PropsType) => {
     itemClassName,
     required,
     defaultValue,
+    textStyle,
   } = props
 
   const classNames = {
@@ -64,6 +67,7 @@ export const Select = (props: PropsType) => {
               className={classNames.item}
               options={options}
               setSelectedValue={setSelectedValue}
+              textStyle={textStyle}
             />
           </SelectRadix.Label>
         </SelectRadix.Group>
@@ -72,14 +76,14 @@ export const Select = (props: PropsType) => {
   )
 }
 const SelectItem = (props: SelectItemPropsType) => {
-  const { options, className, setSelectedValue, ...rest } = props
+  const { options, className, setSelectedValue, textStyle, ...rest } = props
 
   return (
     <>
       {options.map((option, i) => (
         <SelectRadix.Item key={i} value={option.toString()} className={className} {...rest}>
           <SelectRadix.ItemText>
-            <Typography variant={'body1'} component={'span'}>
+            <Typography variant={textStyle} component={'span'}>
               {option}
             </Typography>
           </SelectRadix.ItemText>
