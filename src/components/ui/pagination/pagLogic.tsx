@@ -2,6 +2,7 @@ import s from './pagination.module.scss'
 
 import arrowLeft from '@/assets/images/keyboard-arrow-left.svg'
 import arrowRight from '@/assets/images/keyboard-arrow-right.svg'
+import { usePagination } from '@/components/ui/pagination/usePagination.ts'
 
 type PropsType = {
   elements: any
@@ -16,43 +17,6 @@ export const PagLogic = (props: PropsType) => {
   const { elementsPerPage, totalElements, onChange, currentPage, setCurrentPage } = props
 
   const totalPages = Math.ceil(totalElements / elementsPerPage)
-
-  // Функция для генерации массива страниц для отображения
-  const generatePageNumbers = () => {
-    const pageNumbers = []
-    const maxVisiblePages = 6
-
-    if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i)
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 4; i++) {
-          pageNumbers.push(i)
-        }
-        pageNumbers.push('...')
-        pageNumbers.push(totalPages)
-      } else if (currentPage >= totalPages - 2) {
-        pageNumbers.push(1)
-        pageNumbers.push('...')
-        for (let i = totalPages - 3; i <= totalPages; i++) {
-          pageNumbers.push(i)
-        }
-      } else {
-        pageNumbers.push(1)
-        pageNumbers.push('...')
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pageNumbers.push(i)
-        }
-        pageNumbers.push('...')
-        pageNumbers.push(totalPages)
-      }
-    }
-
-    return pageNumbers
-  }
-
   // Функции для кнопок
   const prev = () => {
     setCurrentPage(prev => prev - 1)
@@ -62,10 +26,11 @@ export const PagLogic = (props: PropsType) => {
     setCurrentPage(prev => prev + 1)
   }
 
-  const pageNumbers = generatePageNumbers()
+  const paginationData = usePagination({ totalPages, currentPage })
+  const pageNumbers = paginationData.generatePageNumbers()
 
   return (
-    <div className={s.root}>
+    <div className={s.pagination}>
       <PrevButton callback={prev} disabled={currentPage === 1} />
       <ul className={s.list}>
         {pageNumbers.map((number: number | string) => (

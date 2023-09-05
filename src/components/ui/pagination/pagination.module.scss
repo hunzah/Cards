@@ -1,5 +1,15 @@
 .root {
   display: flex;
+  gap: 24px;
+}
+
+.selectContainer {
+  display: flex;
+  gap: 6px;
+}
+
+.pagination {
+  display: flex;
   align-items: center;
   height: 24px;
 }

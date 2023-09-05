@@ -1,7 +1,10 @@
 import { useState } from 'react'
 
+import s from './pagination.module.scss'
+
 import { PagLogic } from '@/components/ui/pagination/pagLogic.tsx'
 import { Select } from '@/components/ui/select'
+import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
   elements: any[]
@@ -16,10 +19,9 @@ export const Pagination = (props: PropsType) => {
   const firstElementIndex = lastElementIndex - perPage
   const currentElement = elements.slice(firstElementIndex, lastElementIndex)
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
-  // let optionsForSelect = [10, 20, 30, 50, 100]
 
   return (
-    <div>
+    <div className={s.root}>
       <Countries countries={currentElement} />
       <PagLogic
         elements={elements}
@@ -29,7 +31,11 @@ export const Pagination = (props: PropsType) => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-      <Select options={[10, 20, 30, 50, 100]} defaultValue={10} />
+      <Typography variant="body2" className={s.selectContainer}>
+        Показать
+        <Select options={[10, 20, 30, 50, 100]} defaultValue={10} />
+        на странице
+      </Typography>
     </div>
   )
 }
