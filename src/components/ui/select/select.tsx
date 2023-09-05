@@ -59,7 +59,7 @@ export const Select = (props: PropsType) => {
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
       </SelectRadix.Trigger>
 
-      <SelectRadix.Content className={classNames.content} position="popper">
+      <SelectRadix.Content className={classNames.content} position="popper" onChane={}>
         <SelectRadix.Group>
           <SelectRadix.Label>
             <SelectItem

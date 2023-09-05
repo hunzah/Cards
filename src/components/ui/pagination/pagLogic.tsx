@@ -33,8 +33,8 @@ export const PagLogic = (props: PropsType) => {
     <div className={s.pagination}>
       <PrevButton callback={prev} disabled={currentPage === 1} />
       <ul className={s.list}>
-        {pageNumbers.map((number: number | string) => (
-          <li key={number} className={s.li}>
+        {pageNumbers.map((number: number | string, i: number) => (
+          <li key={i} className={s.li}>
             {typeof number === 'number' ? (
               <a onClick={() => onChange(number)}>{number}</a>
             ) : (

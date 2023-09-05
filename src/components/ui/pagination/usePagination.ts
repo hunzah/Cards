@@ -6,6 +6,8 @@ type PropsType = {
 export const usePagination = (props: PropsType) => {
   const { totalPages, currentPage } = props
 
+  const DOTS = '...'
+
   const generatePageNumbers = () => {
     const pageNumbers = []
     const maxVisiblePages = 6
@@ -21,19 +23,19 @@ export const usePagination = (props: PropsType) => {
         for (let i = 2; i <= 4; i++) {
           pageNumbers.push(i)
         }
-        pageNumbers.push('...')
+        pageNumbers.push(DOTS)
         pageNumbers.push(totalPages)
       } else if (currentPage >= totalPages - 2) {
-        pageNumbers.push('...')
+        pageNumbers.push(DOTS)
         for (let i = totalPages - 3; i <= totalPages; i++) {
           pageNumbers.push(i)
         }
       } else {
-        pageNumbers.push('...')
+        pageNumbers.push(DOTS)
         for (let i = currentPage - 1; i <= currentPage + 1; i++) {
           pageNumbers.push(i)
         }
-        pageNumbers.push('...')
+        pageNumbers.push(DOTS)
         pageNumbers.push(totalPages)
       }
     }
