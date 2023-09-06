@@ -1,61 +1,50 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { omit } from 'remeda'
 import { z } from 'zod'
 
 import { Button } from '../../ui/button'
 
-import s from '@/components/auth/sign-up/sign-up.module.scss'
+import s from './sign-in.module.scss'
+
 import { Card } from '@/components/ui/card'
+import { ControlledCheckbox } from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox.tsx'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field/controlled-text-field.tsx'
 import { Typography } from '@/components/ui/typography'
 
-const signUpSchema = z
-  .object({
-    email: z.string().email(),
-    password: z.string().min(3),
-    passwordConfirmation: z.string().min(3),
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.passwordConfirmation) {
-      ctx.addIssue({
-        message: 'Passwords do not match',
-        code: z.ZodIssueCode.custom,
-        path: ['passwordConfirmation'],
-      })
-    }
+const signInSchema = z.object({
+  email: z.string().email('Invalid email address').nonempty('Enter email'),
+  password: z.string().min(3),
+  rememberMe: z.boolean().optional(),
+})
 
-    return data
-  })
-
-type FormValuesType = z.infer<typeof signUpSchema>
+type FormValuesType = z.infer<typeof signInSchema>
 
 type Props = {
-  onSubmit: (data: Omit<FormValuesType, 'passwordConfirmation'>) => void
+  onSubmit: (data: FormValuesType) => void
 }
-export const SignUp = (props: Props) => {
+export const SignIn = (props: Props) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValuesType>({
     mode: 'onSubmit',
-    resolver: zodResolver(signUpSchema),
+    resolver: zodResolver(signInSchema),
     defaultValues: {
       email: '',
       password: '',
-      passwordConfirmation: '',
+      rememberMe: false,
     },
   })
 
   const handleFormSubmitted = handleSubmit(data => {
-    props.onSubmit(omit(data, ['passwordConfirmation']))
+    props.onSubmit(data)
   })
 
   return (
     <Card className={s.card}>
       <Typography variant={'large'} className={s.title}>
-        Sign Up
+        Sign In
       </Typography>
       <form onSubmit={handleFormSubmitted}>
         <div className={s.form}>
@@ -81,27 +70,27 @@ export const SignUp = (props: Props) => {
             placeholder={'Password'}
             className={s.textField}
           />
-          <ControlledTextField
-            defaultValue={''}
-            errorMessage={errors.passwordConfirmation?.message}
-            inputIsSearch={false}
-            inputType={'password'}
-            label={'Confirm Password'}
-            name={'passwordConfirmation'}
-            placeholder={'Confirm Password'}
-            control={control}
-            className={s.textField}
-          />
         </div>
+        <ControlledCheckbox
+          label={'Remember me'}
+          name={'rememberMe'}
+          control={control}
+          className={s.checkbox}
+        />
+        <div className={s.buttonForgotPasswordContainer}>
+          <Button type={'link'} as={'a'} className={s.buttonForgotPassword}>
+            Forgot Password?
+          </Button>
+        </div>
+
         <Button type={'submit'} variant={'primary'} className={s.button}>
           Submit
         </Button>
         <Typography className={s.text} variant="body2">
-          Already have an account?
+          Don`t have an account?
         </Typography>
-
         <Button type={'link'} as={'a'} className={s.buttonLink}>
-          Sign In
+          Sign Up
         </Button>
       </form>
     </Card>

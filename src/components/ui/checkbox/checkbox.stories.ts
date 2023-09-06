@@ -10,7 +10,7 @@ const meta = {
     checked: {
       control: 'boolean',
     },
-    text: {
+    label: {
       control: 'string',
     },
     disabled: {
@@ -37,14 +37,14 @@ export const Unchecked: Story = {
 export const CheckedWithText: Story = {
   args: {
     checked: true,
-    text: 'check-box',
+    label: 'check-box',
   },
 }
 
 export const UncheckedWithText: Story = {
   args: {
     checked: false,
-    text: 'check-box',
+    label: 'check-box',
   },
 }
 
@@ -65,7 +65,7 @@ export const DisabledAndUnchecked: Story = {
 export const DisabledAndCheckedWithText: Story = {
   args: {
     checked: true,
-    text: 'check-box',
+    label: 'check-box',
     disabled: true,
   },
 }
@@ -73,7 +73,7 @@ export const DisabledAndCheckedWithText: Story = {
 export const DisabledAndUncheckedWithText: Story = {
   args: {
     checked: false,
-    text: 'check-box',
+    label: 'check-box',
     disabled: true,
   },
 }

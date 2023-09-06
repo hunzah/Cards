@@ -1,4 +1,5 @@
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
+import { clsx } from 'clsx'
 
 import checkboxBorderImg from '../../../assets/images/checkbox-border.svg'
 import disabledCheckedImg from '../../../assets/images/checkbox-disabled-checked.svg'
@@ -6,6 +7,8 @@ import checkboxImg from '../../../assets/images/checkbox.svg'
 import disabledUncheckedImg from '../../../assets/images/disabled-checkbox-unchecked.svg'
 
 import s from './checkbox.module.scss'
+
+import { Typography } from '@/components/ui/typography'
 
 export type CheckboxProps = {
   checked: boolean
@@ -15,10 +18,16 @@ export type CheckboxProps = {
   required?: boolean
   id?: string
   className?: string
+  labelClassName?: string
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-  const { checked, label, disabled, onChange, required, id } = props
+  const { checked, label, disabled, onChange, required, id, className, labelClassName } = props
+
+  const classNames = {
+    checkbox: clsx(s.checkboxRoot, className && s.className),
+    label: clsx(s.textContent, labelClassName && labelClassName, disabled && s.textDisabled),
+  }
 
   let checkboxImageSrc: string = checkboxBorderImg
 
@@ -34,7 +43,7 @@ export const Checkbox = (props: CheckboxProps) => {
 
   return (
     <CheckboxRadix.Root
-      className={s.checkboxRoot}
+      className={classNames.checkbox}
       checked={checked}
       onCheckedChange={onChange}
       disabled={disabled}
@@ -45,7 +54,9 @@ export const Checkbox = (props: CheckboxProps) => {
         <img src={checkboxImageSrc} alt="checkbox" className={s.customCheckboxSvg} />
       </div>
       <label className={s.textContainer} aria-label={label}>
-        <span className={`${s.textContent} ${disabled ? s.textDisabled : ''}`}>{label}</span>
+        <Typography variant="body2" className={classNames.label}>
+          {label}
+        </Typography>
       </label>
     </CheckboxRadix.Root>
   )

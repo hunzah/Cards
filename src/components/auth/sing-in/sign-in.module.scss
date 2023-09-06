@@ -19,7 +19,14 @@
 
   width: 100%;
   margin-top: 27px;
-  margin-bottom: 60px;
+  margin-bottom: 12px;
+}
+
+.checkbox {
+  width: 140px;
+  height: 36px;
+  margin-bottom: 6px;
+  font-family: var(--font-family-primary);
 }
 
 .button {
@@ -29,7 +36,8 @@
 
   width: 348px;
   height: 36px;
-  margin-top: 60px;
+  margin-top: 66px;
+  margin-bottom: 20px;
   padding: 6px 28px;
 }
 
@@ -38,10 +46,9 @@
   align-items: center;
   justify-content: center;
 
-  width: 50px;
+  width: 56px;
   height: 24px;
   margin: 0 auto;
-  margin-top: 11px;
 
   font-family: var(--font-family-primary);
   font-size: var(--font-size-m);
@@ -51,6 +58,26 @@
   text-decoration-line: underline;
 
   background-color: var(--color-dark-700);
+
+  &:hover {
+    cursor: default;
+  }
+}
+
+.buttonForgotPasswordContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttonForgotPassword {
+  width: 113px;
+  height: 24px;
+  font-size: var(--font-size-s);
+  background-color: var(--color-dark-700);
+
+  &:hover {
+    cursor: default;
+  }
 }
 
 .textField {
@@ -63,7 +90,7 @@
   align-items: center;
   justify-content: center;
 
-  margin-top: 20px;
+  margin-bottom: 11px;
 
   text-align: center;
 }
