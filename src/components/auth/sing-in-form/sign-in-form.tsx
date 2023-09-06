@@ -22,7 +22,7 @@ type FormValuesType = z.infer<typeof signInSchema>
 type Props = {
   onSubmit: (data: FormValuesType) => void
 }
-export const SignIn = (props: Props) => {
+export const SignInForm = ({ onSubmit }: Props) => {
   const {
     control,
     handleSubmit,
@@ -38,7 +38,7 @@ export const SignIn = (props: Props) => {
   })
 
   const handleFormSubmitted = handleSubmit(data => {
-    props.onSubmit(data)
+    onSubmit(data)
   })
 
   return (

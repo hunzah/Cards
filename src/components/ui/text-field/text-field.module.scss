@@ -28,7 +28,7 @@
   // тут закоментил так как по дефолту белый цвет
   //color: var(--color-dark-100);
 
-  background-color: var(--color-dark-900);
+  background-color: inherit;
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;
 
@@ -61,7 +61,7 @@
   padding-right: 32px;
   padding-left: 12px;
 
-  background-color: var(--color-dark-900);
+  background-color: inherit;
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;
 
@@ -101,7 +101,7 @@
 
   color: var(--color-dark-100);
 
-  background-color: var(--color-dark-900);
+  background-color: inherit;
   border: 1px solid var(--color-dark-300);
   border-radius: 2px;
 
@@ -142,7 +142,7 @@
   width: 24px;
   height: 24px;
 
-  background-color: var(--color-dark-900);
+  background-color: inherit;
   border: 0;
 }
 
@@ -156,7 +156,7 @@
 
   color: white;
 
-  background-color: var(--color-dark-900);
+  background-color: inherit;
   border: 0;
 }
 
@@ -168,7 +168,7 @@
   width: 20px;
   height: 20px;
 
-  background-color: var(--color-dark-900);
+  background-color: inherit;
   border: 0;
 }
 
