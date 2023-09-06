@@ -9,7 +9,6 @@ export const Decks = () => {
     if (decks.isLoading) {
         return <div>Loading....</div>
     }
-    console.log(decks.data.items)
     return <div>
 
         <Button onClick={() => createDeck({name: "qwe"})}> crearte deck</Button>
