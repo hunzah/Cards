@@ -21,7 +21,7 @@ export const TableHeadCell = forwardRef<ElementRef<'th'>, ComponentPropsWithoutR
 
         return (
             <th className={classNames.headCell} {...rest} ref={ref}>
-                {children}
+                <span>{children}</span>
             </th>
         )
     }
@@ -75,62 +75,44 @@ export const TableHead = forwardRef<ElementRef<'thead'>, ComponentPropsWithoutRe
         </Typography>
     )
 }*/
-const headCells = [
-    {
-        id: 'name',
-        numeric: 1,
-        disablePadding: 53,
-        label: 'Dessert (100g serving)',
-    },
-    {
-        id: 'calories',
-        numeric: 2,
-        disablePadding: 5,
-        label: 'Calories',
-    },
-    {
-        id: 'fat',
-        numeric: 3,
-        disablePadding: 2,
-        label: 'Fat (g)',
-    },
-    {
-        id: 'carbs',
-        numeric: 4,
-        disablePadding: 3,
-        label: 'Carbs (g)',
-    },
-    {
-        id: 'protein',
-        numeric: 5,
-        disablePadding: 3,
-        label: 'Protein (g)',
-    },
-];
 
-type Columns = keyof typeof headCells[number]
-export const TableContainer = () => {
-    const [order, setOrder] = useState<"asc" | "desc">("desc")
-    const [acolumn, setacolumn] = useState<Columns>("id")
-    const columns = Object.keys(headCells[0]) as Columns
+type Sort = {
+    key: string
+    direction: 'asc' | 'desc'
+} | null
+
+export const TableContainer = (props:any) => {
+    const headCells = props.headCells
+   type Columns = keyof typeof headCells[number]
+    const [sort, setSort] = useState<Sort>(null)
+
+    const columns = Object.keys(headCells[0])
+    console.log(headCells)
+
+    const onclickHandler = (key:string) => {
+        if (sort && sort.key === key) {
+
+            setSort(sort.direction === "asc" ? {key, direction: 'desc'} : null)
 
 
-    function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-        if (b[orderBy] < a[orderBy]) {
-            return -1;
+        }else {
+            console.log(2)
+                setSort({
+                    key,
+                    direction: 'asc',
+                })
+            }
         }
-        if (b[orderBy] > a[orderBy]) {
-            return 1;
-        }
-        return 0;
-    }
 
-    console.log(order, acolumn, columns)
+    console.log( sort)
     return (
         <Table>
             <TableHead>
-                <TableRow>
-                    {columns.map(tc => {
+                <TableRow><TableHeadCell onClick={()=>onclickHandler("name")}>Name</TableHeadCell>
+                    <TableHeadCell onClick={()=>onclickHandler("cardsCount")}>Cards</TableHeadCell>
+                    <TableHeadCell onClick={()=>onclickHandler("updated")}>Updated</TableHeadCell>
+                    <TableHeadCell onClick={()=>onclickHandler("createdBy")}>created by</TableHeadCell></TableRow>
+               {/*     {columns.map(tc => {
 
                         const onclickHandler = () => {
                             if (tc === acolumn) {
@@ -141,38 +123,22 @@ export const TableContainer = () => {
                             }
                         }
 
-                        return <TableHeadCell onClick={onclickHandler}>{tc}</TableHeadCell>
+                        return <TableHeadCell key={tc} onClick={onclickHandler}>{tc}</TableHeadCell>
 
 
-                    })}
+                    })}*/}
 
-                </TableRow>
+
             </TableHead>
-            <TableBody>
-                {headCells.map(hc=>{
-                    return <TableRow>
-                        {columns.map((cell,index)=> <TableCell>{hc[cell]}</TableCell> )}
-                    </TableRow>
-                })}
-              {/*  <TableRow>
-                    <TableCell>Drsdfsdxfs</TableCell>
-                    <TableCell>3,as</TableCell>
-                    <TableCell>red</TableCell>
-                    <TableCell>12</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>Stationery</TableCell>
-                    <TableCell>18,000</TableCell>
-                    <TableCell>19,00s0</TableCell>
-                    <TableCell>12</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>Stationery</TableCell>
-                    <TableCell>18,0s00</TableCell>
-                    <TableCell>18,000</TableCell>
-                    <TableCell>12</TableCell>
-                </TableRow>*/}
-            </TableBody>
+            <TableBody>{headCells.map(deck=>{
+                return (
+                    <TableRow key={deck.id}>
+                        <TableCell>{deck.name}</TableCell>
+                        <TableCell>{deck.cardsCount}</TableCell>
+                        <TableCell>{deck.updated}</TableCell>
+                        <TableCell>{deck.author.name}</TableCell>
+                    </TableRow>)
+            })}</TableBody>
         </Table>
     )
 }

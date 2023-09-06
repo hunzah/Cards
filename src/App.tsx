@@ -11,8 +11,10 @@ import {ForgotPassword} from '@/components/ui/auth-forgot-password/forgot-passwo
 import {Button} from '@/components/ui/button'
 import {TabSwitcher} from '@/components/ui/tab-switcher'
 import {Typography} from '@/components/ui/typography'
-import {TableContainer} from "@/components/ui/table";
+import {Table, TableContainer} from "@/components/ui/table";
 import {Router} from "@/router";
+import {Provider} from "react-redux";
+import {store} from "@/services/store";
 
 
 export function App() {
@@ -22,6 +24,45 @@ export function App() {
         {id: 2, switchTitle: 'second', disabled: false},
         {id: 3, switchTitle: 'third', disabled: true},
     ]
+    const headCells = [{
+    cardsCount:0,
+    cover:null,
+    created:"2023-09-06T08:37:05.593Z",
+    id:"clm7hke610fd8vo2qjtlykiq8",
+    isBlocked:null,
+    isDeleted:null,
+    isPrivate:false,
+
+    rating:0,
+    shots:0,
+    updated:"2023-09-06T08:37:05.593Z",
+    userId:"f2be95b9-4d07-4751-a775-bd612fc9553a"
+        },
+        {
+            id: 'calories',
+            numeric: 2,
+            disablePadding: 5,
+            label: 'Calories',
+        },
+        {
+            id: 'fat',
+            numeric: 3,
+            disablePadding: 2,
+            label: 'Fat (g)',
+        },
+        {
+            id: 'carbs',
+            numeric: 4,
+            disablePadding: 3,
+            label: 'Carbs (g)',
+        },
+        {
+            id: 'protein',
+            numeric: 5,
+            disablePadding: 3,
+            label: 'Protein (g)',
+        },
+    ];
     const handleFormSubmitted = (data: any) => {
         console.log(data)
     }
@@ -57,16 +98,20 @@ export function App() {
         <ForgotPassword />
       </div>
       <SignUp onSubmit={handleFormSubmitted} />*/}
-            <Button variant={"link"} className={s.button}>
+         {/*   <Button variant={"link"} className={s.button}>
                 {' '}
                 <ComponentWithSvg svg={Layer2}/>
                 Hello
             </Button>
             asdasdasdasd
-            <TableContainer/>
-            <Router />
+            <TableContainer/>*/}
+
+            <Provider store={store}>
+                <Router/>
+            </Provider>
 
         </div>
 
     )
 }
+//scotch 1:00
