@@ -11,6 +11,10 @@ import { ForgotPassword } from '@/components/ui/auth-forgot-password/forgot-pass
 import { Button } from '@/components/ui/button'
 import { TabSwitcher } from '@/components/ui/tab-switcher'
 import { Typography } from '@/components/ui/typography'
+import {TableContainer} from "@/components/ui/table";
+import {Provider} from "react-redux";
+import {Router} from "@/router";
+import {store} from "@/services/store";
 
 export function App() {
   const [checked, setChecked] = useState(false)
@@ -25,7 +29,7 @@ export function App() {
 
   return (
     <div>
-      <Checkbox checked={checked} onChange={setChecked} disabled={false} />
+     {/* <Checkbox checked={checked} onChange={setChecked} disabled={false} />
       <Typography variant="body2" component={'h3'}>
         Subheading
       </Typography>
@@ -53,7 +57,10 @@ export function App() {
         <TabSwitcher switches={switches} />
         <ForgotPassword />
       </div>
-      <SignUp onSubmit={handleFormSubmitted} />
+      <SignUp onSubmit={handleFormSubmitted} />*/}
+        <Provider store={store}>
+            <Router/>
+        </Provider>
     </div>
   )
 }
