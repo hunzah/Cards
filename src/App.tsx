@@ -12,6 +12,7 @@ import {Button} from '@/components/ui/button'
 import {TabSwitcher} from '@/components/ui/tab-switcher'
 import {Typography} from '@/components/ui/typography'
 import {TableContainer} from "@/components/ui/table";
+import {Router} from "@/router";
 
 
 export function App() {
@@ -63,6 +64,7 @@ export function App() {
             </Button>
             asdasdasdasd
             <TableContainer/>
+            <Router />
 
         </div>
 
