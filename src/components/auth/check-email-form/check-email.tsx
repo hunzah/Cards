@@ -1,10 +1,9 @@
-import React from 'react'
-import { Card } from '@/components/ui/card'
-import s from '@/components/auth/check-email-form/check-email.module.scss'
-import { Typography } from '@/components/ui/typography'
-import { Button } from '@/components/ui/button'
 import checkEmailIcon from '@/assets/images/check-email.svg'
+import s from '@/components/auth/check-email-form/check-email.module.scss'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
+import { Typography } from '@/components/ui/typography'
 
 export const CheckEmail = () => {
   return (
