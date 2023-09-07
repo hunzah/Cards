@@ -12,7 +12,5 @@ type PropsType = {
 export const Card = ({ children, className }: PropsType) => {
   const classNames = { container: clsx(s.container, className) }
 
-  console.log(typeof className)
-
   return <div className={classNames.container}>{children}</div>
 }

@@ -5,12 +5,14 @@ import {
   Outlet,
   Navigate,
 } from 'react-router-dom'
+
 import { Decks } from '@/pages/decks'
+import { SignIn } from '@/pages/SignIn.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <div>login</div>,
+    element: <SignIn />,
   },
 ]
 
@@ -34,7 +36,7 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = false
+  const isAuthenticated = true
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }
