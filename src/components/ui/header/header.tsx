@@ -8,20 +8,21 @@ import { DropDownMenu } from '@/components/ui/header/drop-down-menu/drop-down-me
 
 type Props = {
   name: string
+  open?: boolean
 }
 export const Header = (props: Props) => {
-  const { name } = props
+  const { name, open } = props
   const [isAuthorized] = useState(true)
 
   return (
     <div className={s.container}>
-      <img src={logo} className={s.logo} />
+      <img src={logo} className={s.logo} alt={'logotype'} />
       {!isAuthorized ? (
         <Button />
       ) : (
         <div className={s.profileContainer}>
           <div className={s.name}>{name}</div>
-          <DropDownMenu name={name} email={'AA@gmail.com'} />
+          <DropDownMenu name={name} email={'AA@gmail.com'} open={open} />
         </div>
       )}
     </div>

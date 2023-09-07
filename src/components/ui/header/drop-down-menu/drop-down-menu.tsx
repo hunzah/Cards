@@ -12,10 +12,11 @@ type Props = {
   avatar?: string
   name?: string
   email?: string
+  open?: boolean
 }
 export const DropDownMenu = (props: Props) => {
-  const { name, email } = props
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { name, email, open } = props
+  const [isMenuOpen, setIsMenuOpen] = useState(open ? open : false)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -23,11 +24,11 @@ export const DropDownMenu = (props: Props) => {
 
   return (
     <div>
-      <img src={avatarTest} onClick={toggleMenu} className={s.avatar} />
+      <img src={avatarTest} onClick={toggleMenu} className={s.avatar} alt={'avatar'} />
       {isMenuOpen && (
         <ul className={s.menuContainer}>
           <li className={s.infoContainer}>
-            <img src={avatarTest} onClick={toggleMenu} />
+            <img src={avatarTest} onClick={toggleMenu} alt={'avatar'} />
             <div className={s.nameAndEmailContainer}>
               <Typography variant={'subtitle2'}>{name}</Typography>
               <Typography className={s.email} variant={'caption'}>
