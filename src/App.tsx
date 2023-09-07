@@ -1,5 +1,8 @@
 import { useState } from 'react'
+
 import { Provider } from 'react-redux'
+
+import { SignInForm } from '@/components/auth/sing-in-form'
 import { Router } from '@/router'
 import { store } from '@/services/store'
 
@@ -16,6 +19,7 @@ export function App() {
 
   return (
     <div>
+      <SignInForm onSubmit={handleFormSubmitted} />
       <Provider store={store}>
         <Router />
       </Provider>

@@ -1,19 +1,28 @@
-import {useCreateDecksMutation, useGetDecksQuery} from "@/services/decks/decks";
-import {Button} from "@/components/ui/button";
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableHeadCell, TableRow} from "@/components/ui/table";
-
+import { Button } from '@/components/ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableHeadCell,
+  TableRow,
+} from '@/components/ui/table'
+import { useCreateDecksMutation, useGetDecksQuery } from '@/services/decks/decks'
 
 export const Decks = () => {
-    const decks = useGetDecksQuery()
-    const [createDeck] = useCreateDecksMutation()
-    if (decks.isLoading) {
-        return <div>Loading....</div>
-    }
-    return <div>
+  const decks = useGetDecksQuery()
+  const [createDeck] = useCreateDecksMutation()
 
-        <Button onClick={() => createDeck({name: "qwe"})}> crearte deck</Button>
-        <TableContainer headCells={decks.data.items}/>
-       {/* <Table>
+  if (decks.isLoading) {
+    return <div>Loading....</div>
+  }
+
+  return (
+    <div>
+      <Button onClick={() => createDeck({ name: 'qwe' })}> crearte deck</Button>
+      <TableContainer headCells={decks.data.items} />
+      {/* <Table>
             <TableHead>
                 <TableRow><TableHeadCell>Name</TableHeadCell>
                     <TableHeadCell>Cards</TableHeadCell>
@@ -31,4 +40,5 @@ export const Decks = () => {
             })}</TableBody>
         </Table>*/}
     </div>
+  )
 }

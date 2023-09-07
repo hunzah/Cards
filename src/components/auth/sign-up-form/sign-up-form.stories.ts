@@ -6,18 +6,10 @@ const meta = {
   title: 'Authentication/SignUpForm',
   component: SignUpForm,
   tags: ['autodocs'],
-  argTypes: {
-    onChange: {
-      control: '(data:any) => void',
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof SignUpForm>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  args: {
-    // onChange: ()=>console.log('myau')
-  },
-}
+export const Default: Story = {}
