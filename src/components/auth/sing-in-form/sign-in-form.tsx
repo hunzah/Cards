@@ -10,7 +10,6 @@ import { Card } from '@/components/ui/card'
 import { ControlledCheckbox } from '@/components/ui/controlled/controlled-checkbox/controlled-checkbox.tsx'
 import { ControlledTextField } from '@/components/ui/controlled/controlled-text-field/controlled-text-field.tsx'
 import { Typography } from '@/components/ui/typography'
-import { useLogInMutation } from '@/services/auth/auth.ts'
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email address').nonempty('Enter email'),
@@ -19,17 +18,15 @@ const signInSchema = z.object({
 })
 
 type FormValuesType = z.infer<typeof signInSchema>
-//
-// type Props = {
-//   onSubmit: (data: FormValuesType) => void
-// }
-export const SignInForm = () => {
-  const [login, { error }] = useLogInMutation()
+
+type Props = {
+  onSubmit: (data: FormValuesType) => void
+}
+export const SignInForm = ({ onSubmit }: Props) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm<FormValuesType>({
     mode: 'onSubmit',
     resolver: zodResolver(signInSchema),
@@ -40,18 +37,8 @@ export const SignInForm = () => {
     },
   })
 
-  if (error) {
-    if (
-      'status' in error &&
-      typeof error.data === 'object' &&
-      error.data &&
-      'message' in error.data
-    ) {
-      setError('password', { type: 'custom', message: error.data.message as string })
-    }
-  }
   const handleFormSubmitted = handleSubmit(data => {
-    login(data)
+    onSubmit(data)
   })
 
   return (
