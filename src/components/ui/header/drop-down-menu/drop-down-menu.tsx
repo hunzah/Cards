@@ -35,11 +35,13 @@ export const DropDownMenu = (props: Props) => {
               </Typography>
             </div>
           </li>
+          <li className={s.rectangle}></li>
           <li>
             <Button as={'a'} className={s.button} variant="secondary" img={myProfIcon}>
               <Typography variant={'caption'}>My Profile</Typography>
             </Button>
           </li>
+          <li className={s.rectangle}></li>
           <li>
             <Button as={'a'} className={s.button} variant="secondary" img={logOut}>
               <Typography variant={'caption'}>Sign Out</Typography>

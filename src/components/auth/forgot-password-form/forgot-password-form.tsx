@@ -58,7 +58,6 @@ export const ForgotPasswordForm = ({ onSubmit }: Props) => {
             label={'Enter your email address and we will send you further instructions'}
           />
         </div>
-
         <div className={s.buttonsContainer}>
           <Button type={'submit'} variant={'primary'} className={s.button}>
             Send Instructions

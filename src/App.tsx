@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { Header } from '@/components/ui/header/header.tsx'
 import { Router } from '@/router'
 import { store } from '@/services/store'
+import { CheckEmail } from '@/components/auth/check-email-form/check-email.tsx'
 
 export function App() {
   const [checked, setChecked] = useState(false)
@@ -17,6 +18,7 @@ export function App() {
   return (
     <div>
       <Header name="Ivan" />
+      <CheckEmail />
       {/*<Provider store={store}>*/}
       {/*  <Router />*/}
       {/*</Provider>*/}
