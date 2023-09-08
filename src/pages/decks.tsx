@@ -20,7 +20,7 @@ export const Decks = () => {
 
   return (
     <div>
-      <Button onClick={() => createDeck({ name: 'qwe' })}> crearte deck</Button>
+      <Button onClick={() => createDeck({ name: 'qйййwe' })}> crearte deck</Button>
       <TableContainer headCells={decks.data.items} />
       {/* <Table>
             <TableHead>

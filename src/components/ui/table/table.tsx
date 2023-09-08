@@ -2,6 +2,8 @@ import {clsx} from "clsx";
 import {ComponentPropsWithoutRef, ElementRef, forwardRef, useState} from "react";
 import s from './table.module.scss'
 import {Typography} from "@/components/ui/typography";
+import {Button} from "@/components/ui/button";
+import {useCreateDecksMutation, useDeleteDeckMutation} from "@/services/decks/decks";
 
 
 export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
@@ -85,7 +87,7 @@ export const TableContainer = (props:any) => {
     const headCells = props.headCells
    type Columns = keyof typeof headCells[number]
     const [sort, setSort] = useState<Sort>(null)
-
+    const [deleteDeck] = useDeleteDeckMutation()
     const columns = Object.keys(headCells[0])
     console.log(headCells)
 
@@ -104,6 +106,11 @@ export const TableContainer = (props:any) => {
             }
         }
 
+        const deleteDeckHandler = ({id})=>{
+            deleteDeck({id})
+
+        }
+
     console.log( sort)
     return (
         <Table>
@@ -111,7 +118,8 @@ export const TableContainer = (props:any) => {
                 <TableRow><TableHeadCell onClick={()=>onclickHandler("name")}>Name</TableHeadCell>
                     <TableHeadCell onClick={()=>onclickHandler("cardsCount")}>Cards</TableHeadCell>
                     <TableHeadCell onClick={()=>onclickHandler("updated")}>Updated</TableHeadCell>
-                    <TableHeadCell onClick={()=>onclickHandler("createdBy")}>created by</TableHeadCell></TableRow>
+                    <TableHeadCell onClick={()=>onclickHandler("createdBy")}>created by</TableHeadCell>
+                    <TableHeadCell ></TableHeadCell></TableRow>
                {/*     {columns.map(tc => {
 
                         const onclickHandler = () => {
@@ -137,6 +145,7 @@ export const TableContainer = (props:any) => {
                         <TableCell>{deck.cardsCount}</TableCell>
                         <TableCell>{deck.updated}</TableCell>
                         <TableCell>{deck.author.name}</TableCell>
+                        <TableCell><Button onClick={()=>deleteDeckHandler({id:deck.id})}>delete</Button></TableCell>
                     </TableRow>)
             })}</TableBody>
         </Table>
