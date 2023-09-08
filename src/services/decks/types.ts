@@ -3,6 +3,8 @@ export type DecksResponse = {
   pagination: Pagination
   maxCardsCount: number
 }
+export type DeckPostResponse = Omit<DecksResponse, "maxCardsCount">
+export type DeckDeleteResponse = Omit<Deck, "author">
 
 export type Pagination = {
   currentPage: number
@@ -40,3 +42,15 @@ export type DecksParams = {
   currentPage?: number
   itemsPerPage?: number
 } | void
+
+export type DecksPostParams = {
+  cover:string
+  name?:string
+isPrivate:boolean
+}
+
+
+
+export type DeckDeleteParams = Pick<Deck, "id">
+
+

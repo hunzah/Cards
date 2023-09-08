@@ -3,7 +3,12 @@ import {ComponentPropsWithoutRef, ElementRef, forwardRef, useState} from "react"
 import s from './table.module.scss'
 import {Typography} from "@/components/ui/typography";
 import {Button} from "@/components/ui/button";
-import {useCreateDecksMutation, useDeleteDeckMutation} from "@/services/decks/decks";
+import {
+    useCreateDecksMutation,
+    useDeleteDeckMutation,
+    useGetDecksQuery,
+    useUpdateDeckMutation
+} from "@/services/decks/decks";
 
 
 export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
@@ -83,11 +88,12 @@ type Sort = {
     direction: 'asc' | 'desc'
 } | null
 
-export const TableContainer = (props:any) => {
+export const DeckTableContainer = (props:any) => {
     const headCells = props.headCells
    type Columns = keyof typeof headCells[number]
     const [sort, setSort] = useState<Sort>(null)
     const [deleteDeck] = useDeleteDeckMutation()
+    const [updateDeck] = useUpdateDeckMutation()
     const columns = Object.keys(headCells[0])
     console.log(headCells)
 
@@ -98,7 +104,6 @@ export const TableContainer = (props:any) => {
 
 
         }else {
-            console.log(2)
                 setSort({
                     key,
                     direction: 'asc',
@@ -110,17 +115,21 @@ export const TableContainer = (props:any) => {
             deleteDeck({id})
 
         }
+        const updateDeckHandler = ({id, params})=>{
+            updateDeck({id:{id}, params:{params}})
 
-    console.log( sort)
+        }
+
+
     return (
         <Table>
-            <TableHead>
+          {/*  <TableHead>
                 <TableRow><TableHeadCell onClick={()=>onclickHandler("name")}>Name</TableHeadCell>
                     <TableHeadCell onClick={()=>onclickHandler("cardsCount")}>Cards</TableHeadCell>
                     <TableHeadCell onClick={()=>onclickHandler("updated")}>Updated</TableHeadCell>
                     <TableHeadCell onClick={()=>onclickHandler("createdBy")}>created by</TableHeadCell>
                     <TableHeadCell ></TableHeadCell></TableRow>
-               {/*     {columns.map(tc => {
+                    {columns.map(tc => {
 
                         const onclickHandler = () => {
                             if (tc === acolumn) {
@@ -134,7 +143,7 @@ export const TableContainer = (props:any) => {
                         return <TableHeadCell key={tc} onClick={onclickHandler}>{tc}</TableHeadCell>
 
 
-                    })}*/}
+                    })}
 
 
             </TableHead>
@@ -146,8 +155,9 @@ export const TableContainer = (props:any) => {
                         <TableCell>{deck.updated}</TableCell>
                         <TableCell>{deck.author.name}</TableCell>
                         <TableCell><Button onClick={()=>deleteDeckHandler({id:deck.id})}>delete</Button></TableCell>
+                        <TableCell><Button onClick={()=>updateDeckHandler({id:deck.id,params: {name: "NEW1NAME"}})}>edit</Button></TableCell>
                     </TableRow>)
-            })}</TableBody>
+            })}</TableBody>*/}
         </Table>
     )
 }
