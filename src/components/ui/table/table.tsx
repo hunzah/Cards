@@ -1,8 +1,7 @@
 import {clsx} from "clsx";
 import {ComponentPropsWithoutRef, ElementRef, forwardRef, useState} from "react";
 import s from './table.module.scss'
-import {Typography} from "@/components/ui/typography";
-import {Button} from "@/components/ui/button";
+
 import {
     useCreateDecksMutation,
     useDeleteDeckMutation,
