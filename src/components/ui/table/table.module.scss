@@ -3,19 +3,31 @@
   width: 100%;
   color: var(--color-light-100);
   border: 1px solid var(--color-dark-500);
+
+
 }
-
+:is(td,th)>span {
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 99%;
+}
 .headCell {
-  width: 35%;
+ width: 20%;
   padding: 6px 24px;
-
+  max-width: min-content;
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
 
 
   background-color: var(--color-dark-500);
-
+/*&:nth-child(4){
+width: 20ch;
+}&:nth-child(2){
+width: min(100px, 20%);
+}*/
   > span {
     user-select: none;
     display: flex;
@@ -59,5 +71,5 @@
 }
 
 .TableRow{
-  width: 100%;
+  //width: 100%;
 }

@@ -129,4 +129,4 @@ export const Decks = () => {
         </div>
     )
 }
-//TODO : Table must have static style
+//TODO : надо каждой колонке задать свою ширину. что такое IS!
