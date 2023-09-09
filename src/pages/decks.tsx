@@ -15,8 +15,10 @@ import {
     useUpdateDeckMutation
 } from '@/services/decks/decks'
 import {useState} from "react";
-
-
+import s from '../../src/components/ui/table/table.module.scss'
+import ComponentWithSvg from "@/components/ComponentWithSVG";
+import Dot from "../assets/icons/Dot.svg"
+import ArrowUp from "../assets/icons/ArrowUp.svg"
 
 type Sort = {
     key: string
@@ -61,18 +63,33 @@ export const Decks = () => {
         updateDeck({id: {id}, params: {params}})
 
     }
-    console.log(sort)
+    const sortArrow = (orderBy:string) => {
+        if (!sort || sort.key !== orderBy) {
+            return <span>•</span>
+            if (sort.key !== orderBy) {
+                <span>•</span>
+            }
+        }
+        if (sort.direction === 'asc' & sort.key === orderBy) {
+            return <span>↑</span>
+        }
+        if (sort.direction === 'desc' & sort.key === orderBy) {
+            return <span>↓</span>
+        }
+    }
+
     return (
         <div>
+            <span>↑↓•</span>
             {a.isLoading ? <div>DELETING</div> : ""}
             <Button onClick={() => createDeck({name: 'deckname'})}> crearte deck</Button>
             <DeckTableContainer headCells={decks.data.items}/>
             <Table>
                 <TableHead>
-                    <TableRow><TableHeadCell onClick={() => onclickHandler("name")}>Name</TableHeadCell>
-                        <TableHeadCell onClick={() => onclickHandler("cardsCount")}>Cards</TableHeadCell>
-                        <TableHeadCell onClick={() => onclickHandler("updated")}>Updated</TableHeadCell>
-                        <TableHeadCell onClick={() => onclickHandler("createdBy")}>created by</TableHeadCell>
+                    <TableRow><TableHeadCell onClick={() => onclickHandler("name")}> {sortArrow("name")} Name</TableHeadCell>
+                        <TableHeadCell onClick={() => onclickHandler("cardsCount")}>{sortArrow("cardsCount")} Cards</TableHeadCell>
+                        <TableHeadCell onClick={() => onclickHandler("updated")}>{sortArrow("updated")} Updated</TableHeadCell>
+                        <TableHeadCell onClick={() => onclickHandler("created")}>{sortArrow("created")} created by</TableHeadCell>
                         <TableHeadCell></TableHeadCell></TableRow>
                 </TableHead>
                 <TableBody>{decks.data.items.map(deck => {
@@ -81,13 +98,15 @@ export const Decks = () => {
                             <TableCell>{deck.name}</TableCell>
                             <TableCell>{deck.cardsCount}</TableCell>
                             <TableCell>{deck.updated}</TableCell>
-                            <TableCell>{deck.author.name}</TableCell>
-                            <TableCell><Button disabled={a.isLoading}
-                                onClick={() => deleteDeckHandler({id: deck.id})}>delete</Button></TableCell>
-                            <TableCell><Button  onClick={() => updateDeckHandler({
-                                id: deck.id,
-                                params: {name: "NEW1NAME"}
-                            })}>edit</Button></TableCell>
+                            <TableCell>{deck.author.name}
+
+                            </TableCell>
+                            <TableCell><div className={s.creatorWithButton}><Button disabled={a.isLoading}
+                                                                                    onClick={() => deleteDeckHandler({id: deck.id})}>delete</Button>
+                                <Button onClick={() => updateDeckHandler({
+                                    id: deck.id,
+                                    params: {name: "NEW1NAME"}
+                                })}>edit</Button></div></TableCell>
                         </TableRow>)
                 })}</TableBody>
             </Table>
@@ -113,5 +132,4 @@ export const Decks = () => {
         </div>
     )
 }
-
 //TODO : Table must have static style
