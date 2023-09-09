@@ -30,13 +30,12 @@ export const Decks = () => {
     const decks = useGetDecksQuery({
         orderBy:sort===null ? null : `${sort.key}-${sort.direction}`
     })
-    const [createDeck] = useCreateDecksMutation()
+    const [createDeck, createDeckLoading={isLoading}] = useCreateDecksMutation()
     const isLoading = useGetDecksQuery()
-    const [deleteDeck, a={isLoading}] = useDeleteDeckMutation()
+    const [deleteDeck, deleteDeckLoading={isLoading}] = useDeleteDeckMutation()
     const [updateDeck] = useUpdateDeckMutation()
 
-
-
+    console.log(decks)
     if (decks.isLoading) {
         return <div>Loading....</div>
     }
@@ -57,7 +56,6 @@ export const Decks = () => {
 
     const deleteDeckHandler = ({id}) => {
         deleteDeck({id})
-
     }
     const updateDeckHandler = ({id, params}) => {
         updateDeck({id: {id}, params: {params}})
@@ -77,13 +75,12 @@ export const Decks = () => {
             return <span>↓</span>
         }
     }
-
     return (
         <div>
-            <span>↑↓•</span>
-            {a.isLoading ? <div>DELETING</div> : ""}
-            <Button onClick={() => createDeck({name: 'deckname'})}> crearte deck</Button>
-            <DeckTableContainer headCells={decks.data.items}/>
+            {deleteDeckLoading.isLoading ? <div style={{position:'fixed', left:"250px"}}>DELETING</div> : ""}
+            {createDeckLoading.isLoading ? <div style={{position:'fixed', left:"300px"}}>CREATING</div> : ""}
+
+            <Button onClick={() => createDeck({name: 'deckname'})}> create deck</Button>
             <Table>
                 <TableHead>
                     <TableRow><TableHeadCell onClick={() => onclickHandler("name")}> {sortArrow("name")} Name</TableHeadCell>
@@ -101,8 +98,8 @@ export const Decks = () => {
                             <TableCell>{deck.author.name}
 
                             </TableCell>
-                            <TableCell><div className={s.creatorWithButton}><Button disabled={a.isLoading}
-                                                                                    onClick={() => deleteDeckHandler({id: deck.id})}>delete</Button>
+                            <TableCell><div className={s.creatorWithButton}>
+                                <Button  onClick={() => deleteDeckHandler({id: deck.id})}>delete</Button>
                                 <Button onClick={() => updateDeckHandler({
                                     id: deck.id,
                                     params: {name: "NEW1NAME"}
