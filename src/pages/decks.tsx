@@ -30,7 +30,7 @@ export const Decks = () => {
     })
     const [createDeck] = useCreateDecksMutation()
     const isLoading = useGetDecksQuery()
-    const [deleteDeck] = useDeleteDeckMutation()
+    const [deleteDeck, a={isLoading}] = useDeleteDeckMutation()
     const [updateDeck] = useUpdateDeckMutation()
 
 
@@ -64,6 +64,7 @@ export const Decks = () => {
     console.log(sort)
     return (
         <div>
+            {a.isLoading ? <div>DELETING</div> : ""}
             <Button onClick={() => createDeck({name: 'deckname'})}> crearte deck</Button>
             <DeckTableContainer headCells={decks.data.items}/>
             <Table>
@@ -81,9 +82,9 @@ export const Decks = () => {
                             <TableCell>{deck.cardsCount}</TableCell>
                             <TableCell>{deck.updated}</TableCell>
                             <TableCell>{deck.author.name}</TableCell>
-                            <TableCell><Button
+                            <TableCell><Button disabled={a.isLoading}
                                 onClick={() => deleteDeckHandler({id: deck.id})}>delete</Button></TableCell>
-                            <TableCell><Button onClick={() => updateDeckHandler({
+                            <TableCell><Button  onClick={() => updateDeckHandler({
                                 id: deck.id,
                                 params: {name: "NEW1NAME"}
                             })}>edit</Button></TableCell>
