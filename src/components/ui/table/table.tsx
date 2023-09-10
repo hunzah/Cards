@@ -10,6 +10,7 @@ import {
 } from "@/services/decks/decks";
 
 
+
 export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
     ({className, ...rest}, ref) => {
         const classNames = {
@@ -33,18 +34,18 @@ export const TableHeadCell = forwardRef<ElementRef<'th'>, ComponentPropsWithoutR
     }
 )
 export const TableCell = forwardRef<ElementRef<'td'>, ComponentPropsWithoutRef<'td'>>(
-    ({className, ...rest}, ref) => {
+    ({className,children,...rest}, ref) => {
         const classNames = {
             cell: clsx(className, s.tableCell),
         }
 
-        return <td className={classNames.cell} {...rest} ref={ref}/>
+        return <td className={classNames.cell} {...rest} ref={ref}><span>{children}</span> </td>
     }
 )
 
 export const TableRow = forwardRef<ElementRef<'tr'>, ComponentPropsWithoutRef<'tr'>>(
     ({...rest}, ref) => {
-        return <tr {...rest} ref={ref}/>
+        return <tr {...rest} className={s.TableRow} ref={ref}/>
     }
 )
 
