@@ -1,13 +1,5 @@
 import {Button} from '@/components/ui/button'
-import {
-    DeckTableContainer,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeadCell,
-    TableRow,
-} from '@/components/ui/table'
+import {Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow,} from '@/components/ui/table'
 import {
     useCreateDecksMutation,
     useDeleteDeckMutation,
@@ -16,9 +8,6 @@ import {
 } from '@/services/decks/decks'
 import {useState} from "react";
 import s from '../../src/components/ui/table/table.module.scss'
-import ComponentWithSvg from "@/components/ComponentWithSVG";
-import Dot from "../assets/icons/Dot.svg"
-import ArrowUp from "../assets/icons/ArrowUp.svg"
 
 type Sort = {
     key: string
