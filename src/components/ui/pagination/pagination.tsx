@@ -7,7 +7,7 @@ import { Select } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
-  elements: any[]
+  elements: number
   elemsOnPerPage?: number
 }
 
@@ -26,7 +26,7 @@ export const Pagination = (props: PropsType) => {
       <PagLogic
         elements={elements}
         elementsPerPage={perPage}
-        totalElements={elements.length}
+        totalElements={elements}
         onChange={paginate}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

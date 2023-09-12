@@ -1,13 +1,18 @@
-import { SignInForm } from '@/components/auth/sing-in-form'
+import { Navigate } from 'react-router-dom'
 
-const handleSubmit = (data: any) => {
-  console.log(data)
-}
+import { SignInForm } from '@/components/auth/sing-in-form'
+import { useGetMeQuery, useLoginMutation } from '@/services/auth/auth.ts'
 
 export const SignIn = () => {
+  const [login] = useLoginMutation()
+  const { data: me, isLoading: isMeLoading } = useGetMeQuery()
+
+  if (isMeLoading) return <div>isMeLoading</div>
+  if (me && me?.success !== false) return <Navigate to={'/'} />
+
   return (
     <div>
-      <SignInForm onSubmit={handleSubmit} />
+      <SignInForm onSubmit={login} />
     </div>
   )
 }
