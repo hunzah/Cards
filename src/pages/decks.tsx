@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Button } from '@/components/ui/button'
 import {
   DeckTableContainer,
@@ -9,12 +11,11 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import {
-  useCreateDecksMutation,
+  useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services/decks/decks'
-import { useState } from 'react'
 
 type Sort = {
   key: string
@@ -24,9 +25,9 @@ type Sort = {
 export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
   const decks = useGetDecksQuery({
-    orderBy: sort === null ? null : `${sort.key}-${sort.direction}`,
+    orderBy: sort === null ? null : `${sort?.key}-${sort?.direction}`,
   })
-  const [createDeck] = useCreateDecksMutation()
+  const [createDeck] = useCreateDeckMutation()
   const isLoading = useGetDecksQuery()
   const [deleteDeck, a = { isLoading }] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -52,12 +53,12 @@ export const Decks = () => {
   const updateDeckHandler = ({ id, params }) => {
     updateDeck({ id: { id }, params: { params } })
   }
-  console.log(sort)
+
   return (
     <div>
       {a.isLoading ? <div>DELETING</div> : ''}
       <Button onClick={() => createDeck({ name: 'deckname' })}> crearte deck</Button>
-      <DeckTableContainer headCells={decks.data.items} />
+      <DeckTableContainer headCells={decks.data?.items} />
       <Table>
         <TableHead>
           <TableRow>
@@ -69,7 +70,7 @@ export const Decks = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {decks.data.items.map(deck => {
+          {decks.data?.items.map(deck => {
             return (
               <TableRow key={deck.id}>
                 <TableCell>{deck.name}</TableCell>
@@ -77,7 +78,10 @@ export const Decks = () => {
                 <TableCell>{deck.updated}</TableCell>
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
-                  <Button disabled={a.isLoading} onClick={() => deleteDeckHandler({ id: deck.id })}>
+                  <Button
+                    disabled={!!a.isLoading}
+                    onClick={() => deleteDeckHandler({ id: deck.id })}
+                  >
                     delete
                   </Button>
                 </TableCell>

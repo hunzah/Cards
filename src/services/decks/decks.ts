@@ -1,13 +1,5 @@
 import { baseApi } from '@/services/base-api'
-import {
-  Deck,
-  DeckDeleteParams,
-  DeckDeleteResponse,
-  DeckPostResponse,
-  DecksParams,
-  DecksPostParams,
-  DecksResponse,
-} from '@/services/decks/types'
+import { Deck, DecksParams, DecksPostParams, DecksResponse } from '@/services/decks/types'
 
 const decksApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -20,34 +12,70 @@ const decksApi = baseApi.injectEndpoints({
       },
       providesTags: ['Decks'],
     }),
-    createDecks: builder.mutation<DeckPostResponse, DecksPostParams>({
-      query: (params) => ({
+    createDeck: builder.mutation<Deck, { name: string }>({
+      query: params => ({
         url: 'v1/decks',
         method: 'POST',
         body: params,
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const response = await queryFulfilled
+
+          dispatch(
+            decksApi.util.updateQueryData('getDecks', { authorId: '1', currentPage: 1 }, draft => {
+              // Object.assign(draft, patch)
+              draft.items.unshift(response.data)
+            })
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
-    deleteDeck: builder.mutation<DeckDeleteResponse, DeckDeleteParams>({
-      query: (params) => ({
-        url: `v1/decks/${params["id"]}`,
+    deleteDeck: builder.mutation<void, { id: string }>({
+      query: params => ({
+        url: `v1/decks/${params['id']}`,
         method: 'DELETE',
         body: params,
       }),
+      async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData(
+            'getDecks',
+            {
+              authorId: '1',
+              currentPage: 1,
+            },
+            draft => {
+              draft.items = draft.items.filter(item => item.id !== id)
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (error) {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
     updateDeck: builder.mutation<Deck, DecksPostParams>({
-      query: (params) => ({
-        url: `v1/decks/${params["id"].id}`,
+      query: params => ({
+        url: `v1/decks/${params['id'].id}`,
         method: 'PATCH',
-        body: params.params.params
+        body: params.params.params,
       }),
       invalidatesTags: ['Decks'],
     }),
   }),
-
 })
 
-export const { useGetDecksQuery, useCreateDecksMutation, useDeleteDeckMutation, useUpdateDeckMutation } = decksApi
-
-
+export const {
+  useGetDecksQuery,
+  useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useUpdateDeckMutation,
+} = decksApi
