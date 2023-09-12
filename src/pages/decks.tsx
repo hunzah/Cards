@@ -10,12 +10,14 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components/ui/table'
+import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services/decks/decks'
+import { decksSlice, updateCurrentPage } from '@/services/decks/decks.slice.ts'
 
 type Sort = {
   key: string
@@ -23,6 +25,10 @@ type Sort = {
 } | null
 
 export const Decks = () => {
+  const currentPage = useAppSelector(state => state.decks)
+  const dispatch = useAppDispatch()
+
+  // const updateCurrentPage = (page: number) => dispatch(decksSlice.actions.updateCurrentPage(page))
   const [sort, setSort] = useState<Sort>(null)
   const decks = useGetDecksQuery({
     orderBy: sort === null ? null : `${sort?.key}-${sort?.direction}`,
@@ -102,7 +108,11 @@ export const Decks = () => {
           })}
         </TableBody>
       </Table>
-
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
+        <Button key={index} onClick={() => dispatch(updateCurrentPage(index + 1))}>
+          {item}
+        </Button>
+      ))}
       {/* <Table>
             <TableHead>
                 <TableRow><TableHeadCell>Name</TableHeadCell>
