@@ -8,6 +8,7 @@ import {
 
 import { Decks } from '@/pages/decks'
 import { SignIn } from '@/pages/SignIn.tsx'
+import {useGetMeQuery} from "@/services/auth/auth.service";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -32,12 +33,20 @@ const router = createBrowserRouter([
 ])
 
 export const Router = () => {
+  const {data:me, loading:isMeloading} = useGetMeQuery()
+  if (isMeloading){
+    return <>MELOAD</>
+  }
   return <RouterProvider router={router} />
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = true
 
+const {data:me, loading:isMeloading} = useGetMeQuery()
+  const isAuthenticated = !!me
+  if (isMeloading){
+    return <>MELOAD</>
+  }
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }
 
