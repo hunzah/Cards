@@ -7,12 +7,14 @@ import {
 } from 'react-router-dom'
 
 import { Decks } from '@/pages/decks'
-import { SignIn } from '@/pages/SignIn.tsx'
+/*import { SignIn } from '@/pages/SignIn.tsx'*/
+import { SingInPage } from '@/pages/sing-in-page/sing-in-page.tsx'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <SignIn />,
+    element: <SingInPage />,
   },
 ]
 
@@ -36,7 +38,11 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  // const isAuthenticated = true
+  const { data: me, isLoading: isMeLoading } = useGetMeQuery()
+  const isAuthenticated = me && me?.success !== false
+
+  if (isMeLoading) return <div>Loading...</div>
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }

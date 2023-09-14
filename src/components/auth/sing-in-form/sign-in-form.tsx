@@ -38,6 +38,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
   })
 
   const handleFormSubmitted = handleSubmit(data => {
+    console.log(data)
     onSubmit(data)
   })
 
