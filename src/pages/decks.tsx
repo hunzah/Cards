@@ -17,7 +17,7 @@ import {
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services/decks/decks'
-import { decksSlice, updateCurrentPage } from '@/services/decks/decks.slice.ts'
+import { decksSlice } from '@/services/decks/decks.slice.ts'
 
 type Sort = {
   key: string
