@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Typography } from '@/components/ui/typography'
 
-export const CheckEmail = () => {
+export const CheckEmailForm = () => {
   return (
     <Card className={s.card}>
       <Typography variant={'large'} className={s.title}>

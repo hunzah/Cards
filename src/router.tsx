@@ -6,21 +6,21 @@ import {
   Navigate,
 } from 'react-router-dom'
 
-import { Decks } from '@/pages/decks'
-import { SignIn } from '@/pages/SignIn.tsx'
-import { useGetMeQuery } from '@/services/auth/auth.ts'
+import { DecksPage } from '@/pages/decks-page.tsx'
+import { SignInPage } from '@/pages/signIn-page.tsx'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <SignIn />,
+    element: <SignInPage />,
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <Decks />,
+    element: <DecksPage />,
   },
 ]
 

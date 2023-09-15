@@ -19,7 +19,7 @@ type FormValuesType = z.infer<typeof signInSchema>
 type Props = {
   onSubmit: (data: FormValuesType) => void
 }
-export const CreateNewPassword = ({ onSubmit }: Props) => {
+export const CreateNewPasswordForm = ({ onSubmit }: Props) => {
   const {
     control,
     handleSubmit,

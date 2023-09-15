@@ -17,14 +17,14 @@ import {
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
-} from '@/services/decks/decks'
+} from '@/services/decks/decks.service.ts'
 
 type Sort = {
   key: string
   direction: 'asc' | 'desc'
 } | null
 
-export const Decks = () => {
+export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(10)
   const [sort, setSort] = useState<Sort | null>(null)

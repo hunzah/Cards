@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom'
 
 import { SignInForm } from '@/components/auth/sing-in-form'
-import { useGetMeQuery, useLoginMutation } from '@/services/auth/auth.ts'
+import { useGetMeQuery, useLoginMutation } from '@/services/auth/auth.service.ts'
 
-export const SignIn = () => {
+export const SignInPage = () => {
   const [login] = useLoginMutation()
   const { data: me, isLoading: isMeLoading } = useGetMeQuery()
 

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
-import selectArrow from '../../../assets/images/select-arrow.svg'
+import selectArrow from '../../../assets/icons/select-arrow.svg'
 
 import s from './select.module.scss'
 
