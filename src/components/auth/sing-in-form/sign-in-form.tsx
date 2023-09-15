@@ -32,7 +32,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: 'andres99.dev@gmail.com',
-      password: '',
+      password: '12345',
       rememberMe: false,
     },
   })

@@ -7,6 +7,7 @@ import logOut from '@/assets/images/log-out.svg'
 import myProfIcon from '@/assets/images/My-profile-icon.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import {useLogOutMutation} from "@/services/auth/auth.service";
 
 type Props = {
   avatar?: string
@@ -17,6 +18,7 @@ type Props = {
 export const DropDownMenu = (props: Props) => {
   const { name, email, open } = props
   const [isMenuOpen, setIsMenuOpen] = useState(open ? open : false)
+  const [logOut] = useLogOutMutation()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -44,7 +46,7 @@ export const DropDownMenu = (props: Props) => {
           </li>
           <li className={s.rectangle}></li>
           <li>
-            <Button as={'a'} className={s.button} variant="secondary" img={logOut}>
+            <Button onClick={()=>logOut()} as={'a'} className={s.button} variant="secondary" img={logOut}>
               <Typography variant={'caption'}>Sign Out</Typography>
             </Button>
           </li>

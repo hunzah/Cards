@@ -20,7 +20,7 @@ export const TabSwitcher = (props: PropsType) => {
   return (
     <div className={s.tabSwitchersContainer}>
       <Typography variant="body2" component={'h3'}>
-        Title
+          TabSwitcher Title
       </Typography>
       <div className={s.tabSwitchers}>
         {switches.map(sw => (

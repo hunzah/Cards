@@ -9,12 +9,14 @@ import {
 import { Decks } from '@/pages/decks'
 import { SignIn } from '@/pages/SignIn.tsx'
 import {useGetMeQuery} from "@/services/auth/auth.service";
+import {Slider} from "@/components/ui/slider";
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
     element: <SignIn />,
   },
+
 ]
 
 const privateRoutes: RouteObject[] = [
@@ -33,19 +35,21 @@ const router = createBrowserRouter([
 ])
 
 export const Router = () => {
-  const {data:me, loading:isMeloading} = useGetMeQuery()
-  if (isMeloading){
-    return <>MELOAD</>
+
+
+  const {data:me, isLoading:isMeLoading} = useGetMeQuery()
+  if (isMeLoading){
+    return <>MELsOAD</>
   }
   return <RouterProvider router={router} />
 }
 
 function PrivateRoutes() {
 
-const {data:me, loading:isMeloading} = useGetMeQuery()
-  const isAuthenticated = !!me
-  if (isMeloading){
-    return <>MELOAD</>
+const {data:me, isLoading:ssss} = useGetMeQuery()
+  const isAuthenticated = me && me?.success !== false
+  if (ssss){
+    return <div>MELOAD</div>
   }
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
 }

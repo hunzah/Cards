@@ -19,6 +19,8 @@ import s from '../../src/components/ui/table/table.module.scss'
 import ComponentWithSvg from "@/components/ComponentWithSVG";
 import Dot from "../assets/icons/Dot.svg"
 import ArrowUp from "../assets/icons/ArrowUp.svg"
+import {useLogOutMutation} from "@/services/auth/auth.service";
+import {TabSwitcher} from "@/components/ui/tab-switcher";
 
 type Sort = {
     key: string
@@ -27,19 +29,22 @@ type Sort = {
 
 export const Decks = () => {
     const [sort, setSort] = useState<Sort>(null)
-    const decks = useGetDecksQuery({
+    const {data:decks} = useGetDecksQuery(
+        {
         orderBy:sort===null ? null : `${sort.key}-${sort.direction}`
     })
     const [createDeck, createDeckLoading={isLoading}] = useCreateDecksMutation()
     const isLoading = useGetDecksQuery()
     const [deleteDeck, deleteDeckLoading={isLoading}] = useDeleteDeckMutation()
     const [updateDeck] = useUpdateDeckMutation()
-
+    const [logOut] = useLogOutMutation()
+    const [activeTab, setActiveTab] = useState("my")
+    const authorId = activeTab === "my" ? "1": undefined
     console.log(decks)
-    if (decks.isLoading) {
-        return <div>Loading....</div>
+    if (!decks) {
+        return <div>???Loading....</div>
     }
-
+3.27 
     const onclickHandler = (key: string) => {
         if (sort && sort.key === key) {
 
@@ -81,6 +86,8 @@ export const Decks = () => {
             {createDeckLoading.isLoading ? <div style={{position:'fixed', left:"300px"}}>CREATING</div> : ""}
 
             <Button onClick={() => createDeck({name: 'deckname'})}> create deck</Button>
+            <Button onClick={() => logOut()}> Logout</Button>
+            <TabSwitcher switches={[{ id: 1, switchTitle: "my", disabled: false },{ id: 2,switchTitle: "all", disabled: false }]}/>
             <Table>
                 <TableHead>
                     <TableRow><TableHeadCell onClick={() => onclickHandler("name")}> {sortArrow("name")} Name</TableHeadCell>
@@ -89,7 +96,7 @@ export const Decks = () => {
                         <TableHeadCell onClick={() => onclickHandler("created")}>{sortArrow("created")} created by</TableHeadCell>
                         <TableHeadCell></TableHeadCell></TableRow>
                 </TableHead>
-                <TableBody>{decks.data.items.map(deck => {
+                <TableBody>{decks.items.map(deck => {
                     return (
                         <TableRow key={deck.id}>
                             <TableCell>{deck.name}</TableCell>

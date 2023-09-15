@@ -10,7 +10,9 @@ const authApi = baseApi.injectEndpoints({
           params: params ?? {},
         }
       },
+      invalidateTags: ['Me'],
     }),
+
   }),
 })
 
