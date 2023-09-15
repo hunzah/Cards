@@ -11,12 +11,14 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components/ui/table'
+import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import {
   useCreateDecksMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services/decks/decks'
+import { decksSlice } from '@/services/decks/decks.slice.ts'
 
 type Sort = {
   key: string
@@ -25,6 +27,9 @@ type Sort = {
 
 export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
+  const currentPage = useAppSelector(state => state.decks.currentPage)
+  const dispatch = useAppDispatch()
+  const updateCurrentPage = (page: number) => dispatch(decksSlice.actions.updateCurrentPage(page))
   const decks = useGetDecksQuery({
     orderBy: sort === null ? null : `${sort.key}-${sort.direction}`,
   })
@@ -83,7 +88,15 @@ export const Decks = () => {
         ''
       )}
 
-      <Button onClick={() => createDeck({ name: 'deckname' })}> create deck</Button>
+      <Button
+        onClick={() => {
+          /*updateCurrentPage(1)*/
+          createDeck({ name: 'deckname' })
+        }}
+      >
+        {' '}
+        create deck
+      </Button>
       <Table>
         <TableHead>
           <TableRow>

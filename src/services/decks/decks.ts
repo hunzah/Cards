@@ -32,7 +32,7 @@ const decksApi = baseApi.injectEndpoints({
 
           dispatch(
             decksApi.util.updateQueryData('getDecks', { authorId: '1', currentPage: 1 }, draft => {
-              draft.items.push(response.data)
+              draft.items.unshift(response.data)
             })
           )
         } catch (error) {
@@ -47,12 +47,32 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    deleteDeck: builder.mutation<DeckDeleteResponse, DeckDeleteParams>({
+    deleteDeck: builder.mutation<void, DeckDeleteParams>({
       query: params => ({
         url: `v1/decks/${params['id']}`,
         method: 'DELETE',
         body: params,
       }),
+      async onQueryStarted({ id }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData(
+            'getDecks',
+            {
+              authorId: '1',
+              currentPage: 1,
+            },
+            draft => {
+              draft.items = draft.items.filter(item => item.id !== id)
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (error) {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
     updateDeck: builder.mutation<Deck, DecksPostParams>({

@@ -44,9 +44,9 @@ export type DecksParams = {
 } | void
 
 export type DecksPostParams = {
-  cover: string
-  name?: string
-  isPrivate: boolean
+  cover?: string
+  name: string
+  isPrivate?: boolean
 }
 
 export type DeckDeleteParams = Pick<Deck, 'id'>
