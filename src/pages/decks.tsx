@@ -30,7 +30,7 @@ export const Decks = () => {
   const decks = useGetDecksQuery({
     orderBy: orderBy,
   })
-  const [createDeck, createDeckLoading = { isLoading }] = useCreateDeckMutation()
+  const [createDeck, createDeckLoading] = useCreateDeckMutation()
   const isLoading = useGetDecksQuery()
   const [deleteDeck, deleteDeckLoading = { isLoading }] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -51,23 +51,20 @@ export const Decks = () => {
     }
   }
 
-  const deleteDeckHandler = ({ id }) => {
+  const deleteDeckHandler = ({ id }: { id: string }) => {
     deleteDeck({ id })
   }
-  const updateDeckHandler = ({ id, params }) => {
+  const updateDeckHandler = ({ id, params }: { id: string; params: any }) => {
     updateDeck({ id: { id }, params: { params } })
   }
   const sortArrow = (orderBy: string) => {
     if (!sort || sort.key !== orderBy) {
       return <span>•</span>
-      if (sort.key !== orderBy) {
-        ;<span>•</span>
-      }
     }
-    if ((sort.direction === 'asc') & (sort.key === orderBy)) {
+    if (sort.direction === 'asc' && sort.key === orderBy) {
       return <span>↑</span>
     }
-    if ((sort.direction === 'desc') & (sort.key === orderBy)) {
+    if (sort.direction === 'desc' && sort.key === orderBy) {
       return <span>↓</span>
     }
   }
@@ -106,7 +103,7 @@ export const Decks = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {decks.data.items.map(deck => {
+          {decks.data?.items.map(deck => {
             return (
               <TableRow key={deck.id}>
                 <TableCell>{deck.name}</TableCell>
