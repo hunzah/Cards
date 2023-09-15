@@ -37,7 +37,7 @@ const router = createBrowserRouter([
 export const Router = () => {
 
 
-  const {data:me, isLoading:isMeLoading} = useGetMeQuery()
+  const { isLoading:isMeLoading} = useGetMeQuery()
   if (isMeLoading){
     return <>MELsOAD</>
   }

@@ -8,13 +8,13 @@ const handleSubmit = (data: any) => {
 
 export const SignIn = () => {
     const [login]=useLoginMutation()
-    const {data} = useGetMeQuery()
-    console.log(data)
-    if (data?.success !== false)  return <Navigate to={"/"}/>
+    const {data:me, isloading:isme} = useGetMeQuery()
+
+    if (isme)  return <div>LOADING</div>
+    if (me && me?.success !== false)  return <Navigate to={"/"}/>
 
   return (
     <div>
-
       <SignInForm onSubmit={login} />
     </div>
   )
