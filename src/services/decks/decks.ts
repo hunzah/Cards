@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/base-api'
-import { Deck, DecksParams, DecksPostParams, DecksResponse } from '@/services/decks/types'
+import { Deck, DecksParams, DecksResponse } from '@/services/decks/types'
 import { RootState } from '@/services/store.ts'
 
 const decksApi = baseApi.injectEndpoints({
@@ -70,7 +70,7 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    updateDeck: builder.mutation<Deck, DecksPostParams>({
+    updateDeck: builder.mutation<Deck, any>({
       query: params => ({
         url: `v1/decks/${params['id'].id}`,
         method: 'PATCH',
