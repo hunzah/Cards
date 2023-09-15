@@ -10,7 +10,7 @@ type PropsType = {
   currentPage: number
   onChange: (page: number) => void
   elementsPerPage: number
-  setCurrentPage: (elementsPerPage: any) => void
+  setCurrentPage: (currentPage: number) => void
   setPerPage: (value: number) => void
 }
 
@@ -20,11 +20,11 @@ export const PagLogic = (props: PropsType) => {
   const totalPages = Math.ceil(totalElements / elementsPerPage)
   // Функции для кнопок
   const prev = () => {
-    setCurrentPage((prev: number) => prev - 1)
+    setCurrentPage(currentPage - 1)
   }
 
   const next = () => {
-    setCurrentPage((prev: number) => prev + 1)
+    setCurrentPage(currentPage + 1)
   }
 
   const { pageNumbers } = usePagination({ totalPages, currentPage })
@@ -36,7 +36,12 @@ export const PagLogic = (props: PropsType) => {
         {pageNumbers.map((number: number | string, i: number) => (
           <li key={i} className={s.li}>
             {typeof number === 'number' ? (
-              <a onClick={() => onChange(number)}>{number}</a>
+              <a
+                onClick={() => onChange(number)}
+                className={currentPage === number ? s.selected : ''}
+              >
+                {number}
+              </a>
             ) : (
               <span>{number}</span>
             )}

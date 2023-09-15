@@ -8,17 +8,15 @@ import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
   elements: number
-  elemsOnPerPage?: number
+  itemsPerPage?: number
+  currentPage: number
+  setCurrentPage: (currentPage: number) => void
 }
 
 export const Pagination = (props: PropsType) => {
-  const { elements, elemsOnPerPage } = props
-  const [perPage, setPerPage] = useState(elemsOnPerPage ? elemsOnPerPage : 10)
-  const [currentPage, setCurrentPage] = useState(1)
-  // элементы которые будут отображаться на каждой странице.Необходимо Код расскоментировать и currentElement передавть в компонент который необходимо пагинировать
-  // const lastElementIndex = currentPage * perPage
-  // const firstElementIndex = lastElementIndex - perPage
-  // const currentElement = elements.slice(firstElementIndex, lastElementIndex)
+  const { elements, itemsPerPage, currentPage, setCurrentPage } = props
+  const [perPage, setPerPage] = useState(itemsPerPage ? itemsPerPage : 10)
+
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
   return (

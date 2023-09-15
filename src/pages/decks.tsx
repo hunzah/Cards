@@ -3,6 +3,7 @@ import { useState } from 'react'
 import s from '../../src/components/ui/table/table.module.scss'
 
 import { Button } from '@/components/ui/button'
+import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import {
   Table,
   TableBody,
@@ -24,11 +25,15 @@ type Sort = {
 } | null
 
 export const Decks = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(10)
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined // Use undefined when sort is null
 
   const decks = useGetDecksQuery({
     orderBy: orderBy,
+    currentPage: currentPage,
+    itemsPerPage: itemsPerPage,
   })
   const [createDeck, createDeckLoading] = useCreateDeckMutation()
   const isLoading = useGetDecksQuery()
@@ -130,7 +135,11 @@ export const Decks = () => {
           })}
         </TableBody>
       </Table>
-
+      <Pagination
+        elements={decks.data?.pagination.totalItems ?? 0}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
       {/*<Table>*/}
       {/*  <TableHead>*/}
       {/*    <TableRow>*/}

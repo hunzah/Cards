@@ -21,6 +21,11 @@
   list-style: none;
 }
 
+.li a.selected {
+  color: var(--color-dark-900);
+  background-color: var(--color-light-100);
+}
+
 .li a {
   display: flex;
   align-items: center;
