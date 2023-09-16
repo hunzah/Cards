@@ -5,15 +5,15 @@ import { TemplateModal } from '@/components/ui/modals/template/template-modal.ts
 import { TextField } from '@/components/ui/text-field'
 
 type Props = {
-  closeModal: (isAddNewPackOpen: boolean) => void
+  closeModalCallback: (isAddNewPackOpen: boolean) => void
 }
-export const AddNewPack = ({ closeModal }: Props) => {
+export const AddNewPack = ({ closeModalCallback }: Props) => {
   return (
     <TemplateModal
       className={s.root}
       title="Add New Pack"
       buttonName="Add New Pack"
-      closeModalHandle={closeModal}
+      closeModalCallback={closeModalCallback}
     >
       <div className={s.content}>
         <TextField

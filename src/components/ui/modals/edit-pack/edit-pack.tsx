@@ -1,19 +1,19 @@
-import s from './add-new-pack.module.scss'
+import s from './edit-pack.module.scss'
 
 import { Checkbox } from '@/components/ui/checkbox'
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { TextField } from '@/components/ui/text-field'
 
 type Props = {
-  closeModal: (isAddNewPackOpen: boolean) => void
+  closeModalCallback: (isEditPackOpen: boolean) => void
 }
-export const AddNewPack = ({ closeModal }: Props) => {
+export const EditPack = ({ closeModalCallback }: Props) => {
   return (
     <TemplateModal
       className={s.root}
-      title="Add New Pack"
-      buttonName="Add New Pack"
-      closeModalHandle={closeModal}
+      title="Edit Pack"
+      buttonName="Save Changes"
+      closeModalCallback={closeModalCallback}
     >
       <div className={s.content}>
         <TextField

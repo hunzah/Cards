@@ -11,16 +11,16 @@ type TemplateModalProps = {
   title: string
   children: React.ReactNode
   buttonName: string
-  closeModalHandle: (isAddNewPackOpen: boolean) => void
+  closeModalCallback: (isOpen: boolean) => void
 }
 
 export const TemplateModal = (props: TemplateModalProps) => {
-  const { className, title, children, buttonName, closeModalHandle } = props
+  const { className, title, children, buttonName, closeModalCallback } = props
   const classNames = {
     root: clsx(s.root, className),
   }
   const closeModalHandler = () => {
-    closeModalHandle(false)
+    closeModalCallback(false)
   }
 
   return (

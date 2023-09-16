@@ -4,6 +4,7 @@ import s from '../../src/components/ui/table/table.module.scss'
 
 import { Button } from '@/components/ui/button'
 import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
+import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
 import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import {
   Table,
@@ -31,7 +32,9 @@ export const DecksPage = () => {
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
   const [isAddNewPackOpen, setIsAddNewPackOpen] = useState<boolean>(false)
-  const openModalHandler = () => setIsAddNewPackOpen(true)
+  const [isEditPackOpen, setIsEditPackOpen] = useState<boolean>(false)
+  const openAddNewPackHandler = () => setIsAddNewPackOpen(true)
+  const openEditPackHandler = () => setIsEditPackOpen(true)
   const decks = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
@@ -90,21 +93,26 @@ export const DecksPage = () => {
       )}
 
       <Button onClick={() => createDeck({ name: 'deckname' })}> create deck</Button>
-      <Button onClick={openModalHandler}> add new pack</Button>
+      <Button onClick={openAddNewPackHandler}> add new pack</Button>
+      <Button onClick={openEditPackHandler}>Edit</Button>
       {isAddNewPackOpen && (
-        <div className={s.addNewPackContainer}>
-          {isAddNewPackOpen && (
-            <div className={s.backdrop}>
-              <AddNewPack closeModal={setIsAddNewPackOpen} />
-            </div>
-          )}
+        <div className={s.modalContainer}>
+          <div className={s.backdrop}>
+            <AddNewPack closeModalCallback={setIsAddNewPackOpen} />
+          </div>
+        </div>
+      )}
+      {isEditPackOpen && (
+        <div className={s.modalContainer}>
+          <div className={s.backdrop}>
+            <EditPack closeModalCallback={setIsEditPackOpen} />
+          </div>
         </div>
       )}
       <Table>
         <TableHead>
           <TableRow>
             <TableHeadCell onClick={() => onclickHandler('name')}>
-              {' '}
               {sortArrow('name')} Name
             </TableHeadCell>
             <TableHeadCell onClick={() => onclickHandler('cardsCount')}>
