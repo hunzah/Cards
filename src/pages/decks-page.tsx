@@ -3,6 +3,7 @@ import { useState } from 'react'
 import s from '../../src/components/ui/table/table.module.scss'
 
 import { Button } from '@/components/ui/button'
+import { AddNewPack } from '@/components/ui/modals/add-new-pack.tsx'
 import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import {
   Table,
@@ -29,7 +30,7 @@ export const DecksPage = () => {
   const [itemsPerPage] = useState(10)
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined // Use undefined when sort is null
-
+  const [isAddNewPackOpen, setIsAddNewPackOpen] = useState<boolean>(false)
   const decks = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
@@ -74,6 +75,8 @@ export const DecksPage = () => {
     }
   }
 
+  if (isAddNewPackOpen) return <AddNewPack />
+
   return (
     <div>
       {deleteDeckLoading.isLoading ? (
@@ -88,6 +91,7 @@ export const DecksPage = () => {
       )}
 
       <Button onClick={() => createDeck({ name: 'deckname' })}> create deck</Button>
+      <Button onClick={() => setIsAddNewPackOpen(true)}> add new pack</Button>
       <Table>
         <TableHead>
           <TableRow>

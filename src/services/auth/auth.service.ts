@@ -1,12 +1,12 @@
-import { LoginArgs, LoginResponse } from '@/services/auth/auth.types.ts'
-import { baseApi } from '@/services/base-api.ts'
+import { LoginArgs, LoginResponse } from '@/services/auth/auth.types'
+import { baseApi } from '@/services/base-api'
 
 const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
     getMe: builder.query<any, void>({
       async queryFn(_name, _api, _extraOptions, baseQuery) {
         const result = await baseQuery({
-          url: `v1/auth/me`,
+          url: 'v1/auth/me',
           method: 'GET',
         })
 
@@ -21,13 +21,20 @@ const authService = baseApi.injectEndpoints({
     }),
     login: builder.mutation<LoginResponse, LoginArgs>({
       query: data => ({
-        url: `v1/auth/login`,
+        url: 'v1/auth/login',
         method: 'POST',
         body: data,
+      }),
+      invalidatesTags: ['Me'],
+    }),
+    logOut: builder.mutation({
+      query: () => ({
+        url: 'v1/auth/logout',
+        method: 'POST',
       }),
       invalidatesTags: ['Me'],
     }),
   }),
 })
 
-export const { useGetMeQuery, useLoginMutation } = authService
+export const { useGetMeQuery, useLoginMutation, useLogOutMutation } = authService
