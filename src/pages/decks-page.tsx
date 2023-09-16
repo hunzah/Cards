@@ -3,7 +3,7 @@ import { useState } from 'react'
 import s from '../../src/components/ui/table/table.module.scss'
 
 import { Button } from '@/components/ui/button'
-import { AddNewPack } from '@/components/ui/modals/add-new-pack.tsx'
+import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
 import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import {
   Table,
