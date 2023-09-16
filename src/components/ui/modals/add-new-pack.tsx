@@ -4,9 +4,17 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { TextField } from '@/components/ui/text-field'
 
-export const AddNewPack = () => {
+type Props = {
+  closeModal: (isAddNewPackOpen: boolean) => void
+}
+export const AddNewPack = ({ closeModal }: Props) => {
   return (
-    <TemplateModal className={s.root} title="Add New Pack" buttonName="Add New Pack">
+    <TemplateModal
+      className={s.root}
+      title="Add New Pack"
+      buttonName="Add New Pack"
+      closeModalHandle={closeModal}
+    >
       <div className={s.content}>
         <TextField
           inputName="Name Pack"

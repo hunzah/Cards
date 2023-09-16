@@ -11,19 +11,23 @@ type TemplateModalProps = {
   title: string
   children: React.ReactNode
   buttonName: string
+  closeModalHandle: (isAddNewPackOpen: boolean) => void
 }
 
 export const TemplateModal = (props: TemplateModalProps) => {
-  const { className, title, children, buttonName } = props
+  const { className, title, children, buttonName, closeModalHandle } = props
   const classNames = {
     root: clsx(s.root, className),
+  }
+  const closeModalHandler = () => {
+    closeModalHandle(false)
   }
 
   return (
     <div className={classNames.root}>
       <div className={s.titleContainer}>
         <Typography variant={'h2'}>{title}</Typography>
-        <button className={s.closeBtn}>
+        <button className={s.closeBtn} onClick={closeModalHandler}>
           <img className={s.closeImg} alt="close-button" src={closeIcon} />
         </button>
       </div>

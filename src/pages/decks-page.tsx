@@ -29,8 +29,9 @@ export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(10)
   const [sort, setSort] = useState<Sort | null>(null)
-  const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined // Use undefined when sort is null
+  const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
   const [isAddNewPackOpen, setIsAddNewPackOpen] = useState<boolean>(false)
+  const openModalHandler = () => setIsAddNewPackOpen(true)
   const decks = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
@@ -75,8 +76,6 @@ export const DecksPage = () => {
     }
   }
 
-  if (isAddNewPackOpen) return <AddNewPack />
-
   return (
     <div>
       {deleteDeckLoading.isLoading ? (
@@ -91,7 +90,9 @@ export const DecksPage = () => {
       )}
 
       <Button onClick={() => createDeck({ name: 'deckname' })}> create deck</Button>
-      <Button onClick={() => setIsAddNewPackOpen(true)}> add new pack</Button>
+      <Button onClick={openModalHandler}> add new pack</Button>
+      {isAddNewPackOpen && <AddNewPack closeModal={setIsAddNewPackOpen} />}
+
       <Table>
         <TableHead>
           <TableRow>
