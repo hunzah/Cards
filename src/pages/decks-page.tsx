@@ -35,6 +35,7 @@ export const DecksPage = () => {
   const [isEditPackOpen, setIsEditPackOpen] = useState<boolean>(false)
   const openAddNewPackHandler = () => setIsAddNewPackOpen(true)
   const openEditPackHandler = () => setIsEditPackOpen(true)
+  const createNewPack = () => createDeck({ name: 'deckname' })
   const decks = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
@@ -92,20 +93,28 @@ export const DecksPage = () => {
         ''
       )}
 
-      <Button onClick={() => createDeck({ name: 'deckname' })}> create deck</Button>
+      <Button onClick={createNewPack}> create deck</Button>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       <Button onClick={openEditPackHandler}>Edit</Button>
       {isAddNewPackOpen && (
         <div className={s.modalContainer}>
           <div className={s.backdrop}>
-            <AddNewPack closeModalCallback={setIsAddNewPackOpen} />
+            <AddNewPack
+              closeModalCallback={setIsAddNewPackOpen}
+              createNewPackCallback={createDeck}
+            />
           </div>
         </div>
       )}
       {isEditPackOpen && (
         <div className={s.modalContainer}>
           <div className={s.backdrop}>
-            <EditPack closeModalCallback={setIsEditPackOpen} />
+            <EditPack
+              closeModalCallback={setIsEditPackOpen}
+              editPackCallback={() => {
+                console.log('edit')
+              }}
+            />
           </div>
         </div>
       )}

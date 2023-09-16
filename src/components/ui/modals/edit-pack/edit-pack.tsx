@@ -6,14 +6,16 @@ import { TextField } from '@/components/ui/text-field'
 
 type Props = {
   closeModalCallback: (isEditPackOpen: boolean) => void
+  editPackCallback: () => void
 }
-export const EditPack = ({ closeModalCallback }: Props) => {
+export const EditPack = ({ closeModalCallback, editPackCallback }: Props) => {
   return (
     <TemplateModal
       className={s.root}
       title="Edit Pack"
       buttonName="Save Changes"
       closeModalCallback={closeModalCallback}
+      mainActionCallback={editPackCallback}
     >
       <div className={s.content}>
         <TextField
