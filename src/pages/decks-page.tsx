@@ -109,12 +109,7 @@ export const DecksPage = () => {
       {isEditPackOpen && (
         <div className={s.modalContainer}>
           <div className={s.backdrop}>
-            <EditPack
-              closeModalCallback={setIsEditPackOpen}
-              editPackCallback={() => {
-                console.log('edit')
-              }}
-            />
+            <EditPack closeModalCallback={setIsEditPackOpen} />
           </div>
         </div>
       )}

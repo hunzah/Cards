@@ -12,18 +12,16 @@ type TemplateModalProps = {
   children: React.ReactNode
   buttonName: string
   closeModalCallback: (isOpen: boolean) => void
-  mainActionCallback: (params: { name: string }) => void
+  mainActionCallback: () => void
   value: string
 }
 
 export const TemplateModal = (props: TemplateModalProps) => {
-  const { className, title, children, buttonName, closeModalCallback, mainActionCallback, value } =
-    props
+  const { className, title, children, buttonName, closeModalCallback, mainActionCallback } = props
   const classNames = {
     root: clsx(s.root, className),
   }
   const closeModalHandler = () => closeModalCallback(false)
-  const mainButtonHandlerHandler = () => mainActionCallback({ name: value })
 
   return (
     <div className={classNames.root}>
@@ -38,7 +36,7 @@ export const TemplateModal = (props: TemplateModalProps) => {
         <Button variant="secondary" className={s.footBtn} onClick={closeModalHandler}>
           <Typography variant="subtitle2">Cancel</Typography>
         </Button>
-        <Button className={s.footBtn} onClick={mainButtonHandlerHandler}>
+        <Button className={s.footBtn} onClick={mainActionCallback}>
           <Typography variant="subtitle2">{buttonName}</Typography>
         </Button>
       </div>
