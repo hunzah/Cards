@@ -1,33 +1,50 @@
+.addNewPackContainer {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
 .table {
   border-collapse: collapse;
   width: 100%;
   color: var(--color-light-100);
   border: 1px solid var(--color-dark-500);
-
-
 }
-:is(td,th)>span {
-  white-space: nowrap;
+
+:is(td, th) > span {
   overflow-x: hidden;
-  text-overflow: ellipsis;
   display: block;
+
   max-width: 99%;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
 .headCell {
- width: 20%;
-  padding: 6px 24px;
+  width: 20%;
   max-width: min-content;
+  padding: 6px 24px;
+
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
 
-
   background-color: var(--color-dark-500);
-/*&:nth-child(4){
-width: 20ch;
-}&:nth-child(2){
-width: min(100px, 20%);
-}*/
+
+  /* &:nth-child(4){
+  width: 20ch;
+  }&:nth-child(2){
+  width: min(100px, 20%);
+  } */
   > span {
     user-select: none;
     display: flex;
@@ -37,7 +54,6 @@ width: min(100px, 20%);
 
   &.sortable > span {
     cursor: pointer;
-
   }
 
   svg {
@@ -65,11 +81,11 @@ width: min(100px, 20%);
   width: 100%;
 }
 
-.creatorWithButton{
+.creatorWithButton {
   display: flex;
   flex-direction: row;
 }
 
-.TableRow{
+.TableRow {
   //width: 100%;
 }

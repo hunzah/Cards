@@ -77,7 +77,7 @@ export const DecksPage = () => {
   }
 
   return (
-    <div>
+    <div className={s.root}>
       {deleteDeckLoading.isLoading ? (
         <div style={{ position: 'fixed', left: '250px' }}>DELETING</div>
       ) : (
@@ -91,8 +91,15 @@ export const DecksPage = () => {
 
       <Button onClick={() => createDeck({ name: 'deckname' })}> create deck</Button>
       <Button onClick={openModalHandler}> add new pack</Button>
-      {isAddNewPackOpen && <AddNewPack closeModal={setIsAddNewPackOpen} />}
-
+      {isAddNewPackOpen && (
+        <div className={s.addNewPackContainer}>
+          {isAddNewPackOpen && (
+            <div className={s.backdrop}>
+              <AddNewPack closeModal={setIsAddNewPackOpen} />
+            </div>
+          )}
+        </div>
+      )}
       <Table>
         <TableHead>
           <TableRow>
