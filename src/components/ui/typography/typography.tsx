@@ -40,7 +40,7 @@ export const Typography = ({
 }: TypographyPropsType) => {
   const Component = component || 'span'
 
-  const classNames = { textClassName: clsx(variant && s[variant]) }
+  const classNames = { textClassName: clsx(variant && s[variant], className && className) }
 
   return (
     <Component className={classNames.textClassName} {...rest}>
