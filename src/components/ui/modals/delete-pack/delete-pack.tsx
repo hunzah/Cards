@@ -9,12 +9,13 @@ type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
 }
 export const DeletePack = ({ closeModalCallback }: Props) => {
-  const [deleteDeck] = useDeleteDeckMutation()
+  const [deleteDeck, { isLoading }] = useDeleteDeckMutation()
   const id = useAppSelector(state => state.decks.DeckId)
   const name = useAppSelector(state => state.decks.DeckName)
 
-  const mainActionCallback = () => {
-    deleteDeck({ id: id })
+  const mainActionCallback = async () => {
+    await deleteDeck({ id: id })
+    closeModalCallback(false)
   }
 
   return (
@@ -36,6 +37,9 @@ export const DeletePack = ({ closeModalCallback }: Props) => {
           All cards will be deleted.
         </Typography>
       </div>
+      {isLoading && (
+        <div style={{ position: 'fixed', color: 'aqua', top: '50%', right: '50%' }}>Loading...</div>
+      )}
     </TemplateModal>
   )
 }

@@ -11,7 +11,7 @@ type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
 }
 export const AddNewPack = ({ closeModalCallback }: Props) => {
-  const [createDeck] = useCreateDeckMutation()
+  const [createDeck, { isLoading }] = useCreateDeckMutation() // Добавляем isLoading из мутации
   const [value, setValue] = useState<string>('')
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
@@ -19,9 +19,10 @@ export const AddNewPack = ({ closeModalCallback }: Props) => {
 
   const checkboxHandler = (e: boolean) => setIsPrivate(e)
 
-  const mainActionCallback = () => {
-    createDeck({ name: value, isPrivate: isPrivate })
+  const mainActionCallback = async () => {
+    await createDeck({ name: value, isPrivate: isPrivate })
     setValue('')
+    closeModalCallback(false)
   }
 
   return (
@@ -45,6 +46,9 @@ export const AddNewPack = ({ closeModalCallback }: Props) => {
         />
         <Checkbox checked={isPrivate} onChange={checkboxHandler} />
       </div>
+      {isLoading && (
+        <div style={{ position: 'fixed', color: 'aqua', top: '50%', right: '50%' }}>Loading...</div>
+      )}
     </TemplateModal>
   )
 }

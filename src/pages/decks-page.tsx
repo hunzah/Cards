@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import s from '../../src/components/ui/table/table.module.scss'
 
+import deletePackIcon from '@/assets/icons/delete-pack.svg'
+import editPackIcon from '@/assets/icons/edit-pack.svg'
 import { Button } from '@/components/ui/button'
 import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
 import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
@@ -16,11 +18,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useAppDispatch } from '@/hooks.ts'
-import {
-  useCreateDeckMutation,
-  useDeleteDeckMutation,
-  useGetDecksQuery,
-} from '@/services/decks/decks.service.ts'
+import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { setDeckId, setDeckName } from '@/services/decks/decks.slice.ts'
 
 type Sort = {
@@ -52,9 +50,6 @@ export const DecksPage = () => {
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
   })
-  const [createDeck, createDeckLoading] = useCreateDeckMutation()
-  const isLoading = useGetDecksQuery()
-  const [deleteDeck, deleteDeckLoading = { isLoading }] = useDeleteDeckMutation()
 
   if (decks.isLoading) {
     return <div>Loading....</div>
@@ -83,19 +78,12 @@ export const DecksPage = () => {
     }
   }
 
+  if (decks.isLoading) {
+    return <div>Decks Fetching....</div>
+  }
+
   return (
     <div className={s.root}>
-      {deleteDeckLoading.isLoading ? (
-        <div style={{ position: 'fixed', left: '250px' }}>DELETING</div>
-      ) : (
-        ''
-      )}
-      {createDeckLoading.isLoading ? (
-        <div style={{ position: 'fixed', left: '300px' }}>CREATING</div>
-      ) : (
-        ''
-      )}
-
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
@@ -146,10 +134,15 @@ export const DecksPage = () => {
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
-                    <Button onClick={() => openDeletePackHandler({ id: deck.id, name: deck.name })}>
-                      delete
-                    </Button>
-                    <Button onClick={() => openEditPackHandler(deck.id)}>Edit</Button>
+                    <button onClick={() => openEditPackHandler(deck.id)} className={s.iconBtns}>
+                      <img src={editPackIcon} alt="edit-pack-icon" />
+                    </button>
+                    <button
+                      onClick={() => openDeletePackHandler({ id: deck.id, name: deck.name })}
+                      className={s.iconBtns}
+                    >
+                      <img src={deletePackIcon} alt="delete-pack-icon" />
+                    </button>
                   </div>
                 </TableCell>
               </TableRow>

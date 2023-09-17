@@ -12,7 +12,7 @@ type Props = {
   closeModalCallback: (isEditPackOpen: boolean) => void
 }
 export const EditPack = ({ closeModalCallback }: Props) => {
-  const [updateDeck] = useUpdateDeckMutation()
+  const [updateDeck, { isLoading }] = useUpdateDeckMutation()
   const [value, setValue] = useState<string>('')
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
   const id = useAppSelector(state => state.decks.DeckId)
@@ -21,9 +21,10 @@ export const EditPack = ({ closeModalCallback }: Props) => {
 
   const checkboxHandler = (e: boolean) => setIsPrivate(e)
 
-  const mainActionCallback = () => {
-    updateDeck({ id: id, params: { name: value, isPrivate: isPrivate } })
+  const mainActionCallback = async () => {
+    await updateDeck({ id: id, params: { name: value, isPrivate: isPrivate } })
     setValue('')
+    closeModalCallback(false)
   }
 
   return (
@@ -47,6 +48,9 @@ export const EditPack = ({ closeModalCallback }: Props) => {
         />
         <Checkbox checked={isPrivate} onChange={checkboxHandler} />
       </div>
+      {isLoading && (
+        <div style={{ position: 'fixed', color: 'aqua', top: '50%', right: '50%' }}>Loading...</div>
+      )}
     </TemplateModal>
   )
 }

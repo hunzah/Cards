@@ -24,8 +24,6 @@
 
   width: 100px;
   height: 100px;
-
-  background-color: #0a6638;
 }
 
 .table {
@@ -97,11 +95,30 @@
   width: 100%;
 }
 
+.TableRow {
+  //width: 100%;
+}
+
 .creatorWithButton {
   display: flex;
   flex-direction: row;
+  gap: 10px;
 }
 
-.TableRow {
-  //width: 100%;
+.iconBtns {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 16px;
+  height: 16px;
+
+  background-color: inherit;
+  border: none;
+
+  &:hover {
+    background: var(--dark-100, #808080);
+  }
 }
