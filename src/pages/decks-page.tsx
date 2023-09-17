@@ -23,6 +23,8 @@ import {
 } from '@/services/decks/decks.service.ts'
 import { setDeckId, setDeckName } from '@/services/decks/decks.slice.ts'
 import {Slider} from "@/components/ui/slider";
+import {useSelector} from "react-redux";
+import {RootState} from "@/services/store";
 
 type Sort = {
   key: string
@@ -32,6 +34,7 @@ type Sort = {
 export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(10)
+  const sliderValues = useSelector(state=>state.slider)
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
@@ -48,10 +51,13 @@ export const DecksPage = () => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(name))
   }
+
   const decks = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
+    minCardsCount: sliderValues.minCurrentSliderValue,
+    maxCardsCount:sliderValues.maxCurrentSliderValue
   })
   const [createDeck, createDeckLoading] = useCreateDeckMutation()
   const isLoading = useGetDecksQuery()
