@@ -33,7 +33,6 @@
     margin: 0;
     padding: 0;
 
-    background-color: var(--color-dark-900);
     border-radius: 50%;
 
     transition:
@@ -41,13 +40,20 @@
       transform 0.2s ease;
   }
 
+  &:hover {
+    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+
   &:hover::before {
     transform: translate(-50%, -50%) scale(1.1);
     background-color: var(--color-dark-500);
   }
 
-  &:active::before,
-  &:focus::before {
+  &:active::before {
     transform: translate(-50%, -50%) scale(0.9);
     background-color: var(--color-dark-100);
   }
