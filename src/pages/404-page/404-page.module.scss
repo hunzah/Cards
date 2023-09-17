@@ -1,0 +1,15 @@
+.root {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  padding: 6px 28px;
+}

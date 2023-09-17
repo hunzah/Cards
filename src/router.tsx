@@ -6,6 +6,7 @@ import {
   Navigate,
 } from 'react-router-dom'
 
+import { PageNotFound } from '@/pages/404-page/404-page.tsx'
 import { DecksPage } from '@/pages/decks-page.tsx'
 import { SignInPage } from '@/pages/signIn-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service'
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     children: privateRoutes,
   }, //вот эти чилдрены
   ...publicRoutes,
+  {
+    path: '*',
+    element: <PageNotFound />,
+  },
 ])
 
 export const Router = () => {
