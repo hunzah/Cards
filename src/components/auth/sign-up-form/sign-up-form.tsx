@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import { omit } from 'remeda'
 import { z } from 'zod'
 
 import s from './sign-up.module.scss'
@@ -30,7 +31,8 @@ const signUpSchema = z
 
 type FormValuesType = z.infer<typeof signUpSchema>
 type Props = {
-  onSubmit: (data: FormValuesType) => void
+  //onSubmit: (data: FormValuesType) => void
+  onSubmit: (data: Omit<FormValuesType, 'passwordConfirmation'>) => void
 }
 export const SignUpForm = ({ onSubmit }: Props) => {
   const {
@@ -47,7 +49,7 @@ export const SignUpForm = ({ onSubmit }: Props) => {
     },
   })
   const handleFormSubmitted = handleSubmit(data => {
-    onSubmit(data)
+    onSubmit(omit(data, ['passwordConfirmation']))
   })
 
   return (
