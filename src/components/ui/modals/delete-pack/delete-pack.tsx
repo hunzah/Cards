@@ -2,13 +2,15 @@ import s from './delete-pack.module.scss'
 
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { Typography } from '@/components/ui/typography'
+import { useAppSelector } from '@/hooks.ts'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
 
 type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
-  createNewPackCallback: (params: { id: string }) => void
 }
-export const DeletePack = ({ closeModalCallback, id }: Props) => {
+export const DeletePack = ({ closeModalCallback }: Props) => {
+  const id = useAppSelector(state => state.decks.DeckId)
+
   const mainActionCallback = () => {
     useDeleteDeckMutation({ id: id })
   }

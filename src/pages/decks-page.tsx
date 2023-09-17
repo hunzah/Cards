@@ -4,6 +4,7 @@ import s from '../../src/components/ui/table/table.module.scss'
 
 import { Button } from '@/components/ui/button'
 import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
+import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
 import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import {
@@ -14,12 +15,13 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components/ui/table'
+import { useAppDispatch } from '@/hooks.ts'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
-  useUpdateDeckMutation,
 } from '@/services/decks/decks.service.ts'
+import { setDeckId, setDeckName } from '@/services/decks/decks.slice.ts'
 
 type Sort = {
   key: string
@@ -31,11 +33,20 @@ export const DecksPage = () => {
   const [itemsPerPage] = useState(10)
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
-  const [isAddNewPackOpen, setIsAddNewPackOpen] = useState<boolean>(false)
-  const [isEditPackOpen, setIsEditPackOpen] = useState<boolean>(false)
-  const openAddNewPackHandler = () => setIsAddNewPackOpen(true)
-  const openEditPackHandler = () => setIsEditPackOpen(true)
-  const createNewPack = () => createDeck({ name: 'deckname' })
+  const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
+  const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
+  const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
+  const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
+  const openEditPackHandler = (id: string) => {
+    setIsEditPackModalOpen(true)
+    dispatch(setDeckId(id))
+  }
+  const openDeletePackHandler = ({ name, id }: { name: string; id: string }) => {
+    setIsDeletePackModalOpen(true)
+    dispatch(setDeckId(id))
+    dispatch(setDeckName(name))
+  }
   const decks = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
@@ -44,7 +55,6 @@ export const DecksPage = () => {
   const [createDeck, createDeckLoading] = useCreateDeckMutation()
   const isLoading = useGetDecksQuery()
   const [deleteDeck, deleteDeckLoading = { isLoading }] = useDeleteDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
 
   console.log(decks)
   if (decks.isLoading) {
@@ -62,12 +72,6 @@ export const DecksPage = () => {
     }
   }
 
-  const deleteDeckHandler = ({ id }: { id: string }) => {
-    deleteDeck({ id })
-  }
-  const updateDeckHandler = ({ id, params }: { id: string; params: any }) => {
-    updateDeck({ id: { id }, params: { params } })
-  }
   const sortArrow = (orderBy: string) => {
     if (!sort || sort.key !== orderBy) {
       return <span>•</span>
@@ -93,23 +97,28 @@ export const DecksPage = () => {
         ''
       )}
 
-      <Button onClick={createNewPack}> create deck</Button>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
-      <Button onClick={openEditPackHandler}>Edit</Button>
-      {isAddNewPackOpen && (
+      {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
           <div className={s.backdrop}>
             <AddNewPack
-              closeModalCallback={setIsAddNewPackOpen}
+              closeModalCallback={setIsAddNewPackModalOpen}
               createNewPackCallback={createDeck}
             />
           </div>
         </div>
       )}
-      {isEditPackOpen && (
+      {isEditPackModalOpen && (
         <div className={s.modalContainer}>
           <div className={s.backdrop}>
-            <EditPack closeModalCallback={setIsEditPackOpen} />
+            <EditPack closeModalCallback={setIsEditPackModalOpen} />
+          </div>
+        </div>
+      )}
+      {isDeletePackModalOpen && (
+        <div className={s.modalContainer}>
+          <div className={s.backdrop}>
+            <DeletePack closeModalCallback={setIsEditPackModalOpen} />
           </div>
         </div>
       )}
@@ -141,17 +150,10 @@ export const DecksPage = () => {
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
-                    <Button onClick={() => deleteDeckHandler({ id: deck.id })}>delete</Button>
-                    <Button
-                      onClick={() =>
-                        updateDeckHandler({
-                          id: deck.id,
-                          params: { name: 'NEW1NAME' },
-                        })
-                      }
-                    >
-                      edit
+                    <Button onClick={() => openDeletePackHandler({ id: deck.id, name: deck.name })}>
+                      delete
                     </Button>
+                    <Button onClick={() => openEditPackHandler(deck.id)}>Edit</Button>
                   </div>
                 </TableCell>
               </TableRow>
