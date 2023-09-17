@@ -34,7 +34,7 @@ const authService = baseApi.injectEndpoints({
     }),
     singUp: builder.mutation<SingUpResponseType, SingUpType>({
       query: data => ({
-        url: 'v1/auth/sing-up',
+        url: '/v1/auth/sign-up',
         method: 'POST',
         body: data,
       }),

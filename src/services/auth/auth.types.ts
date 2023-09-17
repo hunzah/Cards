@@ -10,3 +10,7 @@ export type SingUpResponseType = {
   created: string
   updated: string
 }
+export type CustomerError = {
+  data: { errorMessages: string[] }
+  status: number
+}
