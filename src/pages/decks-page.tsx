@@ -18,8 +18,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
+import {useCreateDeckMutation, useDeleteDeckMutation, useGetDecksQuery} from '@/services/decks/decks.service.ts'
 import { setDeckId, setDeckName, setItemsPerPage } from '@/services/decks/decks.slice.ts'
+import {useSelector} from "react-redux";
+import {Slider} from "@/components/ui/slider";
 
 type Sort = {
   key: string
