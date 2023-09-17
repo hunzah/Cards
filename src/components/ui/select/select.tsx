@@ -12,6 +12,7 @@ import { Typography, TypographyVariantTypes } from '@/components/ui/typography'
 type PropsType = {
   options: number[] | string[]
   setItemsPerPage: (value: number) => void
+  setCurrentPage: (currentPage: number) => void
   contentClassName?: string
   itemClassName?: string
   isDisabled?: boolean
@@ -33,6 +34,7 @@ export const Select = (props: PropsType) => {
     isDisabled = false,
     options,
     setItemsPerPage,
+    setCurrentPage,
     contentClassName,
     itemClassName,
     required,
@@ -51,6 +53,7 @@ export const Select = (props: PropsType) => {
   const setSelectedValueHandler = (e: number) => {
     setSelectedValue(e)
     setItemsPerPage(e)
+    setCurrentPage(1)
   }
 
   return (

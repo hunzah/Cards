@@ -33,7 +33,7 @@ export const Pagination = (props: PropsType) => {
         onChange={paginate}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        setPerPage={setPerPage}
+        setPerPage={setPerPageHandler}
       />
       <div className={s.selectContainer}>
         <Typography variant="body2">Показать</Typography>
@@ -41,6 +41,7 @@ export const Pagination = (props: PropsType) => {
           options={[10, 20, 30, 50, 100]}
           defaultValue={10}
           setItemsPerPage={setPerPageHandler}
+          setCurrentPage={setCurrentPage}
           textStyle="body2"
         />
         <Typography variant="body2"> на странице</Typography>

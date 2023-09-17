@@ -20,7 +20,12 @@ import {
 } from '@/components/ui/table'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import { setDeckId, setDeckName, setItemsPerPage } from '@/services/decks/decks.slice.ts'
+import {
+  setDeckId,
+  setDeckName,
+  setItemsPerPage,
+  updateCurrentPage,
+} from '@/services/decks/decks.slice.ts'
 
 type Sort = {
   key: string
@@ -28,10 +33,10 @@ type Sort = {
 } | null
 
 export const DecksPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = useAppSelector(state => state.decks.itemsPerPage)
-  const dispatch = useAppDispatch()
+  // const [currentPage, setCurrentPage] = useState(1)
+  const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
+  const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
@@ -84,6 +89,9 @@ export const DecksPage = () => {
 
   const setItemsPerPageHandler = (value: number) => {
     dispatch(setItemsPerPage(value))
+  }
+  const setCurrentPageHandler = (value: number) => {
+    dispatch(updateCurrentPage(value))
   }
 
   if (decks.isLoading) {
@@ -163,7 +171,7 @@ export const DecksPage = () => {
       </Table>
       <Pagination
         elements={decks.data?.pagination.totalItems ?? 0}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={setCurrentPageHandler}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
         setItemsPerPage={setItemsPerPageHandler}
