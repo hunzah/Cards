@@ -3,8 +3,8 @@ import { useState } from 'react'
 import s from './drop-down-menu.module.scss'
 
 import avatarTest from '@/assets/images/avatar.svg'
-import logOut from '@/assets/images/log-out.svg'
-import myProfIcon from '@/assets/images/My-profile-icon.svg'
+import logOut from '@/assets/icons/log-out.svg'
+import myProfIcon from '@/assets/icons/My-profile-icon.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 

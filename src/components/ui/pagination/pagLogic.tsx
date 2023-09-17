@@ -1,7 +1,7 @@
 import s from './pagination.module.scss'
 
-import arrowLeft from '@/assets/images/keyboard-arrow-left.svg'
-import arrowRight from '@/assets/images/keyboard-arrow-right.svg'
+import arrowLeft from '@/assets/icons/keyboard-arrow-left.svg'
+import arrowRight from '@/assets/icons/keyboard-arrow-right.svg'
 import { usePagination } from '@/components/ui/pagination/usePagination.ts'
 
 type PropsType = {

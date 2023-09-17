@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from './'
-import asd from '../../../assets/images/log-out.svg'
+import asd from '../../../assets/icons/log-out.svg'
 
 const meta = {
   title: 'Components/Button',

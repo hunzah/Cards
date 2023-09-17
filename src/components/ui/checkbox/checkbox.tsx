@@ -1,10 +1,10 @@
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 
-import checkboxBorderImg from '../../../assets/images/checkbox-border.svg'
-import disabledCheckedImg from '../../../assets/images/checkbox-disabled-checked.svg'
-import checkboxImg from '../../../assets/images/checkbox.svg'
-import disabledUncheckedImg from '../../../assets/images/disabled-checkbox-unchecked.svg'
+import checkboxBorderImg from '../../../assets/icons/checkbox-border.svg'
+import disabledCheckedImg from '../../../assets/icons/checkbox-disabled-checked.svg'
+import checkboxImg from '../../../assets/icons/checkbox.svg'
+import disabledUncheckedImg from '../../../assets/icons/disabled-checkbox-unchecked.svg'
 
 import s from './checkbox.module.scss'
 
