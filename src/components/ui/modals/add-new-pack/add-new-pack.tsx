@@ -44,7 +44,7 @@ export const AddNewPack = ({ closeModalCallback }: Props) => {
           placeholder={'Name'}
           className={s.input}
         />
-        <Checkbox checked={isPrivate} onChange={checkboxHandler} />
+        <Checkbox checked={isPrivate} onChange={checkboxHandler} label="Private pack" />
       </div>
       {isLoading && (
         <div style={{ position: 'fixed', color: 'aqua', top: '50%', right: '50%' }}>Loading...</div>
