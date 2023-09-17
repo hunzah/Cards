@@ -13,7 +13,7 @@ type TemplateModalProps = {
   buttonName: string
   closeModalCallback: (isOpen: boolean) => void
   mainActionCallback: () => void
-  value: string
+  value?: string
 }
 
 export const TemplateModal = (props: TemplateModalProps) => {
