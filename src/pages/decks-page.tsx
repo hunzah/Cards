@@ -9,6 +9,7 @@ import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx
 import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
 import { Pagination } from '@/components/ui/pagination/pagination.tsx'
+import { Slider } from '@/components/ui/slider'
 import {
   Table,
   TableBody,
@@ -18,10 +19,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import {useCreateDeckMutation, useDeleteDeckMutation, useGetDecksQuery} from '@/services/decks/decks.service.ts'
+import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { setDeckId, setDeckName, setItemsPerPage } from '@/services/decks/decks.slice.ts'
-import {useSelector} from "react-redux";
-import {Slider} from "@/components/ui/slider";
 
 type Sort = {
   key: string
@@ -30,10 +29,9 @@ type Sort = {
 
 export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  // const [itemsPerPage] = useState(10)
-  const itemsPerPage = useSelector(state => state.decks.itemsPerPage)
+  const itemsPerPage = useAppSelector(state => state.decks.itemsPerPage)
   const dispatch = useAppDispatch()
-  const sliderValues = useSelector(state=>state.slider)
+  const sliderValues = useAppSelector(state => state.slider)
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
@@ -54,11 +52,8 @@ export const DecksPage = () => {
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
-    maxCardsCount:sliderValues.maxCurrentSliderValue
+    maxCardsCount: sliderValues.maxCurrentSliderValue,
   })
-  const [createDeck, createDeckLoading] = useCreateDeckMutation()
-  const isLoading = useGetDecksQuery()
-  const [deleteDeck, deleteDeckLoading = { isLoading }] = useDeleteDeckMutation()
 
   if (decks.isLoading) {
     return <div>Loading....</div>
@@ -97,21 +92,9 @@ export const DecksPage = () => {
 
   return (
     <div className={s.root}>
-      {deleteDeckLoading.isLoading ? (
-        <div style={{ position: 'fixed', left: '250px' }}>DELETING</div>
-      ) : (
-        ''
-      )}
-      {createDeckLoading.isLoading ? (
-        <div style={{ position: 'fixed', left: '300px' }}>CREATING</div>
-      ) : (
-        ''
-      )}
-<div>
-
-  <Slider decks={decks.data}/>
-
-</div>
+      <div>
+        <Slider decks={decks.data} />
+      </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
@@ -185,7 +168,6 @@ export const DecksPage = () => {
         itemsPerPage={itemsPerPage}
         setItemsPerPage={setItemsPerPageHandler}
       />
-
     </div>
   )
 }
