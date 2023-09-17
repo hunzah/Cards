@@ -1,30 +1,47 @@
 import * as SliderRadix from '@radix-ui/react-slider'
 
 import s from './slider.module.scss'
+import {DecksResponse} from "@/services/decks/types";
+import {
+    setMaxCurrentSliderValue,
+    setMaxSliderValue,
+    setMinCurrentSliderValue
+} from "@/components/ui/slider/slider.slice";
+import {useAppDispatch} from "@/hooks";
+import {useSelector} from "react-redux";
+import {useEffect} from "react";
 
 type PropsType = {
-  minSliderValue: number
-  maxSliderValue: number
-  setMinSliderValue: (minSliderValue: number) => void
-  setMaxSliderValue: (maxSliderValue: number) => void
+  decks:DecksResponse
 }
 
 export const Slider = (props: PropsType) => {
-  const { minSliderValue, maxSliderValue, setMinSliderValue, setMaxSliderValue } = props
-
+  const { decks } = props
+const sliderValues = useSelector(state=>state.slider)
+    const dispatch = useAppDispatch()
   const changeSliderValue = (values: number[]) => {
-    values[0] === minSliderValue ? setMaxSliderValue(values[1]) : setMinSliderValue(values[0])
+    values[0] === sliderValues.minCurrentSliderValue ?
+        dispatch(setMaxCurrentSliderValue({max:values[1]})) :
+        dispatch(setMinCurrentSliderValue({min:values[0]}))
   }
+
+useEffect(()=>{
+    dispatch(setMaxSliderValue({max:decks.maxCardsCount}))
+    dispatch(setMaxCurrentSliderValue({max:decks.maxCardsCount}))
+
+}, [])
+
+
 
   return (
     <div className={s.SliderContainer}>
-      <span className={s.SliderValuesNumber}>{minSliderValue}</span>
+      <span className={s.SliderValuesNumber}>{sliderValues.minCurrentSliderValue}</span>
       <SliderRadix.Root
         onValueChange={changeSliderValue}
         className={s.SliderRoot}
-        defaultValue={[minSliderValue, maxSliderValue]}
+        defaultValue={[sliderValues.minCurrentSliderValue, decks.maxCardsCount]}
         minStepsBetweenThumbs={1}
-        max={100}
+        max={decks.maxCardsCount}
         step={1}
 
       >
@@ -34,7 +51,7 @@ export const Slider = (props: PropsType) => {
         <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume" />
         <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume" />
       </SliderRadix.Root>
-      <span className={s.SliderValuesNumber}>{maxSliderValue}</span>
+      <span className={s.SliderValuesNumber}>{sliderValues.maxCurrentSliderValue}</span>
     </div>
   )
 }

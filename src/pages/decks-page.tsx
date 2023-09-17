@@ -22,6 +22,7 @@ import {
   useGetDecksQuery,
 } from '@/services/decks/decks.service.ts'
 import { setDeckId, setDeckName } from '@/services/decks/decks.slice.ts'
+import {Slider} from "@/components/ui/slider";
 
 type Sort = {
   key: string
@@ -70,7 +71,7 @@ export const DecksPage = () => {
       })
     }
   }
-
+  console.log(decks)
   const sortArrow = (orderBy: string) => {
     if (!sort || sort.key !== orderBy) {
       return <span>•</span>
@@ -95,7 +96,11 @@ export const DecksPage = () => {
       ) : (
         ''
       )}
+<div>
 
+  <Slider decks={decks.data}/>
+
+</div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
@@ -162,28 +167,7 @@ export const DecksPage = () => {
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
-      {/*<Table>*/}
-      {/*  <TableHead>*/}
-      {/*    <TableRow>*/}
-      {/*      <TableHeadCell>Name</TableHeadCell>*/}
-      {/*      <TableHeadCell>Cards</TableHeadCell>*/}
-      {/*      <TableHeadCell>Updated</TableHeadCell>*/}
-      {/*      <TableHeadCell>created by</TableHeadCell>*/}
-      {/*    </TableRow>*/}
-      {/*  </TableHead>*/}
-      {/*  <TableBody>*/}
-      {/*    {decks.data?.items.map(deck => {*/}
-      {/*      return (*/}
-      {/*        <TableRow key={deck.id}>*/}
-      {/*          <TableCell>{deck.name}</TableCell>*/}
-      {/*          <TableCell>{deck.cardsCount}</TableCell>*/}
-      {/*          <TableCell>{deck.updated}</TableCell>*/}
-      {/*          <TableCell>{deck.author.name}</TableCell>*/}
-      {/*        </TableRow>*/}
-      {/*      )*/}
-      {/*    })}*/}
-      {/*  </TableBody>*/}
-      {/*</Table>*/}
+
     </div>
   )
 }
