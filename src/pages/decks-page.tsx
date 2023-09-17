@@ -17,9 +17,9 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components/ui/table'
-import { useAppDispatch } from '@/hooks.ts'
+import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import { setDeckId, setDeckName } from '@/services/decks/decks.slice.ts'
+import { setDeckId, setDeckName, setItemsPerPage } from '@/services/decks/decks.slice.ts'
 
 type Sort = {
   key: string
@@ -28,13 +28,14 @@ type Sort = {
 
 export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage] = useState(10)
+  // const [itemsPerPage] = useState(10)
+  const itemsPerPage = useAppSelector(state => state.decks.itemsPerPage)
+  const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
-  const dispatch = useAppDispatch()
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
   const openEditPackHandler = (id: string) => {
     setIsEditPackModalOpen(true)
@@ -65,7 +66,6 @@ export const DecksPage = () => {
       })
     }
   }
-
   const sortArrow = (orderBy: string) => {
     if (!sort || sort.key !== orderBy) {
       return <span>•</span>
@@ -76,6 +76,10 @@ export const DecksPage = () => {
     if (sort.direction === 'desc' && sort.key === orderBy) {
       return <span>↓</span>
     }
+  }
+
+  const setItemsPerPageHandler = (value: number) => {
+    dispatch(setItemsPerPage(value))
   }
 
   if (decks.isLoading) {
@@ -154,6 +158,8 @@ export const DecksPage = () => {
         elements={decks.data?.pagination.totalItems ?? 0}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        setItemsPerPage={setItemsPerPageHandler}
       />
       {/*<Table>*/}
       {/*  <TableHead>*/}

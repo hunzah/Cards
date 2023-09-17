@@ -11,7 +11,7 @@ import { Typography, TypographyVariantTypes } from '@/components/ui/typography'
 
 type PropsType = {
   options: number[] | string[]
-  onChange: (value: number) => void
+  setItemsPerPage: (value: number) => void
   contentClassName?: string
   itemClassName?: string
   isDisabled?: boolean
@@ -25,7 +25,6 @@ type PropsType = {
 type SelectItemPropsType = {
   options: number[] | string[]
   className: string
-  setSelectedValue: any
   textStyle: TypographyVariantTypes
 }
 
@@ -33,7 +32,7 @@ export const Select = (props: PropsType) => {
   const {
     isDisabled = false,
     options,
-    onChange,
+    setItemsPerPage,
     contentClassName,
     itemClassName,
     required,
@@ -49,11 +48,16 @@ export const Select = (props: PropsType) => {
 
   const [selectedValue, setSelectedValue] = useState(defaultValue ? defaultValue : options[0])
 
+  const setSelectedValueHandler = (e: number) => {
+    setSelectedValue(e)
+    setItemsPerPage(e)
+  }
+
   return (
     <SelectRadix.Root
       required={required}
       disabled={isDisabled}
-      onValueChange={e => onChange(Number(e))}
+      onValueChange={e => setSelectedValueHandler(Number(e))}
     >
       <SelectRadix.Trigger className={classNames.button}>
         <SelectRadix.Value placeholder={selectedValue} className={s.placeholder} />
@@ -63,12 +67,7 @@ export const Select = (props: PropsType) => {
       <SelectRadix.Content className={classNames.content} position="popper" collisionPadding={0}>
         <SelectRadix.Group>
           <SelectRadix.Label>
-            <SelectItem
-              className={classNames.item}
-              options={options}
-              setSelectedValue={setSelectedValue}
-              textStyle={textStyle}
-            />
+            <SelectItem className={classNames.item} options={options} textStyle={textStyle} />
           </SelectRadix.Label>
         </SelectRadix.Group>
       </SelectRadix.Content>
@@ -76,7 +75,7 @@ export const Select = (props: PropsType) => {
   )
 }
 const SelectItem = (props: SelectItemPropsType) => {
-  const { options, className, setSelectedValue, textStyle, ...rest } = props
+  const { options, className, textStyle, ...rest } = props
 
   return (
     <>
