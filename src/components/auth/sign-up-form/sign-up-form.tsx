@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import s from './sign-up.module.scss'
@@ -11,7 +12,7 @@ import { Typography } from '@/components/ui/typography'
 
 const signUpSchema = z
   .object({
-    email: z.string().email(),
+    email: z.string().email('Invalid email address').nonempty('Enter email'),
     password: z.string().min(3),
     passwordConfirmation: z.string().min(3),
   })
@@ -51,7 +52,7 @@ export const SignUpForm = ({ onSubmit }: Props) => {
 
   return (
     <Card className={s.card}>
-      <Typography variant={'large'} className={s.title}>
+      <Typography variant={'large'} component={'div'} className={s.title}>
         Sign Up
       </Typography>
       <form onSubmit={handleFormSubmitted} className={s.formContainer}>
@@ -101,7 +102,7 @@ export const SignUpForm = ({ onSubmit }: Props) => {
           <Typography className={s.text} variant="body2">
             Already have an account?
           </Typography>
-          <Button type={'link'} as={'a'} className={s.buttonLink}>
+          <Button type={'link'} as={Link} variant={'link'} to="/login" className={s.buttonLink}>
             Sign In
           </Button>
         </div>
