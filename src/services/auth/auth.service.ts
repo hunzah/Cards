@@ -1,4 +1,9 @@
-import { LoginArgs, LoginResponse } from '@/services/auth/auth.types'
+import {
+  LoginArgs,
+  LoginResponse,
+  SingUpResponseType,
+  SingUpType,
+} from '@/services/auth/auth.types'
 import { baseApi } from '@/services/base-api'
 
 const authService = baseApi.injectEndpoints({
@@ -27,6 +32,14 @@ const authService = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Me'],
     }),
+    singUp: builder.mutation<SingUpResponseType, SingUpType>({
+      query: data => ({
+        url: 'v1/auth/sing-up',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+
     logOut: builder.mutation({
       query: () => ({
         url: 'v1/auth/logout',
@@ -37,4 +50,4 @@ const authService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetMeQuery, useLoginMutation, useLogOutMutation } = authService
+export const { useSingUpMutation, useGetMeQuery, useLoginMutation, useLogOutMutation } = authService
