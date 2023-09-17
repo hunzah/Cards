@@ -25,7 +25,7 @@ export const Checkbox = (props: CheckboxProps) => {
   const { checked, label, disabled, onChange, required, id, className, labelClassName } = props
 
   const classNames = {
-    checkbox: clsx(s.checkboxRoot, className && s.className),
+    checkbox: clsx(s.checkboxRoot, className && className),
     label: clsx(s.textContent, labelClassName && labelClassName, disabled && s.textDisabled),
   }
 
