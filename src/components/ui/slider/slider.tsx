@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/slider/slider.slice";
 import {useAppDispatch} from "@/hooks";
 import {useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 type PropsType = {
   decks:DecksResponse
@@ -19,11 +19,28 @@ export const Slider = (props: PropsType) => {
   const { decks } = props
 const sliderValues = useSelector(state=>state.slider)
     const dispatch = useAppDispatch()
-  const changeSliderValue = (values: number[]) => {
+    const [timerId, setTimerId] = useState<number | undefined>(undefined)
+
+    const changeSliderValue = (values:number[]) => {
+
+        clearTimeout(timerId)
+            setTimerId(+setTimeout(()=>{
+
+                values[0] === sliderValues.minCurrentSliderValue ?
+                    dispatch(setMaxCurrentSliderValue({max:values[1]})) :
+                    dispatch(setMinCurrentSliderValue({min:values[0]}))
+
+            },1500))
+    }
+
+
+/*  const changeSliderValue = (values: number[]) => {
     values[0] === sliderValues.minCurrentSliderValue ?
         dispatch(setMaxCurrentSliderValue({max:values[1]})) :
         dispatch(setMinCurrentSliderValue({min:values[0]}))
-  }
+  }*/
+
+
 
 useEffect(()=>{
     dispatch(setMaxSliderValue({max:decks.maxCardsCount}))
