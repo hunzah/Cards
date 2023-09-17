@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 
 import s from '../../src/components/ui/table/table.module.scss'
 
@@ -18,6 +18,10 @@ import {
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services/decks/decks'
+import {log} from "util";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {useSelector} from "react-redux";
+import {decksSlice} from "@/services/decks/decks.slice";
 
 type Sort = {
   key: string
@@ -25,22 +29,30 @@ type Sort = {
 } | null
 
 export const Decks = () => {
-  const [currentPage, setCurrentPage] = useState(1)
+  //const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(10)
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined // Use undefined when sort is null
-
+const currentPage = useSelector(state=>state.decks.currentPage)
+  const dispatch = useAppDispatch()
   const decks = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
   })
+
+
+  const setCurrentPage = (page:number) => {
+    console.log(page)
+    dispatch(decksSlice.actions.updateCurrentPage({page}))
+  }
   const [createDeck, createDeckLoading] = useCreateDeckMutation()
   const isLoading = useGetDecksQuery()
-  const [deleteDeck, deleteDeckLoading = { isLoading }] = useDeleteDeckMutation()
+  const [deleteDeck, deleteDeckLoading = { isLoading },] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
 
-  console.log(decks)
+
+  console.log(currentPage)
   if (decks.isLoading) {
     return <div>Loading....</div>
   }
@@ -73,7 +85,10 @@ export const Decks = () => {
       return <span>↓</span>
     }
   }
-
+const createDeckHandler = () => {
+  createDeck({ name: 'deckname' })
+  setCurrentPage(1)
+}
   return (
     <div>
       {deleteDeckLoading.isLoading ? (
@@ -87,7 +102,7 @@ export const Decks = () => {
         ''
       )}
 
-      <Button onClick={() => createDeck({ name: 'deckname' })}> create deck</Button>
+      <Button onClick={createDeckHandler}> create deck</Button>
       <Table>
         <TableHead>
           <TableRow>
@@ -117,7 +132,7 @@ export const Decks = () => {
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
-                    <Button onClick={() => deleteDeckHandler({ id: deck.id })}>delete</Button>
+                    <Button onClick={() => deleteDeckHandler({ id: deck.id }).unwrap().catch((err)=> console.log(err.data.message))}>delete</Button>
                     <Button
                       onClick={() =>
                         updateDeckHandler({
