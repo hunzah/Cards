@@ -33,7 +33,6 @@ type Sort = {
 } | null
 
 export const DecksPage = () => {
-  // const [currentPage, setCurrentPage] = useState(1)
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
   const dispatch = useAppDispatch()
@@ -87,12 +86,9 @@ export const DecksPage = () => {
     }
   }
 
-  const setItemsPerPageHandler = (value: number) => {
-    dispatch(setItemsPerPage(value))
-  }
-  const setCurrentPageHandler = (value: number) => {
-    dispatch(updateCurrentPage(value))
-  }
+  const setItemsPerPageHandler = (value: number) => dispatch(setItemsPerPage(value))
+
+  const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
 
   if (decks.isLoading) {
     return <div>Decks Fetching....</div>
