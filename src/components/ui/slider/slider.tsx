@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import { DecksResponse } from '@/services/decks/types'
 
 type PropsType = {
-  decks: DecksResponse
+  decks: DecksResponse | undefined
 }
 
 export const Slider = (props: PropsType) => {
@@ -52,7 +52,7 @@ export const Slider = (props: PropsType) => {
         className={s.SliderRoot}
         defaultValue={[sliderValues.minCurrentSliderValue, decks.maxCardsCount]}
         minStepsBetweenThumbs={1}
-        max={decks.maxCardsCount}
+        max={decks?.maxCardsCount}
         step={1}
       >
         <SliderRadix.Track className={s.SliderTrack}>
