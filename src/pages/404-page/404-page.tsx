@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import s from './404-page.module.scss'
 
@@ -7,7 +7,11 @@ import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 
 export const PageNotFound = () => {
-  const onClickHandler = () => <Navigate to="/" />
+  const navigate = useNavigate()
+
+  const onClickHandler = () => {
+    navigate('/')
+  }
 
   return (
     <div className={s.root}>

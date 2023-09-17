@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import { Provider } from 'react-redux'
 
-import { Header } from '@/components/ui/header/header.tsx'
 import { Router } from '@/router'
 import { store } from '@/services/store'
 
@@ -17,7 +16,6 @@ export function App() {
   return (
     <div>
       <Provider store={store}>
-        <Header name="Ivan" />
         <Router />
       </Provider>
     </div>
