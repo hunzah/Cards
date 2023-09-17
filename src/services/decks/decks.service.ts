@@ -80,7 +80,7 @@ const decksApi = baseApi.injectEndpoints({
       query: params => ({
         url: `v1/decks/${params.id}`,
         method: 'PATCH',
-        body: params,
+        body: params.params,
       }),
       invalidatesTags: ['Decks'],
     }),

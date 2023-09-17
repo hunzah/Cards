@@ -5,13 +5,13 @@ import s from './add-new-pack.module.scss'
 import { Checkbox } from '@/components/ui/checkbox'
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { TextField } from '@/components/ui/text-field'
-import { DecksPostParams } from '@/services/decks/types.ts'
+import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
 
 type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
-  createNewPackCallback: (params: DecksPostParams) => void
 }
-export const AddNewPack = ({ closeModalCallback, createNewPackCallback }: Props) => {
+export const AddNewPack = ({ closeModalCallback }: Props) => {
+  const [createDeck] = useCreateDeckMutation()
   const [value, setValue] = useState<string>('')
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
@@ -20,7 +20,7 @@ export const AddNewPack = ({ closeModalCallback, createNewPackCallback }: Props)
   const checkboxHandler = (e: boolean) => setIsPrivate(e)
 
   const mainActionCallback = () => {
-    createNewPackCallback({ name: value, isPrivate: isPrivate })
+    createDeck({ name: value, isPrivate: isPrivate })
     setValue('')
   }
 

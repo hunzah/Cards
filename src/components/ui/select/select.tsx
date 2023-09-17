@@ -83,9 +83,7 @@ const SelectItem = (props: SelectItemPropsType) => {
       {options.map((option, i) => (
         <SelectRadix.Item key={i} value={option.toString()} className={className} {...rest}>
           <SelectRadix.ItemText>
-            <Typography variant={textStyle} component={'span'}>
-              {option}
-            </Typography>
+            <Typography variant={textStyle}>{option}</Typography>
           </SelectRadix.ItemText>
         </SelectRadix.Item>
       ))}

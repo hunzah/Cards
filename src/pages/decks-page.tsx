@@ -56,7 +56,6 @@ export const DecksPage = () => {
   const isLoading = useGetDecksQuery()
   const [deleteDeck, deleteDeckLoading = { isLoading }] = useDeleteDeckMutation()
 
-  console.log(decks)
   if (decks.isLoading) {
     return <div>Loading....</div>
   }
@@ -101,10 +100,7 @@ export const DecksPage = () => {
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
           <div className={s.backdrop}>
-            <AddNewPack
-              closeModalCallback={setIsAddNewPackModalOpen}
-              createNewPackCallback={createDeck}
-            />
+            <AddNewPack closeModalCallback={setIsAddNewPackModalOpen} />
           </div>
         </div>
       )}
@@ -118,7 +114,7 @@ export const DecksPage = () => {
       {isDeletePackModalOpen && (
         <div className={s.modalContainer}>
           <div className={s.backdrop}>
-            <DeletePack closeModalCallback={setIsEditPackModalOpen} />
+            <DeletePack closeModalCallback={setIsDeletePackModalOpen} />
           </div>
         </div>
       )}

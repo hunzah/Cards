@@ -44,7 +44,7 @@ export const Typography = ({
 
   return (
     <Component className={classNames.textClassName} {...rest}>
-      <div className={className}>{children}</div>
+      {children}
     </Component>
   )
 }

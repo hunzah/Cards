@@ -1,16 +1,10 @@
 .root {
   width: 542px;
-  height: 311px;
+  height: 23%;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   padding: 42px 0 24px;
-}
-
-.input {
-  width: 484px;
-  height: 60px;
 }

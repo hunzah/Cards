@@ -22,7 +22,7 @@ export const EditPack = ({ closeModalCallback }: Props) => {
   const checkboxHandler = (e: boolean) => setIsPrivate(e)
 
   const mainActionCallback = () => {
-    updateDeck({ id: id, name: value, isPrivate: isPrivate })
+    updateDeck({ id: id, params: { name: value, isPrivate: isPrivate } })
     setValue('')
   }
 

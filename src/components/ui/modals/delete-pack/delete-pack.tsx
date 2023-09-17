@@ -9,10 +9,12 @@ type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
 }
 export const DeletePack = ({ closeModalCallback }: Props) => {
+  const [deleteDeck] = useDeleteDeckMutation()
   const id = useAppSelector(state => state.decks.DeckId)
+  const name = useAppSelector(state => state.decks.DeckName)
 
   const mainActionCallback = () => {
-    useDeleteDeckMutation({ id: id })
+    deleteDeck({ id: id })
   }
 
   return (
@@ -23,10 +25,17 @@ export const DeletePack = ({ closeModalCallback }: Props) => {
       closeModalCallback={closeModalCallback}
       mainActionCallback={mainActionCallback}
     >
-      <Typography variant={'subtitle1'}>
-        Do you really want to remove <Typography variant={'body1'}>Pack Name?</Typography>
-        All cards will be deleted.
-      </Typography>
+      <div className={s.content}>
+        <Typography variant={'body1'} className={s.text}>
+          Do you really want to remove{' '}
+          <Typography variant={'subtitle1'} component={'span'}>
+            {name}?
+          </Typography>
+        </Typography>
+        <Typography variant={'body1'} className={s.text} component={'div'}>
+          All cards will be deleted.
+        </Typography>
+      </div>
     </TemplateModal>
   )
 }
