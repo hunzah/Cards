@@ -79,7 +79,7 @@ export const SignInForm = ({ onSubmit }: Props) => {
           className={s.checkbox}
         />
         <div className={s.buttonForgotPasswordContainer}>
-          <Button type={'link'} as={'a'} className={s.buttonForgotPassword}>
+          <Button type={'link'} as={Link} to="/forgot-password" className={s.buttonForgotPassword}>
             Forgot Password?
           </Button>
         </div>

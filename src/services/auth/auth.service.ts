@@ -39,6 +39,13 @@ const authService = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    forgotPassword: builder.mutation<any, Omit<SingUpType, 'password'>>({
+      query: data => ({
+        url: '/v1/auth/recover-password',
+        method: 'POST',
+        body: data,
+      }),
+    }),
 
     logOut: builder.mutation({
       query: () => ({
@@ -50,4 +57,10 @@ const authService = baseApi.injectEndpoints({
   }),
 })
 
-export const { useSingUpMutation, useGetMeQuery, useLoginMutation, useLogOutMutation } = authService
+export const {
+  useForgotPasswordMutation,
+  useSingUpMutation,
+  useGetMeQuery,
+  useLoginMutation,
+  useLogOutMutation,
+} = authService
