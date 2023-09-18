@@ -92,6 +92,33 @@ const decksApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: params.params,
       }),
+      async onQueryStarted({ params, id }, { dispatch, queryFulfilled, getState }) {
+        const state = getState() as RootState
+        const { currentPage, itemsPerPage } = state.decks
+        const { minCurrentSliderValue, maxCurrentSliderValue } = state.slider
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData(
+            'getDecks',
+            {
+              currentPage: currentPage,
+              itemsPerPage: itemsPerPage,
+              minCardsCount: minCurrentSliderValue,
+              maxCardsCount: maxCurrentSliderValue,
+            },
+            draft => {
+              draft.items = draft.items.map(item =>
+                item.id === id ? { ...item, ...params } : item
+              )
+            }
+          )
+        )
+
+        try {
+          await queryFulfilled
+        } catch (error) {
+          patchResult.undo()
+        }
+      },
       invalidatesTags: ['Decks'],
     }),
   }),
