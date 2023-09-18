@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { z } from 'zod'
 
 import s from './forgot-password.module.scss'
@@ -65,7 +66,7 @@ export const ForgotPasswordForm = ({ onSubmit }: Props) => {
           <Typography className={s.text} variant="body2">
             Did you remember your password?
           </Typography>
-          <Button type={'link'} as={'a'} className={s.buttonLink}>
+          <Button type={'link'} as={Link} to="/login" className={s.buttonLink}>
             Try logging in
           </Button>
         </div>

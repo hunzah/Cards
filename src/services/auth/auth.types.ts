@@ -14,3 +14,7 @@ export type CustomerError = {
   data: { errorMessages: string[] }
   status: number
 }
+export type ForgetPasswordError = {
+  data: { message: string; path: string; statusCode: number; timestamp: string }
+  status: number
+}
