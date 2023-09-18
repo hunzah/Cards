@@ -51,7 +51,7 @@ export const DecksPage = () => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(name))
   }
-  const decks = useGetDecksQuery({
+  const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
@@ -59,7 +59,7 @@ export const DecksPage = () => {
     maxCardsCount: sliderValues.maxCurrentSliderValue,
   })
 
-  if (decks.isLoading) {
+  if (DecksIsLoading) {
     return <div>Loading....</div>
   }
 
@@ -90,15 +90,13 @@ export const DecksPage = () => {
 
   const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
 
-  if (decks.isLoading) {
+  if (DecksIsLoading) {
     return <div>Decks Fetching....</div>
   }
 
   return (
     <div className={s.root}>
-      <div>
-        <Slider decks={decks.data} />
-      </div>
+      <div>{decks && <Slider decks={decks} />}</div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
@@ -140,7 +138,7 @@ export const DecksPage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {decks.data?.items.map(deck => {
+          {decks?.items.map(deck => {
             return (
               <TableRow key={deck.id}>
                 <TableCell>{deck.name}</TableCell>
@@ -166,7 +164,7 @@ export const DecksPage = () => {
         </TableBody>
       </Table>
       <Pagination
-        elements={decks.data?.pagination.totalItems ?? 0}
+        elements={decks?.pagination.totalItems ?? 0}
         setCurrentPage={setCurrentPageHandler}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

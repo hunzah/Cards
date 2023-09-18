@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks'
 import { DecksResponse } from '@/services/decks/types'
 
 type PropsType = {
-  decks: DecksResponse | undefined
+  decks: DecksResponse
 }
 
 export const Slider = (props: PropsType) => {
