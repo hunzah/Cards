@@ -48,7 +48,7 @@ const decksApi = baseApi.injectEndpoints({
             )
           )
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
       },
       invalidatesTags: ['Decks'],
