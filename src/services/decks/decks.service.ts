@@ -27,6 +27,8 @@ const decksApi = baseApi.injectEndpoints({
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled, getState }) {
         const state = getState() as RootState
+        const { currentPage, itemsPerPage } = state.decks
+        const { minCurrentSliderValue, maxCurrentSliderValue } = state.slider
 
         try {
           const response = await queryFulfilled
@@ -34,9 +36,13 @@ const decksApi = baseApi.injectEndpoints({
           dispatch(
             decksApi.util.updateQueryData(
               'getDecks',
-              { authorId: '1', currentPage: state.decks.currentPage },
+              {
+                currentPage: currentPage,
+                itemsPerPage: itemsPerPage,
+                minCardsCount: minCurrentSliderValue,
+                maxCardsCount: maxCurrentSliderValue,
+              },
               draft => {
-                // Object.assign(draft, patch)
                 draft.items.unshift(response.data)
               }
             )
@@ -55,12 +61,16 @@ const decksApi = baseApi.injectEndpoints({
       }),
       async onQueryStarted({ id }, { dispatch, queryFulfilled, getState }) {
         const state = getState() as RootState
+        const { currentPage, itemsPerPage } = state.decks
+        const { minCurrentSliderValue, maxCurrentSliderValue } = state.slider
         const patchResult = dispatch(
           decksApi.util.updateQueryData(
             'getDecks',
             {
-              authorId: '1',
-              currentPage: state.decks.currentPage,
+              currentPage: currentPage,
+              itemsPerPage: itemsPerPage,
+              minCardsCount: minCurrentSliderValue,
+              maxCardsCount: maxCurrentSliderValue,
             },
             draft => {
               draft.items = draft.items.filter(item => item.id !== id)

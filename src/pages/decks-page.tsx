@@ -52,7 +52,7 @@ export const DecksPage = () => {
     dispatch(setDeckName(name))
   }
   const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
-    orderBy: orderBy,
+    // orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
