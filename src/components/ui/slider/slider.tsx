@@ -21,8 +21,9 @@ export const Slider = (props: PropsType) => {
   const sliderValues = useAppSelector(state => state.slider)
   const dispatch = useAppDispatch()
   const [timerId, setTimerId] = useState<number | undefined>(undefined)
-
+const [sliderCurrentValues, setSliderCurrentValues] = useState([0,decks.maxCardsCount])
   const changeSliderValue = (values: number[]) => {
+    setSliderCurrentValues(values)
     clearTimeout(timerId)
     setTimerId(
       +setTimeout(() => {
@@ -33,12 +34,6 @@ export const Slider = (props: PropsType) => {
     )
   }
 
-  /*  const changeSliderValue = (values: number[]) => {
-        values[0] === sliderValues.minCurrentSliderValue ?
-            dispatch(setMaxCurrentSliderValue({max:values[1]})) :
-            dispatch(setMinCurrentSliderValue({min:values[0]}))
-      }*/
-
   useEffect(() => {
     dispatch(setMaxSliderValue({ max: decks.maxCardsCount }))
     dispatch(setMaxCurrentSliderValue({ max: decks.maxCardsCount }))
@@ -46,7 +41,7 @@ export const Slider = (props: PropsType) => {
 
   return (
     <div className={s.SliderContainer}>
-      <span className={s.SliderValuesNumber}>{sliderValues.minCurrentSliderValue}</span>
+      <span className={s.SliderValuesNumber}>{sliderCurrentValues[0]}</span>
       <SliderRadix.Root
         onValueChange={changeSliderValue}
         className={s.SliderRoot}
@@ -61,7 +56,7 @@ export const Slider = (props: PropsType) => {
         <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume" />
         <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume" />
       </SliderRadix.Root>
-      <span className={s.SliderValuesNumber}>{sliderValues.maxCurrentSliderValue}</span>
+      <span className={s.SliderValuesNumber}>{sliderCurrentValues[1]}</span>
     </div>
   )
 }
