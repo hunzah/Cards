@@ -7,12 +7,8 @@ import { ForgetPasswordError } from '@/services/auth/auth.types.ts'
 export const ForgotPasswordPage = () => {
   const [forgotPassword, { isLoading, error, isSuccess }] = useForgotPasswordMutation()
 
-  console.log('error', error)
-  console.log('isLoading', isLoading)
-  console.log('isSuccess', isSuccess)
-
   if (isSuccess) {
-    return <Navigate to={'/login'} />
+    return <Navigate to={'/check-email'} />
   }
   if (isLoading) {
     return <div> Loading...</div>

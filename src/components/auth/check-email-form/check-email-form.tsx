@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import checkEmailIcon from '@/assets/images/check-email.svg'
 import s from '@/components/auth/check-email-form/check-email.module.scss'
 import { Button } from '@/components/ui/button'
@@ -17,7 +19,7 @@ export const CheckEmailForm = () => {
         className={s.label}
       />
 
-      <Button type={'link'} fullWidth={true} as={'a'} className={s.buttonLink}>
+      <Button type={'link'} fullWidth={true} as={Link} to="/login" className={s.buttonLink}>
         Try logging in
       </Button>
     </Card>

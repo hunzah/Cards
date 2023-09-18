@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { PageNotFound } from '@/pages/404-page/404-page.tsx'
+import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { DecksPage } from '@/pages/decks-page.tsx'
 import { ForgotPasswordPage } from '@/pages/forgot-password-page/forgot-password-page.tsx'
 import { SignInPage } from '@/pages/signIn-page.tsx'
@@ -25,6 +26,10 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/forgot-password',
     element: <ForgotPasswordPage />,
+  },
+  {
+    path: '/check-email',
+    element: <CheckEmailPage />,
   },
 ]
 
