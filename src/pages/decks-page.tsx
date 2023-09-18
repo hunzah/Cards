@@ -38,6 +38,7 @@ export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
   const userId = useAppSelector(state => state.auth.userId)
+  const [sortId, setSortId] = useState("")
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
@@ -60,7 +61,7 @@ export const DecksPage = () => {
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
-    authorId:userId
+    authorId:sortId
   })
 
   if (decks.isLoading) {
@@ -102,7 +103,7 @@ export const DecksPage = () => {
     <div className={s.root}>
       <div>
         <Slider decks={decks.data} />
-        <TabSwitcher switches={[{ id: 1, switchTitle: "all" },{ id: 2, switchTitle: "my" }]} />
+        <TabSwitcher setSortId={setSortId} switches={[{ id: "", switchTitle: "all" },{ id: userId, switchTitle: "my" }]} />
       </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
