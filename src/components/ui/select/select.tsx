@@ -15,6 +15,7 @@ type PropsType = {
   setCurrentPage: (currentPage: number) => void
   contentClassName?: string
   itemClassName?: string
+  buttonClassName?: string
   isDisabled?: boolean
   defaultValue?: number
   name?: string
