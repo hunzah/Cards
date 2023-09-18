@@ -43,15 +43,15 @@ export const DecksPage = () => {
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
-  const openEditPackHandler = (id: string, isPrivate: boolean) => {
+  const openEditPackHandler = (id: string, isPrivate: boolean, name: string) => {
     setIsEditPackModalOpen(true)
     dispatch(setDeckId(id))
     dispatch(setDeckPrivacy(isPrivate))
+    dispatch(setDeckName(name))
   }
-  const openDeletePackHandler = ({ name, id }: { name: string; id: string }) => {
+  const openDeletePackHandler = (id: string) => {
     setIsDeletePackModalOpen(true)
     dispatch(setDeckId(id))
-    dispatch(setDeckName(name))
   }
   const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
     // orderBy: orderBy,
@@ -150,15 +150,12 @@ export const DecksPage = () => {
                 <TableCell>
                   <div className={s.creatorWithButton}>
                     <button
-                      onClick={() => openEditPackHandler(deck.id, deck.isPrivate)}
+                      onClick={() => openEditPackHandler(deck.id, deck.isPrivate, deck.name)}
                       className={s.iconBtns}
                     >
                       <img src={editPackIcon} alt="edit-pack-icon" />
                     </button>
-                    <button
-                      onClick={() => openDeletePackHandler({ id: deck.id, name: deck.name })}
-                      className={s.iconBtns}
-                    >
+                    <button onClick={() => openDeletePackHandler(deck.id)} className={s.iconBtns}>
                       <img src={deletePackIcon} alt="delete-pack-icon" />
                     </button>
                   </div>
