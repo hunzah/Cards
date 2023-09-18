@@ -1,13 +1,14 @@
 import {
   createBrowserRouter,
+  Navigate,
+  Outlet,
   RouteObject,
   RouterProvider,
-  Outlet,
-  Navigate,
 } from 'react-router-dom'
 
 import { PageNotFound } from '@/pages/404-page/404-page.tsx'
 import { DecksPage } from '@/pages/decks-page.tsx'
+import { ForgotPasswordPage } from '@/pages/forgot-password-page/forgot-password-page.tsx'
 import { SignInPage } from '@/pages/signIn-page.tsx'
 import { SingUpPage } from '@/pages/sing-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service'
@@ -20,6 +21,10 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/sing-up',
     element: <SingUpPage />,
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPasswordPage />,
   },
 ]
 
