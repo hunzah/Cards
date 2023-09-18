@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 
 import s from '../../src/components/ui/table/table.module.scss'
 
@@ -26,6 +26,8 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import {TabSwitcher} from "@/components/ui/tab-switcher";
+import {setMeUserId} from "@/services/auth/auth.slice";
 
 type Sort = {
   key: string
@@ -35,6 +37,7 @@ type Sort = {
 export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
+  const userId = useAppSelector(state => state.auth.userId)
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
@@ -57,12 +60,13 @@ export const DecksPage = () => {
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
+    authorId:userId
   })
 
   if (decks.isLoading) {
     return <div>Loading....</div>
   }
-
+  console.log(userId)
   const onclickHandler = (key: string) => {
     if (sort && sort.key === key) {
       setSort(sort.direction === 'asc' ? { key, direction: 'desc' } : null)
@@ -98,6 +102,7 @@ export const DecksPage = () => {
     <div className={s.root}>
       <div>
         <Slider decks={decks.data} />
+        <TabSwitcher switches={[{ id: 1, switchTitle: "all" },{ id: 2, switchTitle: "my" }]} />
       </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
