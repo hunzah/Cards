@@ -23,6 +23,7 @@ import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
   setDeckId,
   setDeckName,
+  setDeckPrivacy,
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
@@ -42,9 +43,10 @@ export const DecksPage = () => {
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
-  const openEditPackHandler = (id: string) => {
+  const openEditPackHandler = (id: string, isPrivate: boolean) => {
     setIsEditPackModalOpen(true)
     dispatch(setDeckId(id))
+    dispatch(setDeckPrivacy(isPrivate))
   }
   const openDeletePackHandler = ({ name, id }: { name: string; id: string }) => {
     setIsDeletePackModalOpen(true)
@@ -147,7 +149,10 @@ export const DecksPage = () => {
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
-                    <button onClick={() => openEditPackHandler(deck.id)} className={s.iconBtns}>
+                    <button
+                      onClick={() => openEditPackHandler(deck.id, deck.isPrivate)}
+                      className={s.iconBtns}
+                    >
                       <img src={editPackIcon} alt="edit-pack-icon" />
                     </button>
                     <button

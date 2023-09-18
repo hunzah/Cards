@@ -5,8 +5,9 @@ import s from './edit-pack.module.scss'
 import { Checkbox } from '@/components/ui/checkbox'
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { TextField } from '@/components/ui/text-field'
-import { useAppSelector } from '@/hooks.ts'
+import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useUpdateDeckMutation } from '@/services/decks/decks.service.ts'
+import { setDeckPrivacy } from '@/services/decks/decks.slice.ts'
 
 type Props = {
   closeModalCallback: (isEditPackOpen: boolean) => void
@@ -14,12 +15,13 @@ type Props = {
 export const EditPack = ({ closeModalCallback }: Props) => {
   const [updateDeck, { isLoading }] = useUpdateDeckMutation()
   const [value, setValue] = useState<string>('')
-  const [isPrivate, setIsPrivate] = useState<boolean>(false)
-  const id = useAppSelector(state => state.decks.DeckId)
+  // const [isPrivate, setIsPrivate] = useState<boolean>(false)
+  const { DeckId: id, DeckPrivacy: isPrivate } = useAppSelector(state => state.decks)
+  const dispatch = useAppDispatch()
 
   const inputHandler = (e: string) => setValue(e)
 
-  const checkboxHandler = (e: boolean) => setIsPrivate(e)
+  const checkboxHandler = (e: boolean) => dispatch(setDeckPrivacy(e))
 
   const mainActionCallback = async () => {
     await updateDeck({ id: id, params: { name: value, isPrivate: isPrivate } })
