@@ -100,7 +100,7 @@
 
   padding: 6px 0;
 
-  color: var(--primary-500, #8c61ff);
+  color: var(--color-accent-500);
 
   background-color: var(--color-dark-900);
   box-shadow: 0 0 0 0;
@@ -125,6 +125,6 @@
   }
 }
 
-a:visited {
+/* a:visited {
   color: var(--color-accent-500);
-}
+} */

@@ -72,10 +72,13 @@
 }
 
 .buttonForgotPassword {
-  width: 113px;
   height: 24px;
+
   font-size: var(--font-size-s);
+  color: var(--color-light-100);
+
   background-color: var(--color-dark-700);
+  box-shadow: 0 0 0 0;
 
   &:hover {
     cursor: default;
