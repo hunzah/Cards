@@ -30,6 +30,7 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import { Header } from '@/components/ui/header'
 
 type Sort = {
   key: string
@@ -117,6 +118,7 @@ export const DecksPage = () => {
 
   return (
     <div className={s.root}>
+      <Header name={'Ivan'} />
       <div>{decks && <Slider decks={decks} />}</div>
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
