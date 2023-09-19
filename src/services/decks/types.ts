@@ -57,4 +57,42 @@ export type DecksPatchParams = {
   }
 }
 
+export type CardsFromDeckRequest = {
+  id: string | undefined
+  question?: string
+  answer?: string
+  orderBy?: string
+  currentPage?: number
+  itemsPerPage?: number
+}
+
+export type PaginationCars = {
+  totalPages: number
+  currentPage: number
+  itemsPerPage: number
+  totalItems: number
+}
+
+export type Items = {
+  id: string
+  question: string
+  answer: string
+  deckId: string
+  questionImg?: any
+  answerImg?: any
+  questionVideo?: any
+  answerVideo?: any
+  created: string
+  updated: string
+  shots: number
+  grade: number
+  userId: string
+}
+
+export type CardsFromDeckResponse = {
+  pagination: PaginationCars
+  items: Items[]
+}
+
+export type DeckRequestParams = { id: string | undefined }
 export type DeckDeleteParams = Pick<Deck, 'id'>

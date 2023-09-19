@@ -19,7 +19,7 @@ export type TextFieldProps = {
   className?: string
   errorMessage?: string
   onClearClick?: () => void
-  onChangeValue: (e: string) => void
+  onChangeValue?: (e: string) => void
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = (

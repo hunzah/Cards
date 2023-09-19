@@ -1,10 +1,13 @@
 import { useState } from 'react'
 
+import { Navigate, redirect, useNavigate } from 'react-router-dom'
+
 import s from '../../src/components/ui/table/table.module.scss'
 
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import { Button } from '@/components/ui/button'
+import { Header } from '@/components/ui/header'
 import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
 import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
@@ -30,7 +33,6 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import { Header } from '@/components/ui/header'
 
 type Sort = {
   key: string
@@ -48,6 +50,7 @@ export const DecksPage = () => {
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
   const [isMyPackShow, setIsMyPackShow] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
   const openEditPackHandler = (id: string, isPrivate: boolean, name: string) => {
@@ -61,7 +64,7 @@ export const DecksPage = () => {
     dispatch(setDeckId(id))
   }
   const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
-    // orderBy: orderBy,
+    orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
@@ -116,9 +119,15 @@ export const DecksPage = () => {
     return <div>Decks Fetching....</div>
   }
 
+  const goToDeck = (id: any) => {
+    console.log('decccc', id)
+
+    return navigate(`/decks/${id.id}`)
+  }
+
   return (
     <div className={s.root}>
-      <Header name={'Ivan'} />
+      <Header name={' Ivan'} />
       <div>{decks && <Slider decks={decks} />}</div>
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
@@ -126,8 +135,8 @@ export const DecksPage = () => {
       <div>
         <TabSwitcher
           switches={[
-            { id: 2, switchTitle: 'My Packs', disabled: false },
-            { id: 1, switchTitle: 'All Packs', disabled: false },
+            { id: 2, switchTitle: ' My Packs', disabled: false },
+            { id: 1, switchTitle: ' All Packs', disabled: false },
           ]}
           onChange={tabSwitcherHandle}
         />
@@ -176,7 +185,7 @@ export const DecksPage = () => {
           {filteredDecks?.map(deck => {
             return (
               <TableRow key={deck.id}>
-                <TableCell>{deck.name}</TableCell>
+                <TableCell onClick={() => goToDeck(deck)}>{deck.name}</TableCell>
                 <TableCell>{deck.cardsCount}</TableCell>
                 <TableCell>{deck.updated}</TableCell>
                 <TableCell>{deck.author.name}</TableCell>
