@@ -1,28 +1,19 @@
-import { useState } from 'react'
+import {useState} from 'react'
 
 import s from '../../src/components/ui/table/table.module.scss'
 
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import playPackIcon from '@/assets/icons/play-pack.svg'
-import { Button } from '@/components/ui/button'
-import { Header } from '@/components/ui/header'
-import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
-import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
-import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
-import { Pagination } from '@/components/ui/pagination/pagination.tsx'
-import { Slider } from '@/components/ui/slider'
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from '@/components/ui/table'
-import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
+import {Button} from '@/components/ui/button'
+import {AddNewPack} from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
+import {DeletePack} from '@/components/ui/modals/delete-pack/delete-pack.tsx'
+import {EditPack} from '@/components/ui/modals/edit-pack/edit-pack.tsx'
+import {Pagination} from '@/components/ui/pagination/pagination.tsx'
+import {Slider} from '@/components/ui/slider'
+import {Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow,} from '@/components/ui/table'
+import {useAppDispatch, useAppSelector} from '@/hooks.ts'
+import {useGetDecksQuery} from '@/services/decks/decks.service.ts'
 import {
   setDeckId,
   setDeckName,
@@ -31,8 +22,9 @@ import {
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
 import {TabSwitcher} from "@/components/ui/tab-switcher";
-import {setMeUserId} from "@/services/auth/auth.slice";
-import {useLogOutMutation} from "@/services/auth/auth.service";
+import {useGetMeQuery} from "@/services/auth/auth.service";
+import {TextField} from "@/components/ui/text-field";
+
 
 type Sort = {
   key: string
@@ -40,6 +32,7 @@ type Sort = {
 } | null
 
 export const DecksPage = () => {
+  console.log("im decjsk")
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
   const userId = useAppSelector(state => state.auth.userId)
@@ -124,13 +117,13 @@ export const DecksPage = () => {
 
   return (
     <div className={s.root}>
-      <Header name={'Ivan'} />
-      <div>{decks && <Slider decks={decks} />}</div>
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
       <div>
-        <Slider decks={decks.data} />
+
+        <div>{decks && <Slider decks={decks} />}</div>
+
         <TabSwitcher setSortId={setSortId} switches={[{ id: "", switchTitle: "all" },{ id: userId, switchTitle: "my" }]} />
       </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
@@ -177,7 +170,7 @@ export const DecksPage = () => {
           {filteredDecks?.map(deck => {
             return (
               <TableRow key={deck.id}>
-                <TableCell>{deck.name}</TableCell>
+                <TableCell >{deck.name}</TableCell>
                 <TableCell>{deck.cardsCount}</TableCell>
                 <TableCell>{deck.updated}</TableCell>
                 <TableCell>{deck.author.name}</TableCell>
