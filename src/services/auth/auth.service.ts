@@ -1,6 +1,7 @@
 import {
   LoginArgs,
   LoginResponse,
+  meResponseType,
   SingUpResponseType,
   SingUpType,
 } from '@/services/auth/auth.types'
@@ -8,7 +9,7 @@ import { baseApi } from '@/services/base-api'
 
 const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getMe: builder.query<any, void>({
+    getMe: builder.query<meResponseType, void>({
       async queryFn(_name, _api, _extraOptions, baseQuery) {
         const result = await baseQuery({
           url: 'v1/auth/me',

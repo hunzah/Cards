@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/table'
 import { TextField } from '@/components/ui/text-field'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
   setDeckId,
@@ -28,6 +29,7 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import { TabSwitcher } from '@/components/ui/tab-switcher'
 
 type Sort = {
   key: string
@@ -44,6 +46,7 @@ export const DecksPage = () => {
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
+  const [isMyPackShow, setIsMyPackShow] = useState<boolean>(false)
 
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
   const openEditPackHandler = (id: string, isPrivate: boolean, name: string) => {
@@ -63,6 +66,7 @@ export const DecksPage = () => {
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
   })
+  const { data: me } = useGetMeQuery()
 
   if (DecksIsLoading) {
     return <div>Loading....</div>
@@ -91,11 +95,18 @@ export const DecksPage = () => {
     }
   }
 
-  const filteredDecks = decks?.items.filter(deck =>
+  const searchFilterDecks = decks?.items.filter(deck =>
     deck.name.toLowerCase().startsWith(searchText.toLowerCase())
   )
+  const filteredDecks = isMyPackShow
+    ? decks?.items.filter(deck => me?.id === deck.author.id)
+    : searchFilterDecks
 
   const handleSearchInputChange = (e: string) => setSearchText(e)
+  const handleTamSwitcherChange = () => {
+    setIsMyPackShow(!isMyPackShow)
+    setSearchText('')
+  }
   const setItemsPerPageHandler = (value: number) => dispatch(setItemsPerPage(value))
 
   const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
@@ -110,6 +121,16 @@ export const DecksPage = () => {
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={handleSearchInputChange} />
       </div>
+      <div>
+        <TabSwitcher
+          switches={[
+            { id: 2, switchTitle: 'My Packs', disabled: false },
+            { id: 1, switchTitle: 'All Packs', disabled: false },
+          ]}
+          onChange={handleTamSwitcherChange}
+        />
+      </div>
+      {/*<div>{<Button onClick={handleTamSwitcherChange} />}</div>*/}
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>

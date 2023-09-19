@@ -6,15 +6,16 @@ import { Typography } from '@/components/ui/typography'
 
 type PropsType = {
   switches: { id: number; switchTitle: string; disabled: boolean }[]
+  onChange: () => void
 }
 
 export const TabSwitcher = (props: PropsType) => {
-  const { switches } = props
+  const { switches, onChange } = props
   const [active, setActive] = useState(1)
 
   const activeSwitchChanger = (id: number) => {
     setActive(id)
-    console.log(`switch number ${id} selected`)
+    onChange()
   }
 
   return (
