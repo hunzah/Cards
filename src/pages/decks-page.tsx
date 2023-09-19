@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Navigate, redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import s from '../../src/components/ui/table/table.module.scss'
 
@@ -8,7 +8,6 @@ import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import playPackIcon from '@/assets/icons/play-pack.svg'
 import { Button } from '@/components/ui/button'
-import { Header } from '@/components/ui/header'
 import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
 import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
@@ -34,8 +33,6 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import {TextField} from "@/components/ui/text-field";
-
 
 type Sort = {
   key: string
@@ -46,7 +43,7 @@ export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
   const userId = useAppSelector(state => state.auth.userId)
-  const [sortId, setSortId] = useState("")
+  const [sortId, setSortId] = useState('')
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
@@ -67,7 +64,7 @@ export const DecksPage = () => {
   const openDeletePackHandler = (id: string) => {
     setIsDeletePackModalOpen(true)
     dispatch(setDeckId(id))
-    dispatch(setDeckName(name))
+    /*dispatch(setDeckName(name))*/
   }
   const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
     orderBy: orderBy,
@@ -75,7 +72,7 @@ export const DecksPage = () => {
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
-    authorId:sortId
+    authorId: sortId,
   })
   const { data: me } = useGetMeQuery()
 
@@ -134,16 +131,20 @@ export const DecksPage = () => {
 
   return (
     <div className={s.root}>
-      <Header name={' Ivan'} />
       <div>{decks && <Slider decks={decks} />}</div>
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
       <div>
+        {/*<div>{decks && <Slider decks={decks} />}</div>*/}
 
-        <div>{decks && <Slider decks={decks} />}</div>
-
-        <TabSwitcher setSortId={setSortId} switches={[{ id: "", switchTitle: "all" },{ id: userId, switchTitle: "my" }]} />
+        <TabSwitcher
+          setSortId={setSortId}
+          switches={[
+            { id: '', switchTitle: 'all' },
+            { id: userId, switchTitle: 'my' },
+          ]}
+        />
       </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
