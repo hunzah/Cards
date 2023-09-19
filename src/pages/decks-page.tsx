@@ -34,6 +34,8 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import {TextField} from "@/components/ui/text-field";
+
 
 type Sort = {
   key: string
@@ -43,6 +45,8 @@ type Sort = {
 export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
+  const userId = useAppSelector(state => state.auth.userId)
+  const [sortId, setSortId] = useState("")
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
@@ -63,6 +67,7 @@ export const DecksPage = () => {
   const openDeletePackHandler = (id: string) => {
     setIsDeletePackModalOpen(true)
     dispatch(setDeckId(id))
+    dispatch(setDeckName(name))
   }
   const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
     orderBy: orderBy,
@@ -70,6 +75,7 @@ export const DecksPage = () => {
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
+    authorId:sortId
   })
   const { data: me } = useGetMeQuery()
 
@@ -134,13 +140,10 @@ export const DecksPage = () => {
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
       <div>
-        <TabSwitcher
-          switches={[
-            { id: 2, switchTitle: ' My Packs', disabled: false },
-            { id: 1, switchTitle: ' All Packs', disabled: false },
-          ]}
-          onChange={tabSwitcherHandle}
-        />
+
+        <div>{decks && <Slider decks={decks} />}</div>
+
+        <TabSwitcher setSortId={setSortId} switches={[{ id: "", switchTitle: "all" },{ id: userId, switchTitle: "my" }]} />
       </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (

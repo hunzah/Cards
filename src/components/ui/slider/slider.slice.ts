@@ -3,10 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const sliderSlice = createSlice({
   name: 'slider',
   initialState: {
-    minSliderValue: -1,
-    maxSliderValue: 0,
+    minSliderValue: 0,
+    maxSliderValue: 22,
     minCurrentSliderValue: 0,
-    maxCurrentSliderValue: 0,
+    maxCurrentSliderValue: 22,
   },
   reducers: {
     setMinCurrentSliderValue: (state, action: PayloadAction<{ min: number }>) => {

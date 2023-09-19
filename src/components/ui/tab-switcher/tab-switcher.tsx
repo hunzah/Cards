@@ -3,19 +3,25 @@ import { useState } from 'react'
 import s from './tab-switcher.module.scss'
 
 import { Typography } from '@/components/ui/typography'
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {setMeUserId} from "@/services/auth/auth.slice";
 
 type PropsType = {
-  switches: { id: number; switchTitle: string; disabled: boolean }[]
-  onChange: () => void
+  switches: { id: string; switchTitle: string }[]
+    setSortId:(is:string)=>void
 }
 
 export const TabSwitcher = (props: PropsType) => {
-  const { switches, onChange } = props
-  const [active, setActive] = useState(1)
+  const { switches,setSortId } = props
+    const dispatch = useAppDispatch()
+  const [active, setActive] = useState("all")
+const userId = useAppSelector(state=> state.auth.userId)
 
-  const activeSwitchChanger = (id: number) => {
-    setActive(id)
-    onChange()
+  const activeSwitchChanger = (switchTitle:string, id:string) => {
+    setActive(switchTitle)
+      setSortId(id)
+      console.log(active)
+    console.log(userId, switchTitle)
   }
 
   return (
@@ -26,10 +32,10 @@ export const TabSwitcher = (props: PropsType) => {
       <div className={s.tabSwitchers}>
         {switches.map(sw => (
           <button
-            onClick={() => activeSwitchChanger(sw.id)}
-            key={sw.id}
-            className={sw.id === active ? s.activeTabSwitcher : s.tabSwitcher}
-            disabled={sw.disabled}
+            onClick={() => activeSwitchChanger(sw.switchTitle , sw.id)}
+            key={sw.switchTitle}
+            className={sw.switchTitle === active ? s.activeTabSwitcher : s.tabSwitcher}
+
           >
             <Typography variant="body2" component={'span'}>
               {sw.switchTitle}

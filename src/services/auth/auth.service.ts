@@ -19,7 +19,6 @@ const authService = baseApi.injectEndpoints({
         if (result.error) {
           return { data: { success: false } }
         }
-
         return { data: result.data }
       },
       extraOptions: { maxRetries: 0 },

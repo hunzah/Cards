@@ -14,6 +14,8 @@ import { ForgotPasswordPage } from '@/pages/forgot-password-page/forgot-password
 import { SignInPage } from '@/pages/signIn-page.tsx'
 import { SingUpPage } from '@/pages/sing-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service'
+import {setMeUserId} from "@/services/auth/auth.slice";
+import {useAppDispatch} from "@/hooks";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -62,8 +64,9 @@ const router = createBrowserRouter([
 ])
 
 export const Router = () => {
-  const { isLoading: isMeLoading } = useGetMeQuery()
-
+  const dispatch = useAppDispatch()
+  const {data,isLoading: isMeLoading } = useGetMeQuery()
+  dispatch(setMeUserId({userId: data?.id}))
   if (isMeLoading) {
     return <>MELsOAD</>
   }
