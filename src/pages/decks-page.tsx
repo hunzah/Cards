@@ -10,6 +10,7 @@ import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
 import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import { Slider } from '@/components/ui/slider'
+import { TabSwitcher } from '@/components/ui/tab-switcher'
 import {
   Table,
   TableBody,
@@ -29,7 +30,6 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import { TabSwitcher } from '@/components/ui/tab-switcher'
 
 type Sort = {
   key: string
@@ -102,8 +102,8 @@ export const DecksPage = () => {
     ? decks?.items.filter(deck => me?.id === deck.author.id)
     : searchFilterDecks
 
-  const handleSearchInputChange = (e: string) => setSearchText(e)
-  const handleTamSwitcherChange = () => {
+  const searchInputHandle = (e: string) => setSearchText(e)
+  const tabSwitcherHandle = () => {
     setIsMyPackShow(!isMyPackShow)
     setSearchText('')
   }
@@ -119,7 +119,7 @@ export const DecksPage = () => {
     <div className={s.root}>
       <div>{decks && <Slider decks={decks} />}</div>
       <div>
-        <TextField inputIsSearch value={searchText} onChangeValue={handleSearchInputChange} />
+        <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
       <div>
         <TabSwitcher
@@ -127,10 +127,9 @@ export const DecksPage = () => {
             { id: 2, switchTitle: 'My Packs', disabled: false },
             { id: 1, switchTitle: 'All Packs', disabled: false },
           ]}
-          onChange={handleTamSwitcherChange}
+          onChange={tabSwitcherHandle}
         />
       </div>
-      {/*<div>{<Button onClick={handleTamSwitcherChange} />}</div>*/}
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
