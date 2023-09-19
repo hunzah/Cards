@@ -28,6 +28,7 @@ import {
 } from '@/services/decks/decks.slice.ts'
 import {TabSwitcher} from "@/components/ui/tab-switcher";
 import {setMeUserId} from "@/services/auth/auth.slice";
+import {useLogOutMutation} from "@/services/auth/auth.service";
 
 type Sort = {
   key: string
@@ -67,7 +68,6 @@ export const DecksPage = () => {
   if (decks.isLoading) {
     return <div>Loading....</div>
   }
-  console.log(userId)
   const onclickHandler = (key: string) => {
     if (sort && sort.key === key) {
       setSort(sort.direction === 'asc' ? { key, direction: 'desc' } : null)

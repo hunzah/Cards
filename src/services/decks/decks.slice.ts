@@ -7,6 +7,7 @@ export const decksSlice = createSlice({
     itemsPerPage: 10,
     DeckId: '',
     DeckName: '',
+    orderBy:''
   },
   reducers: {
     updateCurrentPage: (state, action: PayloadAction<number>) => {
@@ -21,7 +22,10 @@ export const decksSlice = createSlice({
     setDeckName: (state, action: PayloadAction<string>) => {
       state.DeckName = action.payload
     },
+    setOrderBy: (state, action: PayloadAction<string>) => {
+      state.DeckName = action.payload
+    },
   },
 })
 
-export const { updateCurrentPage, setItemsPerPage, setDeckId, setDeckName } = decksSlice.actions
+export const { updateCurrentPage, setItemsPerPage, setDeckId, setDeckName,setOrderBy } = decksSlice.actions
