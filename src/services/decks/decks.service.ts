@@ -1,6 +1,11 @@
+import { omit } from 'remeda'
+
 import { baseApi } from '@/services/base-api'
 import {
+  CardsFromDeckRequest,
+  CardsFromDeckResponse,
   Deck,
+  DeckRequestParams,
   DecksParams,
   DecksPatchParams,
   DecksPostParams,
@@ -18,6 +23,34 @@ const decksApi = baseApi.injectEndpoints({
         }
       },
       providesTags: ['Decks'],
+    }),
+    getDeck: builder.query<Deck, DeckRequestParams>({
+      query: params => {
+        return {
+          url: `v1/decks/${params.id}`,
+        }
+      },
+      providesTags: ['Decks'],
+    }),
+    getCardsFromDeck: builder.query<CardsFromDeckResponse, CardsFromDeckRequest>({
+      query: params => {
+        return {
+          url: `v1/decks/${params.id}/cards`,
+          params: omit(params, ['id']) ?? {},
+        }
+      },
+      providesTags: ['Decks'],
+    }),
+    createCard: builder.mutation<any, any>({
+      query: params => {
+        return {
+          url: `v1/decks/${params.id}/cards`,
+          method: 'POST',
+          //body: { question: params.question, answer: params.answer },
+          body: { question: 'fffff', answer: 'fffffff' },
+        }
+      },
+      invalidatesTags: ['Decks'],
     }),
     createDeck: builder.mutation<Deck, DecksPostParams>({
       query: params => ({
@@ -125,6 +158,9 @@ const decksApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useGetDeckQuery,
+  useCreateCardMutation,
+  useGetCardsFromDeckQuery,
   useGetDecksQuery,
   useCreateDeckMutation,
   useDeleteDeckMutation,

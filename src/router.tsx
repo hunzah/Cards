@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { PageNotFound } from '@/pages/404-page/404-page.tsx'
+import { CardsFromTheDeck } from '@/pages/cards-from-deck-page/cards-from-the-deck-page.tsx'
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { DecksPage } from '@/pages/decks-page.tsx'
 import { ForgotPasswordPage } from '@/pages/forgot-password-page/forgot-password-page.tsx'
@@ -37,6 +38,14 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/',
     element: <DecksPage />,
+  },
+  {
+    path: '/decks',
+    element: <DecksPage />,
+  },
+  {
+    path: '/decks/:deckId',
+    element: <CardsFromTheDeck />,
   },
 ]
 

@@ -8,7 +8,7 @@ export const SignInPage = () => {
   const { data: me, isLoading: isMeLoading } = useGetMeQuery()
 
   if (isMeLoading) return <div>isMeLoading</div>
-  if (me && me?.success !== false) return <Navigate to={'/'} />
+  if (me && me?.success !== false) return <Navigate to={'/decks'} />
 
   return (
     <div>
