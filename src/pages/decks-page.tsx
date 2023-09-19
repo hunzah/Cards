@@ -18,6 +18,7 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components/ui/table'
+import { TextField } from '@/components/ui/text-field'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
@@ -39,9 +40,11 @@ export const DecksPage = () => {
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
+  const [searchText, setSearchText] = useState('')
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
+
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
   const openEditPackHandler = (id: string, isPrivate: boolean, name: string) => {
     setIsEditPackModalOpen(true)
@@ -88,6 +91,11 @@ export const DecksPage = () => {
     }
   }
 
+  const filteredDecks = decks?.items.filter(deck =>
+    deck.name.toLowerCase().startsWith(searchText.toLowerCase())
+  )
+
+  const handleSearchInputChange = (e: string) => setSearchText(e)
   const setItemsPerPageHandler = (value: number) => dispatch(setItemsPerPage(value))
 
   const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
@@ -99,6 +107,9 @@ export const DecksPage = () => {
   return (
     <div className={s.root}>
       <div>{decks && <Slider decks={decks} />}</div>
+      <div>
+        <TextField inputIsSearch value={searchText} onChangeValue={handleSearchInputChange} />
+      </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
         <div className={s.modalContainer}>
@@ -140,7 +151,7 @@ export const DecksPage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {decks?.items.map(deck => {
+          {filteredDecks?.map(deck => {
             return (
               <TableRow key={deck.id}>
                 <TableCell>{deck.name}</TableCell>

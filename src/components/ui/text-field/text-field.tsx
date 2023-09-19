@@ -12,21 +12,21 @@ import { Typography } from '@/components/ui/typography'
 
 export type TextFieldProps = {
   inputIsSearch: boolean
-  inputType: 'text' | 'password'
+  inputType?: 'text' | 'password'
   label?: string
-  value?: string
+  value: string
   inputName?: string
   className?: string
   errorMessage?: string
   onClearClick?: () => void
-  onChangeValue?: (e: string) => void
+  onChangeValue: (e: string) => void
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = (
   props: TextFieldProps & Omit<ComponentPropsWithoutRef<'input'>, keyof TextFieldProps>
 ) => {
   const {
-    inputType,
+    inputType = 'text',
     label,
     className,
     inputIsSearch,
