@@ -12,7 +12,7 @@ import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
 import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import { Slider } from '@/components/ui/slider'
-import { TabSwitcher } from '@/components/ui/tab-switcher'
+
 import {
   Table,
   TableBody,
@@ -21,9 +21,7 @@ import {
   TableHeadCell,
   TableRow,
 } from '@/components/ui/table'
-import { TextField } from '@/components/ui/text-field'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
   setDeckId,
@@ -32,6 +30,9 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import {TabSwitcher} from "@/components/ui/tab-switcher";
+import {setMeUserId} from "@/services/auth/auth.slice";
+import {useLogOutMutation} from "@/services/auth/auth.service";
 
 type Sort = {
   key: string
@@ -41,6 +42,8 @@ type Sort = {
 export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
+  const userId = useAppSelector(state => state.auth.userId)
+  const [sortId, setSortId] = useState("")
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
@@ -60,13 +63,15 @@ export const DecksPage = () => {
   const openDeletePackHandler = (id: string) => {
     setIsDeletePackModalOpen(true)
     dispatch(setDeckId(id))
+    dispatch(setDeckName(name))
   }
   const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
-    // orderBy: orderBy,
+    orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
+    authorId:sortId
   })
   const { data: me } = useGetMeQuery()
 
@@ -125,13 +130,8 @@ export const DecksPage = () => {
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
       <div>
-        <TabSwitcher
-          switches={[
-            { id: 2, switchTitle: 'My Packs', disabled: false },
-            { id: 1, switchTitle: 'All Packs', disabled: false },
-          ]}
-          onChange={tabSwitcherHandle}
-        />
+        <Slider decks={decks.data} />
+        <TabSwitcher setSortId={setSortId} switches={[{ id: "", switchTitle: "all" },{ id: userId, switchTitle: "my" }]} />
       </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
