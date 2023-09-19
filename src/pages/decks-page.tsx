@@ -4,7 +4,9 @@ import s from '../../src/components/ui/table/table.module.scss'
 
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
+import playPackIcon from '@/assets/icons/play-pack.svg'
 import { Button } from '@/components/ui/button'
+import { Header } from '@/components/ui/header'
 import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
 import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
@@ -30,7 +32,6 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import { Header } from '@/components/ui/header'
 
 type Sort = {
   key: string
@@ -182,6 +183,9 @@ export const DecksPage = () => {
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
+                    <button onClick={() => openDeletePackHandler(deck.id)} className={s.iconBtns}>
+                      <img src={playPackIcon} alt="delete-pack-icon" />
+                    </button>
                     <button
                       onClick={() => openEditPackHandler(deck.id, deck.isPrivate, deck.name)}
                       className={s.iconBtns}
