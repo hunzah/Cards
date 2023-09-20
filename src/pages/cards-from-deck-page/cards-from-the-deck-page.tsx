@@ -43,7 +43,7 @@ export const CardsFromTheDeck = () => {
   const closeEditCardModal = () => setIsEditModalOpen(false)
   const openDeleteCardModal = (cardId: string) => {
     dispatch(setCardId(cardId))
-    setIsEditModalOpen(true)
+    setIsDeleteModalOpen(true)
   }
   const openEditCardModal = (cardId: string) => {
     dispatch(setCardId(cardId))
@@ -73,7 +73,7 @@ export const CardsFromTheDeck = () => {
       )}
       {isDeleteModalOpen && (
         <div className={s.modal}>
-          <DeleteCard closeModalCallback={closeDeleteCardModal} id={deckId ? deckId : ''} />
+          <DeleteCard closeModalCallback={closeDeleteCardModal} />
         </div>
       )}
       <Typography variant={'h1'}>{selectedDeck?.name}</Typography>

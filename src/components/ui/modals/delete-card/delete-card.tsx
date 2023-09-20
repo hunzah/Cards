@@ -7,13 +7,13 @@ import { useDeleteCardMutation } from '@/services/decks/decks.service.ts'
 
 type Props = {
   closeModalCallback: (value: boolean) => void
-  id: string
-  name: string
+  name?: string
 }
-export const DeleteCard = ({ closeModalCallback, name, id }: Props) => {
+export const DeleteCard = ({ closeModalCallback, name }: Props) => {
   const [deleteDeck, { isLoading }] = useDeleteCardMutation()
+  const cardId = useAppSelector(state => state.decks.cardId)
   const mainActionCallback = async () => {
-    await deleteDeck({ id: id })
+    await deleteDeck({ id: cardId })
     closeModalCallback(false)
   }
 

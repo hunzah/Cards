@@ -162,6 +162,7 @@ const decksApi = baseApi.injectEndpoints({
         return {
           url: `v1/cards/${params.id}`,
           method: 'DELETE',
+          body: params,
         }
       },
       invalidatesTags: ['Cards'],
