@@ -181,6 +181,14 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Cards'],
     }),
+    clearFilter:builder.mutation<any, any>({
+      query: () => {
+        return {
+          url: 'v1/decks',
+        }
+      },
+      invalidatesTags: ['Decks'],
+    }),
   }),
 })
 
@@ -194,4 +202,5 @@ export const {
   useCreateCardMutation,
   useDeleteCardMutation,
   useUpdateCardMutation,
+  useClearFilterMutation
 } = decksApi
