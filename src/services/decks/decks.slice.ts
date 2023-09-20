@@ -10,6 +10,7 @@ export const decksSlice = createSlice({
     DeckName: '',
     orderBy: '',
     cardId: '',
+    cardType: '',
     answer: '',
     question: '',
   },
@@ -33,6 +34,9 @@ export const decksSlice = createSlice({
       state.DeckName = action.payload
     },
     setCardId: (state, action: PayloadAction<string>) => {
+      state.cardId = action.payload
+    },
+    setCardType: (state, action: PayloadAction<string>) => {
       state.cardId = action.payload
     },
     setAnswer: (state, action: PayloadAction<string>) => {

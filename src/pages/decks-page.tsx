@@ -123,9 +123,10 @@ export const DecksPage = () => {
     return <div>Decks Fetching....</div>
   }
 
-  const goToDeck = (id: string, DeckName: string) => {
+  const goToDeck = (id: string, DeckName: string, isPrivate: boolean) => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(DeckName))
+    dispatch(setDeckPrivacy(isPrivate))
 
     return navigate(`/decks/${id}`)
   }
@@ -191,7 +192,9 @@ export const DecksPage = () => {
           {filteredDecks?.map(deck => {
             return (
               <TableRow key={deck.id}>
-                <TableCell onClick={() => goToDeck(deck.id, deck.name)}>{deck.name}</TableCell>
+                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
+                  {deck.name}
+                </TableCell>
                 <TableCell>{deck.cardsCount}</TableCell>
                 <TableCell>{deck.updated}</TableCell>
                 <TableCell>{deck.author.name}</TableCell>
