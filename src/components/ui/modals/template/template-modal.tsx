@@ -22,7 +22,7 @@ export const TemplateModal = (props: TemplateModalProps) => {
     root: clsx(s.root, className),
   }
   const closeModalHandler = () => closeModalCallback(false)
-  const addPackHandler = () => {
+  const onClickHandler = () => {
     mainActionCallback()
   }
 
@@ -39,7 +39,7 @@ export const TemplateModal = (props: TemplateModalProps) => {
         <Button variant="secondary" className={s.footBtn} onClick={closeModalHandler}>
           <Typography variant="subtitle2">Cancel</Typography>
         </Button>
-        <Button className={s.footBtn} onClick={addPackHandler}>
+        <Button className={s.footBtn} onClick={onClickHandler}>
           <Typography variant="subtitle2">{buttonName}</Typography>
         </Button>
       </div>

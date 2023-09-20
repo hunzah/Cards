@@ -170,10 +170,13 @@ const decksApi = baseApi.injectEndpoints({
     }),
     updateCard: builder.mutation<Card, updateCardRequest>({
       query: params => {
+        console.log(params)
+        const { id, ...requestBodyWithoutId } = params
+
         return {
-          url: `v1/cards/${params.id}`,
-          method: 'DELETE',
-          body: params,
+          url: `v1/cards/${id}`,
+          method: 'PATCH',
+          body: { ...requestBodyWithoutId },
         }
       },
       invalidatesTags: ['Cards'],

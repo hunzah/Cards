@@ -24,7 +24,6 @@ export const EditCard = ({ closeModalCallback }: Props) => {
   const inputQuestion = (e: string) => dispatch(setQuestion(e))
   const mainActionCallback = async () => {
     await updateCard({ id: cardId, answer: answer, question: question })
-
     closeModalCallback(false)
   }
   const QuestionType = (e: string) => setQuestionType(e)

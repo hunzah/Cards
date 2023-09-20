@@ -4,6 +4,7 @@ import { TemplateModal } from '@/components/ui/modals/template/template-modal.ts
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
@@ -12,10 +13,12 @@ export const DeletePack = ({ closeModalCallback }: Props) => {
   const [deleteDeck, { isLoading }] = useDeleteDeckMutation()
   const id = useAppSelector(state => state.decks.DeckId)
   const name = useAppSelector(state => state.decks.DeckName)
+  const navigate = useNavigate()
 
   const mainActionCallback = async () => {
     await deleteDeck({ id: id })
     closeModalCallback(false)
+    navigate('/decks')
   }
 
   return (

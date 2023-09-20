@@ -23,8 +23,7 @@ import {
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/decks.service.ts'
-import { setAnswer, setCardId, setCardType, setQuestion } from '@/services/decks/decks.slice.ts'
-import { CardTypeType } from '@/services/decks/types.ts'
+import { setAnswer, setCardId, setQuestion } from '@/services/decks/decks.slice.ts'
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
@@ -50,11 +49,11 @@ export const CardsFromTheDeck = () => {
   const openEditCardModal = (
     cardId: string,
     question: string,
-    answer: string,
-    cardType: CardTypeType
+    answer: string
+    // cardType: CardTypeType
   ) => {
     dispatch(setCardId(cardId))
-    dispatch(setCardType(cardType))
+    // dispatch(setCardType(cardType))
     dispatch(setQuestion(question))
     dispatch(setAnswer(answer))
     setIsEditModalOpen(true)
@@ -137,7 +136,7 @@ export const CardsFromTheDeck = () => {
                   <TableCell>
                     <div className={s.creatorWithButton}>
                       <button
-                        onClick={() => openEditCardModal(card.id, card.question, card.answer, card.)}
+                        onClick={() => openEditCardModal(card.id, card.question, card.answer)}
                         className={s.iconBtns}
                       >
                         <img src={editPackIcon} alt="edit-pack-icon" />
