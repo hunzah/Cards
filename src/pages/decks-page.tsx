@@ -25,7 +25,7 @@ import {
 import { TextField } from '@/components/ui/text-field'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
+import {clearFilterMutation, useClearFilterMutation, useGetDecksQuery} from '@/services/decks/decks.service.ts'
 import {
   setDeckId,
   setDeckName,
@@ -66,7 +66,7 @@ export const DecksPage = () => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(name))
   }
-  const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
+  const{ currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
@@ -75,9 +75,7 @@ export const DecksPage = () => {
     authorId: sortId,
   })
   const [sliderCurrentValues, setSliderCurrentValues] = useState([sliderValues.minCurrentSliderValue,sliderValues.maxSliderValue ])
-/*
-  const [slider, setSlider] = useState([0, decks?.maxCardsCount])
-*/
+
   const { data: me } = useGetMeQuery()
 
   if (DecksIsLoading) {
@@ -134,10 +132,16 @@ export const DecksPage = () => {
     return navigate(`/decks/${id}`)
   }
 
+  const clearHandler = () => {
+    setSearchText("")
+    setSort(null)
+    setSortId("")
+  }
   return (
     <div className={s.root}>
       <div> { decks && <Slider decks={decks} setSliderCurrentValues={setSliderCurrentValues}
                      sliderCurrentValues={sliderCurrentValues} />}</div>
+      {decks && <Button onClick={clearHandler}>clear filter</Button>}
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
@@ -145,6 +149,7 @@ export const DecksPage = () => {
         {/*<div>{decks && <Slider decks={decks} />}</div>*/}
 
         <TabSwitcher
+            sortId={sortId}
           setSortId={setSortId}
           switches={[
             { id: '', switchTitle: 'all' },

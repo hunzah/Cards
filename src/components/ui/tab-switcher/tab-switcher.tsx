@@ -9,19 +9,21 @@ import { setMeUserId } from '@/services/auth/auth.slice'
 type PropsType = {
   switches: { id: string; switchTitle: string }[]
   setSortId: (is: string) => void
+    sortId?:string
 }
 
 export const TabSwitcher = (props: PropsType) => {
-  const { switches, setSortId } = props
-  const dispatch = useAppDispatch()
-  const [active, setActive] = useState('all')
-  const userId = useAppSelector(state => state.auth.userId)
+  const { switches, setSortId,sortId } = props
 
-  const activeSwitchChanger = (switchTitle: string, id: string) => {
-    setActive(switchTitle)
-    setSortId(id)
-    console.log(active)
-    console.log(userId, switchTitle)
+  const [active, setActive] = useState(sortId? "my":"all"  )
+    console.log(":render")
+    console.log(sortId)
+  const activeSwitchChanger = (switchTitle: string, sortId: string) => {
+
+          setActive(switchTitle)
+          setSortId(sortId)
+
+
   }
 
   return (
