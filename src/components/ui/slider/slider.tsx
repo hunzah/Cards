@@ -25,7 +25,6 @@ export const Slider = (props: PropsType) => {
     const dispatch = useAppDispatch()
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
     const changeSliderValue = (values: number[]) => {
-        console.log(decks)
         setSliderCurrentValues(values)
         clearTimeout(timerId)
         setTimerId(
