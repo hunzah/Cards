@@ -24,6 +24,11 @@ export const Pagination = (props: PropsType) => {
     setPerPage(value)
   }
 
+  const selectCallback = (e: string) => {
+    setItemsPerPage(Number(e))
+    setCurrentPage(1)
+  }
+
   return (
     <div className={s.root}>
       <PagLogic
@@ -38,10 +43,9 @@ export const Pagination = (props: PropsType) => {
       <div className={s.selectContainer}>
         <Typography variant="body2">Показать</Typography>
         <Select
+          callback={selectCallback}
           options={[10, 20, 30, 50, 100]}
           defaultValue={10}
-          setItemsPerPage={setPerPageHandler}
-          setCurrentPage={setCurrentPage}
           textStyle="body2"
         />
         <Typography variant="body2"> на странице</Typography>

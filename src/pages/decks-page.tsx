@@ -148,21 +148,21 @@ export const DecksPage = () => {
       </div>
       <Button onClick={openAddNewPackHandler}> add new pack</Button>
       {isAddNewPackModalOpen && (
-        <div className={s.modalContainer}>
+        <div className={s.modal}>
           <div className={s.backdrop}>
             <AddNewPack closeModalCallback={setIsAddNewPackModalOpen} />
           </div>
         </div>
       )}
       {isEditPackModalOpen && (
-        <div className={s.modalContainer}>
+        <div className={s.modal}>
           <div className={s.backdrop}>
             <EditPack closeModalCallback={setIsEditPackModalOpen} />
           </div>
         </div>
       )}
       {isDeletePackModalOpen && (
-        <div className={s.modalContainer}>
+        <div className={s.modal}>
           <div className={s.backdrop}>
             <DeletePack closeModalCallback={setIsDeletePackModalOpen} />
           </div>

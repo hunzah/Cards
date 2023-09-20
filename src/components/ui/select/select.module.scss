@@ -1,4 +1,6 @@
 .button {
+  z-index: 1;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,6 +28,7 @@
 
 .content {
   position: fixed;
+  z-index: 1;
   transform-origin: var(--radix-select-content-transform-origin);
 
   //transform: translate(-10.00174px, 0);

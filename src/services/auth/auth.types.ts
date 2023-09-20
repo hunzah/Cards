@@ -28,4 +28,5 @@ export type meResponseType = {
   name: string
   created: string
   updated: string
+  success: boolean
 }

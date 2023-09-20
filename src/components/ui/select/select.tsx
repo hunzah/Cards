@@ -11,8 +11,7 @@ import { Typography, TypographyVariantTypes } from '@/components/ui/typography'
 
 type PropsType = {
   options: number[] | string[]
-  setItemsPerPage: (value: number) => void
-  setCurrentPage: (currentPage: number) => void
+  callback: (e: string) => void
   contentClassName?: string
   itemClassName?: string
   buttonClassName?: string
@@ -34,34 +33,33 @@ export const Select = (props: PropsType) => {
   const {
     isDisabled = false,
     options,
-    setItemsPerPage,
-    setCurrentPage,
+    callback,
     contentClassName,
     itemClassName,
     required,
     defaultValue,
     textStyle,
+    buttonClassName,
   } = props
 
   const classNames = {
-    button: clsx(s.button, isDisabled && s.disabled),
+    button: clsx(s.button, isDisabled && s.disabled, buttonClassName),
     content: clsx(s.content, contentClassName && contentClassName),
     item: clsx(s.item, itemClassName && itemClassName),
   }
 
   const [selectedValue, setSelectedValue] = useState(defaultValue ? defaultValue : options[0])
 
-  const setSelectedValueHandler = (e: number) => {
+  const setSelectedValueHandler = (e: string) => {
     setSelectedValue(e)
-    setItemsPerPage(e)
-    setCurrentPage(1)
+    callback(e)
   }
 
   return (
     <SelectRadix.Root
       required={required}
       disabled={isDisabled}
-      onValueChange={e => setSelectedValueHandler(Number(e))}
+      onValueChange={e => setSelectedValueHandler(e.toString())}
     >
       <SelectRadix.Trigger className={classNames.button}>
         <SelectRadix.Value placeholder={selectedValue} className={s.placeholder} />

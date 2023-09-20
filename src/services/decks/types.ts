@@ -66,6 +66,16 @@ export type CardsFromDeckRequest = {
   itemsPerPage?: number
 }
 
+export type createCardRequest = {
+  id: string
+  question: string
+  answer: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
+
 export type PaginationCars = {
   totalPages: number
   currentPage: number
@@ -73,7 +83,7 @@ export type PaginationCars = {
   totalItems: number
 }
 
-export type Items = {
+export type Card = {
   id: string
   question: string
   answer: string
@@ -91,7 +101,7 @@ export type Items = {
 
 export type CardsFromDeckResponse = {
   pagination: PaginationCars
-  items: Items[]
+  items: Card[]
 }
 
 export type DeckRequestParams = { id: string | undefined }

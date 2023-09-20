@@ -2,20 +2,18 @@ import { useState } from 'react'
 
 import s from './drop-down-menu.module.scss'
 
-import avatarTest from '@/assets/images/avatar.svg'
 import logOut from '@/assets/icons/log-out.svg'
 import myProfIcon from '@/assets/icons/My-profile-icon.svg'
+import avatarTest from '@/assets/images/avatar.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
-import {useAppDispatch} from "@/hooks";
-import {useLogOutMutation} from "@/services/auth/auth.service";
 
 type Props = {
   avatar?: string
   name?: string
   email?: string
   open?: boolean
-  callback:()=>void
+  callback: () => void
 }
 export const DropDownMenu = (props: Props) => {
   const { name, email, open, callback } = props
@@ -47,7 +45,13 @@ export const DropDownMenu = (props: Props) => {
           </li>
           <li className={s.rectangle}></li>
           <li>
-            <Button as={'a'} className={s.button} onClick={callback} variant="secondary" img={logOut}>
+            <Button
+              as={'a'}
+              className={s.button}
+              onClick={callback}
+              variant="secondary"
+              img={logOut}
+            >
               <Typography variant={'caption'}>Sign Out</Typography>
             </Button>
           </li>
