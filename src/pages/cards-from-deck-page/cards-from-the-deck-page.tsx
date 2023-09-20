@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import s from './cards-page.module.scss'
 
 import { Button } from '@/components/ui/button'
+import { DropDownMenuCard } from '@/components/ui/drop-down-menu-card/drop-down-menu-card.tsx'
 import { AddNewCard } from '@/components/ui/modals/add-new-card/add-new-card.tsx'
 import {
   Table,
@@ -27,7 +28,9 @@ export const CardsFromTheDeck = () => {
 
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
-
+  const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false)
+  const closeDropDownMenu = () => setIsDropDownMenuOpen(false)
+  const openDropDownMenu = () => setIsDropDownMenuOpen(true)
   const closeAddCardModal = () => setIsAddModalOpen(false)
   const openAddCardModal = () => setIsAddModalOpen(true)
   const closeDeleteCardModal = () => setIsDeleteModalOpen(false)
@@ -70,9 +73,12 @@ export const CardsFromTheDeck = () => {
           </Typography>
         )}
         {isMyDeck ? (
-          <Button variant={'primary'} onClick={openAddCardModal}>
-            Add New Cards
-          </Button>
+          <div>
+            <DropDownMenuCard callback={setIsDropDownMenuOpen} isOpen={isDropDownMenuOpen} />
+            <Button variant={'primary'} onClick={openAddCardModal}>
+              Add New Cards
+            </Button>
+          </div>
         ) : (
           <Button
             variant={'primary'}
