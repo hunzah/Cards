@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import s from './drop-down-menu.module.scss'
+import s from './drop-down-menu-card.module.scss'
 
 import logOut from '@/assets/icons/log-out.svg'
 import myProfIcon from '@/assets/icons/My-profile-icon.svg'
