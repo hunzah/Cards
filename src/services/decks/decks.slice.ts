@@ -56,6 +56,7 @@ export const {
   setDeckName,
   setOrderBy,
   setCardId,
+  setCardType,
   setQuestion,
   setAnswer,
 } = decksSlice.actions

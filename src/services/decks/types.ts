@@ -116,3 +116,4 @@ export type CardsFromDeckResponse = {
 
 export type DeckRequestParams = { id: string | undefined }
 export type DeckDeleteParams = Pick<Deck, 'id'>
+export type CardTypeType = 'Text' | 'Image' | 'Video'
