@@ -1,0 +1,25 @@
+.root {
+  width: 542px;
+  height: 419px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 42px 0 24px;
+}
+
+.input {
+  width: 484px;
+  height: 60px;
+}
+
+.select {
+  width: 484px;
+  height: 36px;
+}
+
+.selectName {
+  color: var(--color-dark-100);
+}

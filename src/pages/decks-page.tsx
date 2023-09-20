@@ -61,10 +61,10 @@ export const DecksPage = () => {
     dispatch(setDeckPrivacy(isPrivate))
     dispatch(setDeckName(name))
   }
-  const openDeletePackHandler = (id: string) => {
+  const openDeletePackHandler = (id: string, name: string) => {
     setIsDeletePackModalOpen(true)
     dispatch(setDeckId(id))
-    /*dispatch(setDeckName(name))*/
+    dispatch(setDeckName(name))
   }
   const { currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
     orderBy: orderBy,
@@ -123,10 +123,11 @@ export const DecksPage = () => {
     return <div>Decks Fetching....</div>
   }
 
-  const goToDeck = (id: any) => {
-    console.log('decccc', id)
+  const goToDeck = (id: string, DeckName: string) => {
+    dispatch(setDeckId(id))
+    dispatch(setDeckName(DeckName))
 
-    return navigate(`/decks/${id.id}`)
+    return navigate(`/decks/${id}`)
   }
 
   return (
@@ -190,13 +191,13 @@ export const DecksPage = () => {
           {filteredDecks?.map(deck => {
             return (
               <TableRow key={deck.id}>
-                <TableCell onClick={() => goToDeck(deck)}>{deck.name}</TableCell>
+                <TableCell onClick={() => goToDeck(deck.id, deck.name)}>{deck.name}</TableCell>
                 <TableCell>{deck.cardsCount}</TableCell>
                 <TableCell>{deck.updated}</TableCell>
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
-                    <button onClick={() => openDeletePackHandler(deck.id)} className={s.iconBtns}>
+                    <button className={s.iconBtns}>
                       <img src={playPackIcon} alt="delete-pack-icon" />
                     </button>
                     <button
@@ -205,7 +206,10 @@ export const DecksPage = () => {
                     >
                       <img src={editPackIcon} alt="edit-pack-icon" />
                     </button>
-                    <button onClick={() => openDeletePackHandler(deck.id)} className={s.iconBtns}>
+                    <button
+                      onClick={() => openDeletePackHandler(deck.id, deck.name)}
+                      className={s.iconBtns}
+                    >
                       <img src={deletePackIcon} alt="delete-pack-icon" />
                     </button>
                   </div>

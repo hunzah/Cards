@@ -12,6 +12,7 @@ import {
   DecksPatchParams,
   DecksPostParams,
   DecksResponse,
+  updateCardRequest,
 } from '@/services/decks/types'
 import { RootState } from '@/services/store.ts'
 
@@ -167,6 +168,16 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Cards'],
     }),
+    updateCard: builder.mutation<Card, updateCardRequest>({
+      query: params => {
+        return {
+          url: `v1/cards/${params.id}`,
+          method: 'DELETE',
+          body: params,
+        }
+      },
+      invalidatesTags: ['Cards'],
+    }),
   }),
 })
 
@@ -179,4 +190,5 @@ export const {
   useGetCardsFromDeckQuery,
   useCreateCardMutation,
   useDeleteCardMutation,
+  useUpdateCardMutation,
 } = decksApi

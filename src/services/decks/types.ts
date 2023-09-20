@@ -76,6 +76,16 @@ export type createCardRequest = {
   answerVideo?: string
 }
 
+export type updateCardRequest = {
+  id: string
+  question?: string
+  answer?: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
+
 export type PaginationCars = {
   totalPages: number
   currentPage: number

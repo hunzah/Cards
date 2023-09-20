@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { DropDownMenuCard } from '@/components/ui/drop-down-menu-card/drop-down-menu-card.tsx'
 import { AddNewCard } from '@/components/ui/modals/add-new-card/add-new-card.tsx'
 import { DeleteCard } from '@/components/ui/modals/delete-card/delete-card.tsx'
+import { EditCard } from '@/components/ui/modals/edit-card/edit-card.tsx'
 import {
   Table,
   TableBody,
@@ -22,7 +23,7 @@ import {
 import { Typography } from '@/components/ui/typography'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/decks.service.ts'
-import { setCardId } from '@/services/decks/decks.slice.ts'
+import { setAnswer, setCardId, setQuestion } from '@/services/decks/decks.slice.ts'
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
@@ -45,8 +46,10 @@ export const CardsFromTheDeck = () => {
     dispatch(setCardId(cardId))
     setIsDeleteModalOpen(true)
   }
-  const openEditCardModal = (cardId: string) => {
+  const openEditCardModal = (cardId: string, question: string, answer: string) => {
     dispatch(setCardId(cardId))
+    dispatch(setQuestion(question))
+    dispatch(setAnswer(answer))
     setIsEditModalOpen(true)
   }
 
@@ -68,7 +71,7 @@ export const CardsFromTheDeck = () => {
       )}
       {isEditModalOpen && (
         <div className={s.modal}>
-          <EditCard closeModalCallback={closeEditCardModal} id={deckId ? deckId : ''} />
+          <EditCard closeModalCallback={closeEditCardModal} />
         </div>
       )}
       {isDeleteModalOpen && (
@@ -126,7 +129,10 @@ export const CardsFromTheDeck = () => {
                   <TableCell>{card.grade}</TableCell>
                   <TableCell>
                     <div className={s.creatorWithButton}>
-                      <button onClick={() => openEditCardModal(card.id)} className={s.iconBtns}>
+                      <button
+                        onClick={() => openEditCardModal(card.id, card.question, card.answer)}
+                        className={s.iconBtns}
+                      >
                         <img src={editPackIcon} alt="edit-pack-icon" />
                       </button>
                       <button onClick={() => openDeleteCardModal(card.id)} className={s.iconBtns}>

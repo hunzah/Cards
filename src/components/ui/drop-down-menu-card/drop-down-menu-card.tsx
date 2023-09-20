@@ -56,11 +56,11 @@ export const DropDownMenuCard = (props: Props) => {
             </li>
           </ul>
           <div>
-            {isPlayModalOpen && (
-              <div className={s.modal}>
-                {/*<PlayDeck closeModalCallback={closePlayCardModal} />*/}
-              </div>
-            )}
+            {/*{isPlayModalOpen && (*/}
+            {/*  <div className={s.modal}>*/}
+            {/*    <PlayDeck closeModalCallback={closePlayCardModal} />*/}
+            {/*  </div>*/}
+            {/*)}*/}
             {isEditModalOpen && (
               <div className={s.modal}>
                 <div className={s.backdrop}>

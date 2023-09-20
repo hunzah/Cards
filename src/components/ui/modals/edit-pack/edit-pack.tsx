@@ -12,7 +12,6 @@ type Props = {
 }
 export const EditPack = ({ closeModalCallback }: Props) => {
   const [updateDeck, { isLoading }] = useUpdateDeckMutation()
-  // const [value, setValue] = useState<string>('')
   const {
     DeckId: id,
     DeckPrivacy: isPrivate,

@@ -1,42 +1,39 @@
 import { useState } from 'react'
 
-import s from './add-new-card.module.scss'
+import s from './edit-card.module.scss'
 
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { Select } from '@/components/ui/select'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { useCreateCardMutation } from '@/services/decks/decks.service.ts'
+import { useUpdateCardMutation } from '@/services/decks/decks.service.ts'
 import { setAnswer, setQuestion } from '@/services/decks/decks.slice.ts'
 
 type Props = {
-  id: string
-  closeModalCallback: (isAddNewPackOpen: boolean) => void
+  closeModalCallback: (value: boolean) => void
+  name?: string
 }
-export const AddNewCard = ({ closeModalCallback, id }: Props) => {
-  const [createCard, { isLoading }] = useCreateCardMutation()
-  const { question, answer } = useAppSelector(state => state.decks)
+export const EditCard = ({ closeModalCallback }: Props) => {
+  const [updateCard, { isLoading }] = useUpdateCardMutation()
+  const { cardId, question, answer } = useAppSelector(state => state.decks)
   const dispatch = useAppDispatch()
-  const [questionType, setQuestionType] = useState<string>('Text')
 
+  const [questionType, setQuestionType] = useState<string>('Text')
   const inputAnswer = (e: string) => dispatch(setAnswer(e))
   const inputQuestion = (e: string) => dispatch(setQuestion(e))
-  const QuestionType = (e: string) => setQuestionType(e)
   const mainActionCallback = async () => {
-    await createCard({
-      id: id,
-      question: question,
-      answer: answer,
-    })
+    await updateCard({ id: cardId, answer: answer, question: question })
+
     closeModalCallback(false)
   }
+  const QuestionType = (e: string) => setQuestionType(e)
 
   return (
     <TemplateModal
       className={s.root}
-      title="Add New Card"
-      buttonName="Add New Card"
+      title="Edit Card"
+      buttonName="Save Changes"
       closeModalCallback={closeModalCallback}
       mainActionCallback={mainActionCallback}
     >
