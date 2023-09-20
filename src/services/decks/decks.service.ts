@@ -157,6 +157,15 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Cards'],
     }),
+    deleteCard: builder.mutation<void, { id: string }>({
+      query: params => {
+        return {
+          url: `v1/cards/${params.id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['Cards'],
+    }),
   }),
 })
 
@@ -168,4 +177,5 @@ export const {
   useUpdateDeckMutation,
   useGetCardsFromDeckQuery,
   useCreateCardMutation,
+  useDeleteCardMutation,
 } = decksApi

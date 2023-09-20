@@ -3,16 +3,15 @@ import s from './delete-card.module.scss'
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
-import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
+import { useDeleteCardMutation } from '@/services/decks/decks.service.ts'
 
 type Props = {
-  closeModalCallback: (isAddNewPackOpen: boolean) => void
+  closeModalCallback: (value: boolean) => void
+  id: string
+  name: string
 }
-export const DeletePack = ({ closeModalCallback }: Props) => {
-  const [deleteDeck, { isLoading }] = useDeleteDeckMutation()
-  const id = useAppSelector(state => state.decks.DeckId)
-  const name = useAppSelector(state => state.decks.DeckName)
-
+export const DeleteCard = ({ closeModalCallback, name, id }: Props) => {
+  const [deleteDeck, { isLoading }] = useDeleteCardMutation()
   const mainActionCallback = async () => {
     await deleteDeck({ id: id })
     closeModalCallback(false)
@@ -21,8 +20,8 @@ export const DeletePack = ({ closeModalCallback }: Props) => {
   return (
     <TemplateModal
       className={s.root}
-      title="Delete Pack"
-      buttonName="Delete Pack"
+      title="Delete Card"
+      buttonName="Delete Card"
       closeModalCallback={closeModalCallback}
       mainActionCallback={mainActionCallback}
     >

@@ -1,18 +1,33 @@
-.avatar {
+.root {
+  position: relative;
+}
+
+.img {
   cursor: pointer;
 }
 
+.iconBtn {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: inherit;
+  border: none;
+}
+
 .menuContainer {
-  position: absolute;
-  top: 60px;
-  right: 115px;
+  position: relative;
+  right: 50px;
 
   display: flex;
   flex-direction: column;
+  gap: 12px;
   align-items: flex-start;
 
-  width: 217px;
-  height: 147px;
+  width: 80px;
+  height: 123px;
   padding: 12px;
 
   background-color: var(--color-dark-500);
@@ -23,7 +38,7 @@
     content: '';
 
     position: absolute;
-    left: 80%;
+    left: 70%;
     transform: rotate(45deg);
 
     width: 15px;

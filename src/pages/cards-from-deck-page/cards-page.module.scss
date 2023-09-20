@@ -8,3 +8,27 @@
 
   width: 100%;
 }
+
+.creatorWithButton {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtns {
+  cursor: pointer;
+
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+
+  background-color: inherit;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-dark-300);
+  }
+}
