@@ -74,6 +74,10 @@ export const DecksPage = () => {
     maxCardsCount: sliderValues.maxCurrentSliderValue,
     authorId: sortId,
   })
+  const [sliderCurrentValues, setSliderCurrentValues] = useState([sliderValues.minCurrentSliderValue,sliderValues.maxSliderValue ])
+/*
+  const [slider, setSlider] = useState([0, decks?.maxCardsCount])
+*/
   const { data: me } = useGetMeQuery()
 
   if (DecksIsLoading) {
@@ -132,7 +136,8 @@ export const DecksPage = () => {
 
   return (
     <div className={s.root}>
-      <div>{decks && <Slider decks={decks} />}</div>
+      <div> { decks && <Slider decks={decks} setSliderCurrentValues={setSliderCurrentValues}
+                     sliderCurrentValues={sliderCurrentValues} />}</div>
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
