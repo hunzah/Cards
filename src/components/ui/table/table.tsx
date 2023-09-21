@@ -1,5 +1,7 @@
-import { clsx } from 'clsx'
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from 'react'
+
+import { clsx } from 'clsx'
+
 import s from './table.module.scss'
 
 import {
@@ -91,11 +93,13 @@ type Sort = {
 
 export const DeckTableContainer = (props: any) => {
   const headCells = props.headCells
+
   type Columns = keyof (typeof headCells)[number]
   const [sort, setSort] = useState<Sort>(null)
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
   const columns = Object.keys(headCells[0])
+
   console.log(headCells)
 
   const onclickHandler = (key: string) => {

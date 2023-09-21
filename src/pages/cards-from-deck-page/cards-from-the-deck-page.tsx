@@ -35,8 +35,8 @@ import {
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
-  const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
-  const dispatch = useDispatch()
+  const currentPage = useAppSelector(state => state.decks.currentPage)
+  const itemsPerPage = useAppSelector(state => state.decks.itemsPerPage)
 
   const { data: selectedDeck } = useGetDeckQuery({ id: deckId })
   const { data: cardsFromThisDeck } = useGetCardsFromDeckQuery({
@@ -50,6 +50,8 @@ export const CardsFromTheDeck = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false)
+
+  const dispatch = useDispatch()
 
   const closeAddCardModal = () => setIsAddModalOpen(false)
   const openAddCardModal = () => setIsAddModalOpen(true)
@@ -92,7 +94,7 @@ export const CardsFromTheDeck = () => {
           <EditCard closeModalCallback={closeEditCardModal} />
         </div>
       )}
-      {isDeleteModalOpen && (
+      {isMyDeck && isDeleteModalOpen && (
         <div className={s.modal}>
           <DeleteCard closeModalCallback={closeDeleteCardModal} />
         </div>
@@ -153,7 +155,11 @@ export const CardsFromTheDeck = () => {
                       >
                         <img src={editPackIcon} alt="edit-pack-icon" />
                       </button>
-                      <button onClick={() => openDeleteCardModal(card.id)} className={s.iconBtns}>
+                      <button
+                        disabled={!isMyDeck}
+                        onClick={() => openDeleteCardModal(card.id)}
+                        className={s.iconBtns}
+                      >
                         <img src={deletePackIcon} alt="delete-pack-icon" />
                       </button>
                     </div>

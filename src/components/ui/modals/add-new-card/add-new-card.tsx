@@ -23,6 +23,8 @@ export const AddNewCard = ({ closeModalCallback, id }: Props) => {
   const inputAnswer = (e: string) => dispatch(setAnswer(e))
   const inputQuestion = (e: string) => dispatch(setQuestion(e))
   const QuestionType = (e: string) => setQuestionType(e)
+
+  console.log(questionType)
   const mainActionCallback = async () => {
     await createCard({
       id: id,
