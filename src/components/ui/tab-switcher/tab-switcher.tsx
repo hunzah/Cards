@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 
 import s from './tab-switcher.module.scss'
 
@@ -16,8 +16,7 @@ export const TabSwitcher = (props: PropsType) => {
   const { switches, setSortId,sortId } = props
 
   const [active, setActive] = useState("all"  )
-    console.log(":render")
-    console.log(sortId)
+
   const activeSwitchChanger = (switchTitle: string, sortId: string) => {
 
           setActive(switchTitle)
@@ -25,7 +24,12 @@ export const TabSwitcher = (props: PropsType) => {
 
 
   }
-
+useEffect(()=>{
+     !sortId?
+         setActive("all"):
+         setActive("my")
+    },
+    [sortId])
   return (
     <div className={s.tabSwitchersContainer}>
       <Typography variant="body2" component={'h3'}>

@@ -34,6 +34,7 @@ import {
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
 import {
+  changeSliderCurrentValues,
   setMaxCurrentSliderValue,
   setMaxSliderValue,
   setMinCurrentSliderValue
@@ -79,8 +80,6 @@ export const DecksPage = () => {
     maxCardsCount: sliderValues.maxCurrentSliderValue,
     authorId: sortId,
   })
-  const [sliderCurrentValues, setSliderCurrentValues] = useState([sliderValues.minCurrentSliderValue,sliderValues.maxSliderValue ])
-
   const { data: me } = useGetMeQuery()
 
   if (DecksIsLoading) {
@@ -142,13 +141,16 @@ export const DecksPage = () => {
     setSearchText("")
     setSort(null)
     setSortId("")
-
+    dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
+    dispatch(setMaxCurrentSliderValue({max: decks.maxCardsCount}))
+    dispatch(setMinCurrentSliderValue({min:0}))
+    dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
+    dispatch(changeSliderCurrentValues({values:[0, decks.maxCardsCount]}))
   }
   return (
     <div className={s.root}>
-      <div> <Slider decks={decks} setSliderCurrentValues={setSliderCurrentValues}
-                     sliderCurrentValues={sliderCurrentValues} /></div>
-      {decks && <Button onClick={clearHandler}>clear filter</Button>}
+      <div> <Slider decks={decks} /></div>
+      <Button onClick={clearHandler}>clear filter</Button>
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>

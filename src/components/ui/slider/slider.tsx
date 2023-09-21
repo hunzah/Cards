@@ -5,6 +5,7 @@ import * as SliderRadix from '@radix-ui/react-slider'
 import s from './slider.module.scss'
 
 import {
+    changeSliderCurrentValues,
     setMaxCurrentSliderValue,
     setMaxSliderValue,
     setMinCurrentSliderValue,
@@ -15,17 +16,17 @@ import {values} from "remeda";
 
 type PropsType = {
     decks: DecksResponse
-    sliderCurrentValues: number[]
-    setSliderCurrentValues: (sliderCurrentValues:number[])=>void
+
 }
 
 export const Slider = (props: PropsType) => {
-    const {decks, sliderCurrentValues, setSliderCurrentValues} = props
+    const {decks} = props
     const sliderValues = useAppSelector(state => state.slider)
     const dispatch = useAppDispatch()
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
+
     const changeSliderValue = (values: number[]) => {
-        setSliderCurrentValues(values)
+        dispatch(changeSliderCurrentValues({values: values}))
         clearTimeout(timerId)
         setTimerId(
             +setTimeout(() => {
@@ -35,23 +36,21 @@ export const Slider = (props: PropsType) => {
             }, 1500)
         )
     }
-
+    console.log(sliderValues.sliderCurrentValues)
+    console.log(sliderValues)
     useEffect(() => {
-        console.log("eff")
         dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
         dispatch(setMaxCurrentSliderValue({max: sliderValues.maxCurrentSliderValue? sliderValues.maxCurrentSliderValue:sliderValues.maxSliderValue}))
-        setSliderCurrentValues([sliderValues.minCurrentSliderValue, sliderValues.maxCurrentSliderValue? sliderValues.maxCurrentSliderValue:sliderValues.maxSliderValue])
-
+      dispatch(changeSliderCurrentValues({values:[0, decks.maxCardsCount]}))
     }, [])
-
 
     return (
         <div className={s.SliderContainer}>
-            <span className={s.SliderValuesNumber}>{sliderCurrentValues[0]}</span>
+            <span className={s.SliderValuesNumber}>{sliderValues.sliderCurrentValues[0]}</span>
             <SliderRadix.Root
                 onValueChange={changeSliderValue}
                 className={s.SliderRoot}
-                defaultValue={[0, 22]}
+                defaultValue={[sliderValues.sliderCurrentValues[0], sliderValues.sliderCurrentValues[1] ? sliderValues.sliderCurrentValues[1] :22]}
                 minStepsBetweenThumbs={1}
                 max={sliderValues.maxSliderValue}
                 step={1}
@@ -62,7 +61,7 @@ export const Slider = (props: PropsType) => {
                 <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume"/>
                 <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume"/>
             </SliderRadix.Root>
-            <span className={s.SliderValuesNumber}>{sliderCurrentValues[1]? sliderCurrentValues[1] :sliderValues.maxSliderValue }</span>
+            <span className={s.SliderValuesNumber}>{sliderValues.sliderCurrentValues[1] }</span>
         </div>
     )
 }
