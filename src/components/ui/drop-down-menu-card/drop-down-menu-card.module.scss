@@ -1,5 +1,6 @@
 .root {
   position: relative;
+  max-width: 90px;
 }
 
 .img {
@@ -10,8 +11,8 @@
   cursor: pointer;
 
   display: flex;
+  gap: 6px;
   align-items: center;
-  justify-content: space-between;
 
   background-color: inherit;
   border: none;
@@ -23,12 +24,13 @@
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
   align-items: flex-start;
 
-  width: 80px;
-  height: 123px;
+  width: 100%;
+  margin: 0;
   padding: 12px;
+
+  list-style: none;
 
   background-color: var(--color-dark-500);
   border: 1px solid var(--color-dark-300);
@@ -38,7 +40,7 @@
     content: '';
 
     position: absolute;
-    left: 70%;
+    left: 65%;
     transform: rotate(45deg);
 
     width: 15px;
@@ -50,39 +52,31 @@
     border-left: 1px solid var(--color-dark-300);
   }
 
-  .infoContainer {
-    display: flex;
-    gap: 8px;
-
-    .nameAndEmailContainer {
-      display: flex;
-      flex-direction: column;
-
-      .email {
-        color: var(--color-dark-100);
-      }
-    }
-  }
-
-  .button {
-    cursor: pointer;
-    margin-top: 16px;
-  }
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
   li {
     width: 100%;
   }
 }
 
 .rectangle {
-  width: 193px;
-  height: 1px;
-  margin: 12px 0;
-  border: 1px solid var(--color-dark-300);
+  &::before {
+    content: '';
+
+    display: flex;
+
+    height: 1px;
+    margin: 12px 0;
+
+    background-color: var(--color-dark-300);
+  }
+
+  &::after {
+    content: '';
+
+    display: flex;
+
+    height: 1px;
+    margin: 12px 0;
+
+    background-color: var(--color-dark-300);
+  }
 }

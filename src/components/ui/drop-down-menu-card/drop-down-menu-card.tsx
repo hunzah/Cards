@@ -38,13 +38,13 @@ export const DropDownMenuCard = (props: Props) => {
           <ul className={s.menuContainer}>
             <li>
               <button onClick={openPlayCardModal} className={s.iconBtn}>
-                <img src={playPackIcon} alt="delete-pack-icon" />{' '}
+                <img src={playPackIcon} alt="delete-pack-icon" />
                 <Typography variant={'caption'}>Play</Typography>
               </button>
             </li>
-            <li>
+            <li className={s.rectangle}>
               <button onClick={openEditCardModal} className={s.iconBtn}>
-                <img src={editPackIcon} alt="edit-pack-icon" />{' '}
+                <img src={editPackIcon} alt="edit-pack-icon" />
                 <Typography variant={'caption'}>Edit</Typography>
               </button>
             </li>
