@@ -1,31 +1,24 @@
-import { useState } from 'react'
+import {useState} from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 import s from '../../src/components/ui/table/table.module.scss'
 
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import playPackIcon from '@/assets/icons/play-pack.svg'
-import { Button } from '@/components/ui/button'
-import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
-import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
-import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
-import { Pagination } from '@/components/ui/pagination/pagination.tsx'
-import { Slider } from '@/components/ui/slider'
-import { TabSwitcher } from '@/components/ui/tab-switcher'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-} from '@/components/ui/table'
-import { TextField } from '@/components/ui/text-field'
-import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import {clearFilterMutation, useClearFilterMutation, useGetDecksQuery} from '@/services/decks/decks.service.ts'
+import {Button} from '@/components/ui/button'
+import {AddNewPack} from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
+import {DeletePack} from '@/components/ui/modals/delete-pack/delete-pack.tsx'
+import {EditPack} from '@/components/ui/modals/edit-pack/edit-pack.tsx'
+import {Pagination} from '@/components/ui/pagination/pagination.tsx'
+import {Slider} from '@/components/ui/slider'
+import {TabSwitcher} from '@/components/ui/tab-switcher'
+import {Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow,} from '@/components/ui/table'
+import {TextField} from '@/components/ui/text-field'
+import {useAppDispatch, useAppSelector} from '@/hooks.ts'
+import {useGetMeQuery} from '@/services/auth/auth.service.ts'
+import {useGetDecksQuery} from '@/services/decks/decks.service.ts'
 import {
   setDeckId,
   setDeckName,
@@ -39,6 +32,7 @@ import {
   setMaxSliderValue,
   setMinCurrentSliderValue
 } from "@/components/ui/slider/slider.slice";
+import {baseApi} from "@/services/base-api";
 
 type Sort = {
   key: string
@@ -72,7 +66,7 @@ export const DecksPage = () => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(name))
   }
-  const{ currentData: decks, isLoading: DecksIsLoading } = useGetDecksQuery({
+  const{ currentData: decks, isLoading: DecksIsLoading,reset:resetPostDataCache } = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
@@ -138,18 +132,15 @@ export const DecksPage = () => {
   }
 
   const clearHandler = () => {
-    setSearchText("")
-    setSort(null)
-    setSortId("")
-    dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
     dispatch(setMaxCurrentSliderValue({max: decks.maxCardsCount}))
     dispatch(setMinCurrentSliderValue({min:0}))
     dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
-    dispatch(changeSliderCurrentValues({values:[0, decks.maxCardsCount]}))
+    dispatch(baseApi.util.resetApiState())
+
   }
   return (
     <div className={s.root}>
-      <div> <Slider decks={decks} /></div>
+      <div> <Slider decks={decks} minCurrent={sliderValues.sliderCurrentValues[0]} maxCurrent={sliderValues.sliderCurrentValues[1]} /></div>
       <Button onClick={clearHandler}>clear filter</Button>
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />

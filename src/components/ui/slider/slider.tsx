@@ -16,11 +16,12 @@ import {values} from "remeda";
 
 type PropsType = {
     decks: DecksResponse
-
+minCurrent:number
+    maxCurrent:number
 }
 
 export const Slider = (props: PropsType) => {
-    const {decks} = props
+    const {decks,minCurrent,maxCurrent} = props
     const sliderValues = useAppSelector(state => state.slider)
     const dispatch = useAppDispatch()
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
@@ -42,11 +43,11 @@ export const Slider = (props: PropsType) => {
         dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
         dispatch(setMaxCurrentSliderValue({max: sliderValues.maxCurrentSliderValue? sliderValues.maxCurrentSliderValue:sliderValues.maxSliderValue}))
       dispatch(changeSliderCurrentValues({values:[0, decks.maxCardsCount]}))
-    }, [])
+    }, [maxCurrent])
 
     return (
         <div className={s.SliderContainer}>
-            <span className={s.SliderValuesNumber}>{sliderValues.sliderCurrentValues[0]}</span>
+            <span className={s.SliderValuesNumber}>{minCurrent}</span>
             <SliderRadix.Root
                 onValueChange={changeSliderValue}
                 className={s.SliderRoot}
@@ -61,7 +62,7 @@ export const Slider = (props: PropsType) => {
                 <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume"/>
                 <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume"/>
             </SliderRadix.Root>
-            <span className={s.SliderValuesNumber}>{sliderValues.sliderCurrentValues[1] }</span>
+            <span className={s.SliderValuesNumber}>{maxCurrent }</span>
         </div>
     )
 }
