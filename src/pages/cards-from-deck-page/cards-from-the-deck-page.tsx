@@ -46,14 +46,8 @@ export const CardsFromTheDeck = () => {
     dispatch(setCardId(cardId))
     setIsDeleteModalOpen(true)
   }
-  const openEditCardModal = (
-    cardId: string,
-    question: string,
-    answer: string
-    // cardType: CardTypeType
-  ) => {
+  const openEditCardModal = (cardId: string, question: string, answer: string) => {
     dispatch(setCardId(cardId))
-    // dispatch(setCardType(cardType))
     dispatch(setQuestion(question))
     dispatch(setAnswer(answer))
     setIsEditModalOpen(true)
