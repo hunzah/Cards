@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 
 import s from './tab-switcher.module.scss'
 
 import { Typography } from '@/components/ui/typography'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { setMeUserId } from '@/services/auth/auth.slice'
+import {useDispatch} from "react-redux";
+import {updateCurrentPage} from "@/services/decks/decks.slice";
 
 type PropsType = {
   switches: { id: string; switchTitle: string }[]
@@ -14,16 +16,13 @@ type PropsType = {
 
 export const TabSwitcher = (props: PropsType) => {
   const { switches, setSortId,sortId } = props
-
+const dispatch = useDispatch()
   const [active, setActive] = useState("all"  )
-    console.log(":render")
-    console.log(sortId)
-  const activeSwitchChanger = (switchTitle: string, sortId: string) => {
 
+  const activeSwitchChanger = (switchTitle: string, sortId: string) => {
           setActive(switchTitle)
           setSortId(sortId)
-
-
+      dispatch(updateCurrentPage(1))
   }
 
   return (
