@@ -33,6 +33,11 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import {
+  setMaxCurrentSliderValue,
+  setMaxSliderValue,
+  setMinCurrentSliderValue
+} from "@/components/ui/slider/slider.slice";
 
 type Sort = {
   key: string
@@ -137,17 +142,17 @@ export const DecksPage = () => {
     setSearchText("")
     setSort(null)
     setSortId("")
+
   }
   return (
     <div className={s.root}>
-      <div> { decks && <Slider decks={decks} setSliderCurrentValues={setSliderCurrentValues}
-                     sliderCurrentValues={sliderCurrentValues} />}</div>
+      <div> <Slider decks={decks} setSliderCurrentValues={setSliderCurrentValues}
+                     sliderCurrentValues={sliderCurrentValues} /></div>
       {decks && <Button onClick={clearHandler}>clear filter</Button>}
       <div>
         <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
       </div>
       <div>
-        {/*<div>{decks && <Slider decks={decks} />}</div>*/}
 
         <TabSwitcher
             sortId={sortId}

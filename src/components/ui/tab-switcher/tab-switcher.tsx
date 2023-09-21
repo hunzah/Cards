@@ -15,7 +15,7 @@ type PropsType = {
 export const TabSwitcher = (props: PropsType) => {
   const { switches, setSortId,sortId } = props
 
-  const [active, setActive] = useState(sortId? "my":"all"  )
+  const [active, setActive] = useState("all"  )
     console.log(":render")
     console.log(sortId)
   const activeSwitchChanger = (switchTitle: string, sortId: string) => {

@@ -39,14 +39,10 @@ export const Slider = (props: PropsType) => {
     useEffect(() => {
         console.log("eff")
         dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
-        dispatch(setMaxCurrentSliderValue({max: decks.maxCardsCount}))
-        setSliderCurrentValues([sliderValues.minCurrentSliderValue, sliderValues.maxCurrentSliderValue])
+        dispatch(setMaxCurrentSliderValue({max: sliderValues.maxCurrentSliderValue? sliderValues.maxCurrentSliderValue:sliderValues.maxSliderValue}))
+        setSliderCurrentValues([sliderValues.minCurrentSliderValue, sliderValues.maxCurrentSliderValue? sliderValues.maxCurrentSliderValue:sliderValues.maxSliderValue])
 
     }, [])
-
-
-    console.log(sliderValues)
-    console.log(sliderCurrentValues)
 
 
     return (
@@ -55,7 +51,7 @@ export const Slider = (props: PropsType) => {
             <SliderRadix.Root
                 onValueChange={changeSliderValue}
                 className={s.SliderRoot}
-                defaultValue={[sliderValues.minCurrentSliderValue, sliderValues.maxCurrentSliderValue]}
+                defaultValue={[0, 22]}
                 minStepsBetweenThumbs={1}
                 max={sliderValues.maxSliderValue}
                 step={1}
@@ -66,7 +62,7 @@ export const Slider = (props: PropsType) => {
                 <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume"/>
                 <SliderRadix.Thumb className={s.SliderThumb} aria-label="Volume"/>
             </SliderRadix.Root>
-            <span className={s.SliderValuesNumber}>{sliderCurrentValues[1]}</span>
+            <span className={s.SliderValuesNumber}>{sliderCurrentValues[1]? sliderCurrentValues[1] :sliderValues.maxSliderValue }</span>
         </div>
     )
 }
