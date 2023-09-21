@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 
 import {useNavigate} from 'react-router-dom'
 
@@ -26,12 +26,7 @@ import {
     setItemsPerPage,
     updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import {
-    changeSliderCurrentValues, initial,
-    setMaxCurrentSliderValue,
-    setMaxSliderValue,
-    setMinCurrentSliderValue
-} from "@/components/ui/slider/slider.slice";
+import {changeSliderCurrentValues, initial, setMaxSliderValue} from "@/components/ui/slider/slider.slice";
 import {baseApi} from "@/services/base-api";
 
 type Sort = {
@@ -75,15 +70,17 @@ export const DecksPage = () => {
         authorId: sortId,
     })
 
-        if(isSuccess && decks){
-                dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
+    if (isSuccess && decks) {
+        dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
 
-        }
+    }
 
 
     const clearHandler = () => {
         dispatch(changeSliderCurrentValues([sliderValues.minCurrentSliderValue, sliderValues.maxCurrentSliderValue]))
         dispatch(initial())
+        dispatch(updateCurrentPage(1))
+        dispatch(setItemsPerPage(10))
         dispatch(baseApi.util.resetApiState())
 
 

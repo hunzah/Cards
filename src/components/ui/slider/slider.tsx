@@ -24,7 +24,6 @@ type PropsType = {
 export const Slider = (props: PropsType) => {
     const {decks, minCurrent, maxCurrent} = props
     const sliderValues = useAppSelector(state => state.slider)
-    const sliderValues1 = useAppSelector(state => state.slider.maxCurrentSliderValue)
     const dispatch = useAppDispatch()
     const [timerId, setTimerId] = useState<number | undefined>(undefined)
     const [slider, setS] = useState([minCurrent, sliderValues.maxSliderValue])
