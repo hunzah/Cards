@@ -19,16 +19,21 @@
 .iconBtns {
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 16px;
   height: 16px;
-  margin: 0;
-  padding: 0;
 
   background-color: inherit;
   border: none;
+  border-radius: 50%;
+
+  transition: background-color 0.2s ease;
 
   &:hover {
     cursor: pointer;
-    background-color: var(--color-dark-300);
+    background-color: var(--color-dark-100);
   }
 }

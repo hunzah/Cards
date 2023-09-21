@@ -12,6 +12,7 @@ import { DropDownMenuCard } from '@/components/ui/drop-down-menu-card/drop-down-
 import { AddNewCard } from '@/components/ui/modals/add-new-card/add-new-card.tsx'
 import { DeleteCard } from '@/components/ui/modals/delete-card/delete-card.tsx'
 import { EditCard } from '@/components/ui/modals/edit-card/edit-card.tsx'
+import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import {
   Table,
   TableBody,
@@ -21,16 +22,28 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Typography } from '@/components/ui/typography'
+import { useAppSelector } from '@/hooks.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/decks.service.ts'
-import { setAnswer, setCardId, setQuestion } from '@/services/decks/decks.slice.ts'
+import {
+  setAnswer,
+  setCardId,
+  setItemsPerPage,
+  setQuestion,
+  updateCurrentPage,
+} from '@/services/decks/decks.slice.ts'
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
+  const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const dispatch = useDispatch()
 
   const { data: selectedDeck } = useGetDeckQuery({ id: deckId })
-  const { data: cardsFromThisDeck } = useGetCardsFromDeckQuery({ id: deckId })
+  const { data: cardsFromThisDeck } = useGetCardsFromDeckQuery({
+    id: deckId,
+    currentPage: currentPage,
+    itemsPerPage: itemsPerPage,
+  })
   const { data: me } = useGetMeQuery()
 
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false)
@@ -46,18 +59,17 @@ export const CardsFromTheDeck = () => {
     dispatch(setCardId(cardId))
     setIsDeleteModalOpen(true)
   }
-  const openEditCardModal = (
-    cardId: string,
-    question: string,
-    answer: string
-    // cardType: CardTypeType
-  ) => {
+  const openEditCardModal = (cardId: string, question: string, answer: string) => {
     dispatch(setCardId(cardId))
-    // dispatch(setCardType(cardType))
     dispatch(setQuestion(question))
     dispatch(setAnswer(answer))
     setIsEditModalOpen(true)
   }
+
+  // pagination logic
+  const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
+  const setItemsPerPageHandler = (value: number) => dispatch(setItemsPerPage(value))
+  // pagination logic
 
   const isMyDeck = me?.id === selectedDeck?.userId
 
@@ -152,6 +164,13 @@ export const CardsFromTheDeck = () => {
           </TableBody>
         </Table>
       )}
+      <Pagination
+        elements={cardsFromThisDeck?.pagination.totalItems ?? 0}
+        setCurrentPage={setCurrentPageHandler}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        setItemsPerPage={setItemsPerPageHandler}
+      />
     </div>
   )
 }
