@@ -17,7 +17,6 @@ type Props = {
   setOpen:(open:boolean)=>void
 }
 export const DropDownMenu = (props: Props) => {
-  console.log(props)
   const { name, open, callback,setOpen } = props
   const email = useAppSelector(state=>state.auth.email)
 
