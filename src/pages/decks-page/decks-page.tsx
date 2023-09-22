@@ -2,8 +2,6 @@ import { useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import s from '../../src/components/ui/table/table.module.scss'
-
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import playPackIcon from '@/assets/icons/play-pack.svg'
@@ -15,9 +13,9 @@ import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import { Slider } from '@/components/ui/slider'
 import {
   changeSliderCurrentValues,
-  initial, setMaxCurrentSliderValue,
+  initial,
   setMaxSliderValue,
-} from '@/components/ui/slider/slider.slice'
+} from '@/components/ui/slider/slider.slice.ts'
 import { TabSwitcher } from '@/components/ui/tab-switcher'
 import {
   Table,
@@ -28,8 +26,12 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { TextField } from '@/components/ui/text-field'
+import { Typography } from '@/components/ui/typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
-import { baseApi } from '@/services/base-api'
+import s from '@/pages/decks-page/decks-page.module.scss'
+import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { setEmail, setMeUserId, setName } from '@/services/auth/auth.slice.ts'
+import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
   setDeckId,
@@ -38,8 +40,6 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import {useGetMeQuery} from "@/services/auth/auth.service";
-import {setEmail, setMeUserId, setName} from "@/services/auth/auth.slice";
 
 type Sort = {
   key: string
@@ -104,11 +104,10 @@ export const DecksPage = () => {
 
   const { data: me } = useGetMeQuery()
 
-  if (me){
-
-   dispatch(setMeUserId({userId: me.id}))
-    dispatch(setName({name:me.name}))
-    dispatch(setEmail({email:me.email}))
+  if (me) {
+    dispatch(setMeUserId({ userId: me.id }))
+    dispatch(setName({ name: me.name }))
+    dispatch(setEmail({ email: me.email }))
   }
 
   if (DecksIsLoading) {
@@ -154,6 +153,15 @@ export const DecksPage = () => {
     return <div>Decks Fetching....</div>
   }
 
+  const changeTime = (time: string) => {
+    const date = new Date(time)
+    const day = date.getDate().toString().padStart(2, '0')
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const year = date.getFullYear()
+
+    return `${day}.${month}.${year}`
+  }
+
   const goToDeck = (id: string, DeckName: string, isPrivate: boolean) => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(DeckName))
@@ -163,29 +171,41 @@ export const DecksPage = () => {
   }
 
   return (
-    <div className={s.root}>
-      <div>
-        {decks && (
-          <Slider
-            decks={decks}
+    <div className={s.decksPage}>
+      <div className={s.headerDecks}>
+        <Typography variant={'large'}>Packs list</Typography>
+        <Button className={s.headerDecksButton} onClick={openAddNewPackHandler}>
+          Add New Pack
+        </Button>
+      </div>
+      <div className={s.decksServices}>
+        <div>
+          <TextField
+            className={s.textField}
+            placeholder={'Input search'}
+            inputIsSearch={true}
+            value={searchText}
+            onChangeValue={searchInputHandle}
           />
-        )}
+        </div>
+        <div>
+          <TabSwitcher
+            className={s.decksTamSwitcher}
+            title={'Show packs cards'}
+            sortId={sortId}
+            setSortId={setSortId}
+            switches={[
+              { id: '', switchTitle: 'all' },
+              { id: userId, switchTitle: 'my' },
+            ]}
+          />
+        </div>
+        <div>{decks && <Slider decks={decks} />}</div>
+        <Button className={s.buttonClearFilter} variant={'secondary'} onClick={clearHandler}>
+          Clear Filter
+        </Button>
       </div>
-      <Button onClick={clearHandler}>clear filter</Button>
-      <div>
-        <TextField inputIsSearch value={searchText} onChangeValue={searchInputHandle} />
-      </div>
-      <div>
-        <TabSwitcher
-          sortId={sortId}
-          setSortId={setSortId}
-          switches={[
-            { id: '', switchTitle: 'all' },
-            { id: userId, switchTitle: 'my' },
-          ]}
-        />
-      </div>
-      <Button onClick={openAddNewPackHandler}> add new pack</Button>
+
       {isAddNewPackModalOpen && (
         <div className={s.modal}>
           <div className={s.backdrop}>
@@ -207,8 +227,8 @@ export const DecksPage = () => {
           </div>
         </div>
       )}
-      <Table>
-        <TableHead>
+      <Table className={s.decksTable}>
+        <TableHead className={s.decksTableHead}>
           <TableRow>
             <TableHeadCell onClick={() => onclickHandler('name')}>
               {sortArrow('name')} Name
@@ -233,7 +253,7 @@ export const DecksPage = () => {
                   {deck.name}
                 </TableCell>
                 <TableCell>{deck.cardsCount}</TableCell>
-                <TableCell>{deck.updated}</TableCell>
+                <TableCell>{changeTime(deck.updated)}</TableCell>
                 <TableCell>{deck.author.name}</TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
@@ -241,12 +261,14 @@ export const DecksPage = () => {
                       <img src={playPackIcon} alt="delete-pack-icon" />
                     </button>
                     <button
+                      disabled={!(me?.id === deck.author.id)}
                       onClick={() => openEditPackHandler(deck.id, deck.isPrivate, deck.name)}
                       className={s.iconBtns}
                     >
                       <img src={editPackIcon} alt="edit-pack-icon" />
                     </button>
                     <button
+                      disabled={!(me?.id === deck.author.id)}
                       onClick={() => openDeletePackHandler(deck.id, deck.name)}
                       className={s.iconBtns}
                     >
@@ -259,13 +281,15 @@ export const DecksPage = () => {
           })}
         </TableBody>
       </Table>
-      <Pagination
-        elements={decks?.pagination.totalItems ?? 0}
-        setCurrentPage={setCurrentPageHandler}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPageHandler}
-      />
+      <div className={s.paginationContainer}>
+        <Pagination
+          elements={decks?.pagination.totalItems ?? 0}
+          setCurrentPage={setCurrentPageHandler}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPageHandler}
+        />
+      </div>
     </div>
   )
 }
