@@ -64,9 +64,9 @@ const router = createBrowserRouter([
 ])
 
 export const Router = () => {
-  const dispatch = useAppDispatch()
-  const {data,isLoading: isMeLoading } = useGetMeQuery()
-  dispatch(setMeUserId({userId: data?.id}))
+
+  const {isLoading: isMeLoading } = useGetMeQuery()
+
   if (isMeLoading) {
     return <>MELsOAD</>
   }

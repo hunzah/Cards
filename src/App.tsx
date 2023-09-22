@@ -8,7 +8,7 @@ export function App() {
   return (
     <div>
       <Provider store={store}>
-        <Header name={'Yusup monster snooop dogii dooog'} />
+        <Header />
         <Router />
       </Provider>
     </div>

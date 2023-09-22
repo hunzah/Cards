@@ -34,7 +34,7 @@ export const Slider = (props: PropsType) => {
                 values[0] === sliderValues.minCurrentSliderValue
                     ? dispatch(setMaxCurrentSliderValue({max: values[1]}))
                     : dispatch(setMinCurrentSliderValue({min: values[0]}))
-            }, 1500)
+            }, 500)
         )
     }
 

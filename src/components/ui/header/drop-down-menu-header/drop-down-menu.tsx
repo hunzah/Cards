@@ -7,16 +7,17 @@ import myProfIcon from '@/assets/icons/My-profile-icon.svg'
 import avatarTest from '@/assets/images/avatar.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import {useAppSelector} from "@/hooks";
 
 type Props = {
   avatar?: string
   name?: string
-  email?: string
   open?: boolean
   callback: () => void
 }
 export const DropDownMenu = (props: Props) => {
-  const { name, email, open, callback } = props
+  const { name, open, callback } = props
+  const email = useAppSelector(state=>state.auth.email)
   const [isMenuOpen, setIsMenuOpen] = useState(open ? open : false)
 
   const toggleMenu = () => {

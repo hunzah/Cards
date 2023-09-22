@@ -38,6 +38,8 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import {useGetMeQuery} from "@/services/auth/auth.service";
+import {setEmail, setMeUserId, setName} from "@/services/auth/auth.slice";
 
 type Sort = {
   key: string
@@ -100,7 +102,14 @@ export const DecksPage = () => {
     dispatch(baseApi.util.resetApiState())
   }
 
-  // const { data: me } = useGetMeQuery()
+  const { data: me } = useGetMeQuery()
+
+  if (me){
+
+   dispatch(setMeUserId({userId: me.id}))
+    dispatch(setName({name:me.name}))
+    dispatch(setEmail({email:me.email}))
+  }
 
   if (DecksIsLoading) {
     return <div>Loading....</div>
