@@ -15,7 +15,7 @@ import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import { Slider } from '@/components/ui/slider'
 import {
   changeSliderCurrentValues,
-  initial,
+  initial, setMaxCurrentSliderValue,
   setMaxSliderValue,
 } from '@/components/ui/slider/slider.slice'
 import { TabSwitcher } from '@/components/ui/tab-switcher'
@@ -159,8 +159,6 @@ export const DecksPage = () => {
         {decks && (
           <Slider
             decks={decks}
-            minCurrent={sliderValues.sliderCurrentValues[0]}
-            maxCurrent={sliderValues.sliderCurrentValues[1]}
           />
         )}
       </div>

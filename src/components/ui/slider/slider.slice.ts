@@ -6,8 +6,8 @@ export const sliderSlice = createSlice({
     minSliderValue: 0,
     maxSliderValue: 0,
     minCurrentSliderValue: 0,
-    maxCurrentSliderValue: 110,
-    sliderCurrentValues: [0, 100],
+    maxCurrentSliderValue: 0,
+    sliderCurrentValues: [0, 0],
   },
   reducers: {
     setMinCurrentSliderValue: (state, action: PayloadAction<{ min: number }>) => {
