@@ -2,6 +2,7 @@ import {
   LoginArgs,
   LoginResponse,
   meResponseType,
+  resetPasswordRequest,
   SingUpResponseType,
   SingUpType,
 } from '@/services/auth/auth.types'
@@ -19,6 +20,7 @@ const authService = baseApi.injectEndpoints({
         if (result.error) {
           return { data: { success: false } }
         }
+
         return { data: result.data }
       },
       extraOptions: { maxRetries: 0 },
@@ -39,14 +41,20 @@ const authService = baseApi.injectEndpoints({
         body: data,
       }),
     }),
-    forgotPassword: builder.mutation<any, Omit<SingUpType, 'password'>>({
+    forgotPassword: builder.mutation<any, { html: string; email: string }>({
       query: data => ({
         url: '/v1/auth/recover-password',
         method: 'POST',
         body: data,
       }),
     }),
-
+    resetPassword: builder.mutation<any, resetPasswordRequest>({
+      query: data => ({
+        url: `/v1/auth/reset-password/${data.token}`,
+        method: 'POST',
+        body: { password: data.password },
+      }),
+    }),
     logOut: builder.mutation({
       query: () => ({
         url: 'v1/auth/logout',
@@ -58,6 +66,7 @@ const authService = baseApi.injectEndpoints({
 })
 
 export const {
+  useResetPasswordMutation,
   useForgotPasswordMutation,
   useSingUpMutation,
   useGetMeQuery,

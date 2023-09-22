@@ -4,6 +4,9 @@ import { ForgotPasswordForm } from '@/components/auth/forgot-password-form'
 import { useForgotPasswordMutation } from '@/services/auth/auth.service.ts'
 import { ForgetPasswordError } from '@/services/auth/auth.types.ts'
 
+type ArgType = {
+  email: string
+}
 export const ForgotPasswordPage = () => {
   const [forgotPassword, { isLoading, error, isSuccess }] = useForgotPasswordMutation()
 
@@ -21,8 +24,11 @@ export const ForgotPasswordPage = () => {
 
     newError = <h1>{err.data.message}</h1>
   }
-  const forgotPasswordHandler = (arg: any) => {
-    forgotPassword(arg)
+  const forgotPasswordHandler = (arg: ArgType) => {
+    forgotPassword({
+      html: `<h1>Hi, ##name##</h1><p>Click <a href="http://localhost:5173/confirm-email/##token##">here</a> to recover your password</p>`,
+      email: arg.email,
+    })
   }
 
   return (

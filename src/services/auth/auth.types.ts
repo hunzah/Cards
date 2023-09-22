@@ -28,5 +28,9 @@ export type meResponseType = {
   name: string
   created: string
   updated: string
-  success: boolean
+}
+
+export type resetPasswordRequest = {
+  token: string | undefined
+  password: string
 }

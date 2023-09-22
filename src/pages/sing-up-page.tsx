@@ -12,7 +12,6 @@ export const SingUpPage = () => {
     singUp(data)
   }
 
-  console.log('data', data)
   if (data?.id) {
     return <Navigate to={'/login'} />
   }

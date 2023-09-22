@@ -11,11 +11,10 @@ import { CardsFromTheDeck } from '@/pages/cards-from-deck-page/cards-from-the-de
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
 import { DecksPage } from '@/pages/decks-page.tsx'
 import { ForgotPasswordPage } from '@/pages/forgot-password-page/forgot-password-page.tsx'
+import { NewPasswordPage } from '@/pages/new-password-page/new-password-page.tsx'
 import { SignInPage } from '@/pages/signIn-page.tsx'
 import { SingUpPage } from '@/pages/sing-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service'
-import {setMeUserId} from "@/services/auth/auth.slice";
-import {useAppDispatch} from "@/hooks";
 
 const publicRoutes: RouteObject[] = [
   {
@@ -33,6 +32,10 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/check-email',
     element: <CheckEmailPage />,
+  },
+  {
+    path: '/confirm-email/:code',
+    element: <NewPasswordPage />,
   },
 ]
 
@@ -64,8 +67,7 @@ const router = createBrowserRouter([
 ])
 
 export const Router = () => {
-
-  const {isLoading: isMeLoading } = useGetMeQuery()
+  const { isLoading: isMeLoading } = useGetMeQuery()
 
   if (isMeLoading) {
     return <>MELsOAD</>
