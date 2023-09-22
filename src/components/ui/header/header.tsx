@@ -7,12 +7,11 @@ import { Button } from '@/components/ui/button'
 import { DropDownMenu } from '@/components/ui/header/drop-down-menu-header/drop-down-menu.tsx'
 import {useAppDispatch, useAppSelector} from '@/hooks'
 import { useGetMeQuery, useLogOutMutation } from '@/services/auth/auth.service'
+import {log} from "util";
 
-type Props = {
-  open?: boolean
-}
-export const Header = (props: Props) => {
-  const {  open } = props
+
+export const Header = () => {
+ const [open, setOpen] = useState(false)
   const name = useAppSelector(state=>state.auth.name)
   const [isAuthorized] = useState(true)
   const [logout] = useLogOutMutation()
@@ -20,6 +19,8 @@ export const Header = (props: Props) => {
   const handler = () => {
     logout()
   }
+
+
   return (
     <div className={s.container}>
       <img src={logo} className={s.logo} alt={'logotype'} />
@@ -28,7 +29,7 @@ export const Header = (props: Props) => {
       ) : (
         <div className={s.profileContainer}>
           <div className={s.name}>{name}</div>
-          <DropDownMenu name={name}  callback={handler} open={open} />
+          <DropDownMenu name={name}  callback={handler} open={open} setOpen={setOpen} />
         </div>
       )}
     </div>

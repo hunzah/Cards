@@ -14,20 +14,21 @@ type Props = {
   name?: string
   open?: boolean
   callback: () => void
+  setOpen:(open:boolean)=>void
 }
 export const DropDownMenu = (props: Props) => {
-  const { name, open, callback } = props
+  console.log(props)
+  const { name, open, callback,setOpen } = props
   const email = useAppSelector(state=>state.auth.email)
-  const [isMenuOpen, setIsMenuOpen] = useState(open ? open : false)
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
+    setOpen(!open)
   }
 
   return (
     <div>
       <img src={avatarTest} onClick={toggleMenu} className={s.avatar} alt={'avatar'} />
-      {isMenuOpen && (
+      {open && (
         <ul className={s.menuContainer}>
           <li className={s.infoContainer}>
             <img src={avatarTest} onClick={toggleMenu} alt={'avatar'} />
