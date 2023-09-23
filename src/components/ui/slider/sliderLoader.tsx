@@ -5,7 +5,7 @@ export const SliderLoader = () => {
     return (
         <div className={s.sliderLoader}>
               <span className={s.SliderLoaderValuesNumber}>
-       {sliderValues.sliderCurrentValues[0] || "..."}
+       {sliderValues.sliderCurrentValues[0] || 0}
       </span>
             <div className={s.sliderText}><div className={s.leftThumb}></div>loading
                 <div className={s.rightThumb}></div></div>

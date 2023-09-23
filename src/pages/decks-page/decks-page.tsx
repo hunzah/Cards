@@ -201,7 +201,8 @@ export const DecksPage = () => {
             ]}
           />
         </div>
-        <div>{decks ? <Slider decks={decks} /> : <SliderLoader/>}</div>
+        <div>{false ? <Slider decks={decks} /> : <SliderLoader/>}</div>
+        <SliderLoader/>
         <Button className={s.buttonClearFilter} variant={'secondary'} onClick={clearHandler}>
           Clear Filter
         </Button>

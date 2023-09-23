@@ -28,7 +28,7 @@ animation-name: circle;
 }
 
 @keyframes circle {
-  0% {background-color: red;height: 10px;}
+  0% {background-color: var(--primary-900, #382766);;height: 10px;}
   100% {background-color: var(--primary-500, #8c61ff);height: 5px;font-size: 0px; }
 }
 .leftThumb{
