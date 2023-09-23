@@ -55,7 +55,7 @@ export const AddNewCard = ({ closeModalCallback, id }: Props) => {
           />
         </div>
         {questionType === 'Text' && (
-          <div>
+          <>
             <TextField
               value={question}
               onChangeValue={inputQuestion}
@@ -72,8 +72,9 @@ export const AddNewCard = ({ closeModalCallback, id }: Props) => {
               inputType={'text'}
               className={s.input}
             />
-          </div>
+          </>
         )}
+        {questionType === 'Photo' && <div>Photo</div>}
       </div>
       {isLoading && (
         <div style={{ position: 'fixed', color: 'aqua', top: '50%', right: '50%' }}>Loading...</div>
