@@ -1,6 +1,6 @@
 .root {
   position: relative;
-  max-width: 90px;
+  max-width: 80px;
 }
 
 .img {
@@ -8,18 +8,23 @@
 }
 
 .iconBtn {
-  cursor: pointer;
-
   display: flex;
   gap: 6px;
   align-items: center;
 
+  width: 100%;
+  padding: 0;
+
   background-color: inherit;
   border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .menuContainer {
-  position: relative;
+  position: absolute;
   right: 50px;
 
   display: flex;
@@ -40,7 +45,7 @@
     content: '';
 
     position: absolute;
-    left: 65%;
+    left: 70%;
     transform: rotate(45deg);
 
     width: 15px;

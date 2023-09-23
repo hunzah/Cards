@@ -19,6 +19,7 @@ export const EditCard = ({ closeModalCallback }: Props) => {
   const { cardId, question, answer } = useAppSelector(state => state.decks)
   const dispatch = useAppDispatch()
 
+  // @ts-ignore
   const [questionType, setQuestionType] = useState<string>('Text')
   const inputAnswer = (e: string) => dispatch(setAnswer(e))
   const inputQuestion = (e: string) => dispatch(setQuestion(e))

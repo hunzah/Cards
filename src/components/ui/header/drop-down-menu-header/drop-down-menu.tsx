@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+
 import s from './drop-down-menu.module.scss'
 
 import logOut from '@/assets/icons/log-out.svg'
@@ -17,13 +19,34 @@ type Props = {
 export const DropDownMenu = (props: Props) => {
   const { name, open, callback, setOpen } = props
   const email = useAppSelector(state => state.auth.email)
+  const menuRef = useRef<HTMLDivElement>(null)
 
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setClickedOutside(true)
+      setOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    if (open && clickedOutside) {
+      setClickedOutside(false)
+    }
+  }, [open, clickedOutside])
   const toggleMenu = () => {
     setOpen(!open)
   }
 
   return (
-    <div>
+    <div ref={menuRef}>
       <img src={avatarTest} onClick={toggleMenu} className={s.avatar} alt={'avatar'} />
       {open && (
         <div className={s.menuContainer}>

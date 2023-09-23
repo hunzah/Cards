@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import s from './drop-down-menu-card.module.scss'
 
@@ -9,6 +9,7 @@ import playPackIcon from '@/assets/icons/play-pack.svg'
 import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
 import { Typography } from '@/components/ui/typography'
+import { PlayDeck } from '@/pages/play-deck-page/play-deck.tsx'
 
 type Props = {
   isOpen: boolean
@@ -20,6 +21,9 @@ export const DropDownMenuCard = (props: Props) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [isPlayModalOpen, setIsPlayModalOpen] = useState<boolean>(false)
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+
+  const menuRef = useRef<HTMLDivElement>(null)
 
   const closePlayCardModal = () => setIsPlayModalOpen(false)
   const openPlayCardModal = () => setIsPlayModalOpen(true)
@@ -30,11 +34,27 @@ export const DropDownMenuCard = (props: Props) => {
   const closeDeleteCardModal = () => setIsDeleteModalOpen(false)
   const openDeleteCardModal = () => setIsDeleteModalOpen(true)
 
+  // Add logic to close the modal when clicked outside
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setClickedOutside(true)
+      callback(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen, clickedOutside])
+
   return (
-    <div className={s.root}>
+    <div className={s.root} ref={menuRef}>
       <img src={dropDownToggle} onClick={toggleMenu} className={s.img} alt={'drop-dow-menu-icon'} />
       {isOpen && (
-        <>
+        <div>
           <ul className={s.menuContainer}>
             <li>
               <button onClick={openPlayCardModal} className={s.iconBtn}>
@@ -56,11 +76,11 @@ export const DropDownMenuCard = (props: Props) => {
             </li>
           </ul>
           <div>
-            {/*{isPlayModalOpen && (*/}
-            {/*  <div className={s.modal}>*/}
-            {/*    <PlayDeck closeModalCallback={closePlayCardModal} />*/}
-            {/*  </div>*/}
-            {/*)}*/}
+            {isPlayModalOpen && (
+              <div className={s.modal}>
+                <PlayDeck closeModalCallback={closePlayCardModal} PackName={'PackName'} />
+              </div>
+            )}
             {isEditModalOpen && (
               <div className={s.modal}>
                 <div className={s.backdrop}>
@@ -76,7 +96,7 @@ export const DropDownMenuCard = (props: Props) => {
               </div>
             )}
           </div>
-        </>
+        </div>
       )}
     </div>
   )
