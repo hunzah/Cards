@@ -1,12 +1,65 @@
 .modal {
   position: absolute;
-  z-index: 1;
+  z-index: 14;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   width: 100%;
+}
+
+.cardsPage {
+  max-width: 1008px;
+  margin: 0 auto;
+
+  .back {
+    width: 115px;
+    height: 24px;
+    margin-top: 24px;
+    margin-right: 22px;
+
+    .backButton {
+      font-size: var(--font-size-s);
+      color: var(--color-light-100);
+      text-decoration: none;
+    }
+  }
+
+  .deckServices {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-top: 33px;
+    margin-bottom: 26px;
+
+    .nameDeck {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      align-items: flex-end;
+    }
+  }
+
+  .deckEmpty {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+
+    .textEmpryDecks {
+      margin: 0 auto;
+      color: var(--color-dark-100);
+    }
+
+    .buttonEmpryDecks {
+      margin: 0 auto;
+    }
+  }
 }
 
 .creatorWithButton {

@@ -75,12 +75,7 @@ export const CardsFromTheDeck = () => {
   // const isYourDeck = me.
 
   return (
-    <div>
-      <div>
-        <Button type={'link'} as={Link} to="/decks">
-          Back to Packs List
-        </Button>
-      </div>
+    <div className={s.cardsPage}>
       {isAddModalOpen && (
         <div className={s.modal}>
           <AddNewCard closeModalCallback={closeAddCardModal} id={deckId ? deckId : ''} />
@@ -96,27 +91,66 @@ export const CardsFromTheDeck = () => {
           <DeleteCard closeModalCallback={closeDeleteCardModal} />
         </div>
       )}
-      <Typography variant={'h1'}>{selectedDeck?.name}</Typography>
+
+      <div className={s.back}>
+        <Button className={s.backButton} variant={'link'} type={'link'} as={Link} to="/decks">
+          Back to Packs List
+        </Button>
+      </div>
+      <div className={s.deckServices}>
+        <div className={s.nameDeck}>
+          <Typography component={'div'} variant={'large'}>
+            {selectedDeck?.name}
+          </Typography>
+          {!!cardsFromThisDeck?.items.length && isMyDeck && cardsFromThisDeck && (
+            <DropDownMenuCard
+              cards={cardsFromThisDeck.items}
+              callback={setIsDropDownMenuOpen}
+              isOpen={isDropDownMenuOpen}
+            />
+          )}
+        </div>
+        <div>
+          {!!cardsFromThisDeck?.items.length &&
+            (isMyDeck ? (
+              <div>
+                <Button variant={'primary'} onClick={openAddCardModal}>
+                  Add New Cards
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button
+                  variant={'primary'}
+                  onClick={() => {
+                    alert('Learn to Pack')
+                  }}
+                >
+                  Learn to Pack
+                </Button>
+              </div>
+            ))}
+        </div>
+      </div>
 
       {!cardsFromThisDeck?.items.length ? (
-        <Typography variant={'subtitle1'}>
-          This pack is empty. {isMyDeck && <span>Click add new card to fill this pack</span>}
-        </Typography>
-      ) : (
-        <>
-          {isMyDeck && (
-            <div style={{ marginLeft: '100px' }}>
-              <DropDownMenuCard
-                cards={cardsFromThisDeck.items}
-                callback={setIsDropDownMenuOpen}
-                isOpen={isDropDownMenuOpen}
-              />
+        <div className={s.deckEmpty}>
+          <Typography className={s.textEmpryDecks} variant={'body1'}>
+            <span>
+              This pack is empty. {isMyDeck && <span>Click add new card to fill this pack</span>}
+            </span>
+          </Typography>
+          <div className={s.buttonEmpryDecks}>
+            {isMyDeck && (
               <Button variant={'primary'} onClick={openAddCardModal}>
                 Add New Cards
               </Button>
-            </div>
-          )}
-          <Table>
+            )}
+          </div>
+        </div>
+      ) : (
+        <>
+          <Table className={s.tableCards}>
             <TableHead>
               <TableRow>
                 <TableHeadCell>Question</TableHeadCell>
@@ -154,14 +188,6 @@ export const CardsFromTheDeck = () => {
             </TableBody>
           </Table>
 
-          <Button
-            variant={'primary'}
-            onClick={() => {
-              alert('Learn to Pack')
-            }}
-          >
-            Learn to Pack
-          </Button>
           {cardsFromThisDeck.pagination.totalItems > 10 && (
             <Pagination
               elements={cardsFromThisDeck?.pagination.totalItems ?? 0}
