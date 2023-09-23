@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import s from './drop-down-menu.module.scss'
 
 import logOut from '@/assets/icons/log-out.svg'
@@ -7,18 +5,18 @@ import myProfIcon from '@/assets/icons/My-profile-icon.svg'
 import avatarTest from '@/assets/images/avatar.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
-import {useAppSelector} from "@/hooks";
+import { useAppSelector } from '@/hooks'
 
 type Props = {
   avatar?: string
   name?: string
   open?: boolean
   callback: () => void
-  setOpen:(open:boolean)=>void
+  setOpen: (open: boolean) => void
 }
 export const DropDownMenu = (props: Props) => {
-  const { name, open, callback,setOpen } = props
-  const email = useAppSelector(state=>state.auth.email)
+  const { name, open, callback, setOpen } = props
+  const email = useAppSelector(state => state.auth.email)
 
   const toggleMenu = () => {
     setOpen(!open)
@@ -28,35 +26,37 @@ export const DropDownMenu = (props: Props) => {
     <div>
       <img src={avatarTest} onClick={toggleMenu} className={s.avatar} alt={'avatar'} />
       {open && (
-        <ul className={s.menuContainer}>
-          <li className={s.infoContainer}>
-            <img src={avatarTest} onClick={toggleMenu} alt={'avatar'} />
-            <div className={s.nameAndEmailContainer}>
-              <Typography variant={'subtitle2'}>{name}</Typography>
-              <Typography className={s.email} variant={'caption'}>
-                {email}
-              </Typography>
-            </div>
-          </li>
-          <li className={s.rectangle}></li>
-          <li>
-            <Button as={'a'} className={s.button} variant="secondary" img={myProfIcon}>
-              <Typography variant={'caption'}>My Profile</Typography>
-            </Button>
-          </li>
-          <li className={s.rectangle}></li>
-          <li>
-            <Button
-              as={'a'}
-              className={s.button}
-              onClick={callback}
-              variant="secondary"
-              img={logOut}
-            >
-              <Typography variant={'caption'}>Sign Out</Typography>
-            </Button>
-          </li>
-        </ul>
+        <div className={s.menuContainer}>
+          <ul className={s.itemsContainer}>
+            <li className={s.infoContainer}>
+              <img src={avatarTest} onClick={toggleMenu} alt={'avatar'} />
+              <div className={s.nameAndEmailContainer}>
+                <Typography variant={'subtitle2'}>{name}</Typography>
+                <Typography className={s.email} variant={'caption'}>
+                  {email}
+                </Typography>
+              </div>
+            </li>
+            <li className={s.rectangle}></li>
+            <li>
+              <Button as={'a'} className={s.button} variant="secondary" img={myProfIcon}>
+                <Typography variant={'caption'}>My Profile</Typography>
+              </Button>
+            </li>
+            <li className={s.rectangle}></li>
+            <li>
+              <Button
+                as={'a'}
+                className={s.button}
+                onClick={callback}
+                variant="secondary"
+                img={logOut}
+              >
+                <Typography variant={'caption'}>Sign Out</Typography>
+              </Button>
+            </li>
+          </ul>
+        </div>
       )}
     </div>
   )

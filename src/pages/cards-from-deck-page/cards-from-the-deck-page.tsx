@@ -100,48 +100,32 @@ export const CardsFromTheDeck = () => {
         </div>
       )}
       <Typography variant={'h1'}>{selectedDeck?.name}</Typography>
-      <div>
-        {cardsFromThisDeck?.items.length ? (
-          ''
-        ) : (
-          <Typography variant={'subtitle1'}>
-            This pack is empty. {isMyDeck && <span>Click add new card to fill this pack</span>}
-          </Typography>
-        )}
-        {isMyDeck ? (
-          <div style={{ marginLeft: '100px' }}>
-            <DropDownMenuCard callback={setIsDropDownMenuOpen} isOpen={isDropDownMenuOpen} />
-            <Button variant={'primary'} onClick={openAddCardModal}>
-              Add New Cards
-            </Button>
-          </div>
-        ) : (
-          <Button
-            variant={'primary'}
-            onClick={() => {
-              alert('Learn to Pack')
-            }}
-          >
-            Learn to Pack
-          </Button>
-        )}
-      </div>
 
       {!cardsFromThisDeck?.items.length ? (
-        ''
+        <Typography variant={'subtitle1'}>
+          This pack is empty. {isMyDeck && <span>Click add new card to fill this pack</span>}
+        </Typography>
       ) : (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableHeadCell>Question</TableHeadCell>
-              <TableHeadCell>Answer</TableHeadCell>
-              <TableHeadCell>Last Updated</TableHeadCell>
-              <TableHeadCell>Grade</TableHeadCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {cardsFromThisDeck?.items?.map(card => {
-              return (
+        <>
+          {isMyDeck && (
+            <div style={{ marginLeft: '100px' }}>
+              <DropDownMenuCard callback={setIsDropDownMenuOpen} isOpen={isDropDownMenuOpen} />
+              <Button variant={'primary'} onClick={openAddCardModal}>
+                Add New Cards
+              </Button>
+            </div>
+          )}
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeadCell>Question</TableHeadCell>
+                <TableHeadCell>Answer</TableHeadCell>
+                <TableHeadCell>Last Updated</TableHeadCell>
+                <TableHeadCell>Grade</TableHeadCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {cardsFromThisDeck.items.map(card => (
                 <TableRow key={card.id}>
                   <TableCell>{card.question}</TableCell>
                   <TableCell>{card.answer}</TableCell>
@@ -165,18 +149,29 @@ export const CardsFromTheDeck = () => {
                     </div>
                   </TableCell>
                 </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
+              ))}
+            </TableBody>
+          </Table>
+
+          <Button
+            variant={'primary'}
+            onClick={() => {
+              alert('Learn to Pack')
+            }}
+          >
+            Learn to Pack
+          </Button>
+          {cardsFromThisDeck.pagination.totalItems > 10 && (
+            <Pagination
+              elements={cardsFromThisDeck?.pagination.totalItems ?? 0}
+              setCurrentPage={setCurrentPageHandler}
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+              setItemsPerPage={setItemsPerPageHandler}
+            />
+          )}
+        </>
       )}
-      <Pagination
-        elements={cardsFromThisDeck?.pagination.totalItems ?? 0}
-        setCurrentPage={setCurrentPageHandler}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPageHandler}
-      />
     </div>
   )
 }

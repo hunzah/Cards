@@ -12,7 +12,6 @@
   align-items: flex-start;
 
   width: 217px;
-  height: 147px;
   padding: 12px;
 
   background-color: var(--color-dark-500);
@@ -51,7 +50,14 @@
 
   .button {
     cursor: pointer;
-    margin-top: 16px;
+
+    display: flex;
+    justify-content: left;
+
+    padding: 0;
+
+    background-color: inherit;
+    border: none;
   }
 }
 
