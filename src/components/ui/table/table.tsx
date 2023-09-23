@@ -85,7 +85,7 @@ export const TableHead = forwardRef<ElementRef<'thead'>, ComponentPropsWithoutRe
 // } | null
 
 export const DeckTableContainer = (props: any) => {
-  const headCells = props.headCells
+  // const headCells = props.headCells
 
   // type Columns = keyof (typeof headCells)[number]
   // const [sort, setSort] = useState<Sort>(null)
@@ -93,7 +93,7 @@ export const DeckTableContainer = (props: any) => {
   // const [updateDeck] = useUpdateDeckMutation()
   // const columns = Object.keys(headCells[0])
 
-  console.log(headCells)
+  // console.log(headCells)
 
   // const onclickHandler = (key: string) => {
   //   if (sort && sort.key === key) {
