@@ -40,6 +40,7 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import {SliderLoader, sliderLoader} from "@/components/ui/slider/sliderLoader";
 
 type Sort = {
   key: string
@@ -200,7 +201,8 @@ export const DecksPage = () => {
             ]}
           />
         </div>
-        <div>{decks && <Slider decks={decks} />}</div>
+        <div>{decks ? <Slider decks={decks} /> : <SliderLoader/>}</div>
+
         <Button className={s.buttonClearFilter} variant={'secondary'} onClick={clearHandler}>
           Clear Filter
         </Button>

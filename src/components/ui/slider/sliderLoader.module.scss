@@ -1,0 +1,79 @@
+.sliderLoader {
+  width: 251px;
+  height: 36px;
+ display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+}
+@keyframes sliderRange {
+  0% {background-color: red}
+  100% {background-color: var(--primary-500, #8c61ff)}
+}
+.sliderText{
+  color:black;
+  background-color:  var(--primary-500, #8c61ff);
+  height: 10px;
+  width: 160px;
+  line-height: 10px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 11px;
+animation-name: circle;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite ;
+}
+
+@keyframes circle {
+  0% {background-color: var(--primary-900, #382766);;height: 10px;}
+  100% {background-color: var(--primary-500, #8c61ff);height: 5px;font-size: 0px; }
+}
+.leftThumb{
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  top:10px;
+  border: 4px solid var(--primary-500, #8c61ff);
+  position: absolute;
+  animation-name: left;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite ;
+}
+@keyframes left {
+  0% {left:120px;}
+  50% {left:44px}
+  100% {left:120px}
+}
+.rightThumb{
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  top:10px;
+  border: 4px solid var(--primary-500, #8c61ff);
+  position: absolute;
+  animation-name: right;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite ;
+}
+@keyframes right {
+  0% {left:120px;}
+  50% {left:194px}
+  100% {left:120px}
+}
+.SliderLoaderValuesNumber{
+  width: 30px;
+  height: 36px;
+
+  line-height: 36px;
+  text-align: center;
+
+  border: 1px solid var(--dark-300, #4c4c4c);
+  border-radius: 2px;
+}
