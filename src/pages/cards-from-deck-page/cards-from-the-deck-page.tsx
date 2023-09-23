@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
@@ -28,6 +28,7 @@ import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/deck
 import {
   setAnswer,
   setCardId,
+  setDeckCards,
   setItemsPerPage,
   setQuestion,
   updateCurrentPage,
@@ -51,8 +52,11 @@ export const CardsFromTheDeck = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false)
 
-  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setDeckCards(cardsFromThisDeck ? cardsFromThisDeck.items : []))
+  }, [])
 
+  const dispatch = useDispatch()
   const closeAddCardModal = () => setIsAddModalOpen(false)
   const openAddCardModal = () => setIsAddModalOpen(true)
   const closeDeleteCardModal = () => setIsDeleteModalOpen(false)
@@ -109,7 +113,11 @@ export const CardsFromTheDeck = () => {
         <>
           {isMyDeck && (
             <div style={{ marginLeft: '100px' }}>
-              <DropDownMenuCard callback={setIsDropDownMenuOpen} isOpen={isDropDownMenuOpen} />
+              <DropDownMenuCard
+                cards={cardsFromThisDeck.items}
+                callback={setIsDropDownMenuOpen}
+                isOpen={isDropDownMenuOpen}
+              />
               <Button variant={'primary'} onClick={openAddCardModal}>
                 Add New Cards
               </Button>

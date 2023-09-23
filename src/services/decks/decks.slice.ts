@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { Card } from '@/services/decks/types.ts'
+
 export const decksSlice = createSlice({
   name: 'decks',
   initialState: {
+    DeckCards: [] as Card[],
     currentPage: 1,
     itemsPerPage: 10,
     DeckId: '',
@@ -19,6 +22,9 @@ export const decksSlice = createSlice({
     },
     setItemsPerPage: (state, action: PayloadAction<number>) => {
       state.itemsPerPage = action.payload
+    },
+    setDeckCards: (state, action: PayloadAction<Card[]>) => {
+      state.DeckCards = action.payload
     },
     setDeckId: (state, action: PayloadAction<string>) => {
       state.DeckId = action.payload
@@ -47,6 +53,7 @@ export const decksSlice = createSlice({
 export const {
   updateCurrentPage,
   setItemsPerPage,
+  setDeckCards,
   setDeckId,
   setDeckPrivacy,
   setDeckName,

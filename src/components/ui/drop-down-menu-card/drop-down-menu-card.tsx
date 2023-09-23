@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import s from './drop-down-menu-card.module.scss'
 
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
@@ -10,23 +12,26 @@ import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
 import { Typography } from '@/components/ui/typography'
 import { PlayDeck } from '@/pages/play-deck-page/play-deck.tsx'
+import { Card } from '@/services/decks/types.ts'
 
 type Props = {
   isOpen: boolean
   callback: (value: any) => void
+  cards: Card[]
 }
 export const DropDownMenuCard = (props: Props) => {
   const { isOpen, callback } = props
-
+  const navigate = useNavigate()
+  const currentUrl = useLocation().pathname
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
-  const [isPlayModalOpen, setIsPlayModalOpen] = useState<boolean>(false)
+  const [isPlayModalOpen] = useState<boolean>(false)
   const [clickedOutside, setClickedOutside] = useState<boolean>(false)
 
   const menuRef = useRef<HTMLDivElement>(null)
-
-  const closePlayCardModal = () => setIsPlayModalOpen(false)
-  const openPlayCardModal = () => setIsPlayModalOpen(true)
+  const openPlayCardModal = () => {
+    navigate(`${currentUrl}/learn`)
+  }
 
   const toggleMenu = () => callback(!isOpen)
   const openEditCardModal = () => setIsEditModalOpen(true)
@@ -78,7 +83,7 @@ export const DropDownMenuCard = (props: Props) => {
           <div>
             {isPlayModalOpen && (
               <div className={s.modal}>
-                <PlayDeck closeModalCallback={closePlayCardModal} PackName={'PackName'} />
+                <PlayDeck mainPageUrl={currentUrl} />
               </div>
             )}
             {isEditModalOpen && (

@@ -26,13 +26,6 @@ export const Primary: Story = {
     disabled: false,
   },
 }
-export const PrimaryWithIcon: Story = {
-  args: {
-    variant: 'primary',
-    children: 'as',
-    disabled: false,
-  },
-}
 
 export const Secondary: Story = {
   args: {

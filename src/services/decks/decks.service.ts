@@ -12,6 +12,8 @@ import {
   DecksPatchParams,
   DecksPostParams,
   DecksResponse,
+  learnRequest,
+  learnResponse,
   updateCardRequest,
 } from '@/services/decks/types'
 import { RootState } from '@/services/store.ts'
@@ -181,7 +183,16 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Cards'],
     }),
-    clearFilter:builder.mutation<any, any>({
+    getLearn: builder.mutation<learnResponse, learnRequest>({
+      query: params => {
+        return {
+          url: `v1/decks/${params.id}/learn`,
+          method: 'PATCH',
+        }
+      },
+      invalidatesTags: ['Cards'],
+    }),
+    clearFilter: builder.mutation<any, any>({
       query: () => {
         return {
           url: 'v1/decks',
@@ -202,5 +213,6 @@ export const {
   useCreateCardMutation,
   useDeleteCardMutation,
   useUpdateCardMutation,
-  useClearFilterMutation
+  useClearFilterMutation,
+  useGetLearnMutation,
 } = decksApi

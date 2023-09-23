@@ -2,7 +2,6 @@ import { clsx } from 'clsx'
 
 import s from './template-modal.module.scss'
 
-import closeIcon from '@/assets/icons/close.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 
@@ -30,9 +29,6 @@ export const TemplateModal = (props: TemplateModalProps) => {
     <div className={classNames.root}>
       <div className={s.titleContainer}>
         <Typography variant={'h2'}>{title}</Typography>
-        <button className={s.closeBtn} onClick={closeModalHandler}>
-          <img className={s.closeImg} alt="close-button" src={closeIcon} />
-        </button>
       </div>
       <div>{children}</div>
       <div className={s.btnsContainer}>

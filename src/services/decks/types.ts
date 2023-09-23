@@ -114,6 +114,25 @@ export type CardsFromDeckResponse = {
   items: Card[]
 }
 
+export type learnRequest = {
+  id: string
+  previousCardId?: string
+}
+export type learnResponse = {
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  answerImg: string
+  questionImg: string
+  questionVideo: string
+  answerVideo: string
+  rating: number
+  created: string
+  updated: string
+}
 export type DeckRequestParams = { id: string | undefined }
 export type DeckDeleteParams = Pick<Deck, 'id'>
 export type CardTypeType = 'Text' | 'Image' | 'Video'
