@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
@@ -28,7 +28,6 @@ import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/deck
 import {
   setAnswer,
   setCardId,
-  setDeckCards,
   setItemsPerPage,
   setQuestion,
   updateCurrentPage,
@@ -36,9 +35,7 @@ import {
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
-  const currentPage = useAppSelector(state => state.decks.currentPage)
-  const itemsPerPage = useAppSelector(state => state.decks.itemsPerPage)
-
+  const { currentPage, itemsPerPage } = useAppSelector(state => state.decks)
   const { data: selectedDeck } = useGetDeckQuery({ id: deckId })
   const { data: cardsFromThisDeck } = useGetCardsFromDeckQuery({
     id: deckId,
@@ -51,10 +48,6 @@ export const CardsFromTheDeck = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false)
-
-  useEffect(() => {
-    dispatch(setDeckCards(cardsFromThisDeck ? cardsFromThisDeck.items : []))
-  }, [])
 
   const dispatch = useDispatch()
   const closeAddCardModal = () => setIsAddModalOpen(false)

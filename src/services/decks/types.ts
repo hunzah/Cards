@@ -114,11 +114,11 @@ export type CardsFromDeckResponse = {
   items: Card[]
 }
 
-export type learnRequest = {
+export type LearnRequest = {
   id: string
   previousCardId?: string
 }
-export type learnResponse = {
+export type LearnResponse = {
   id: string
   deckId: string
   userId: string
@@ -132,6 +132,10 @@ export type learnResponse = {
   rating: number
   created: string
   updated: string
+}
+export type PostLearn = {
+  cardId: 'string'
+  grade: 5
 }
 export type DeckRequestParams = { id: string | undefined }
 export type DeckDeleteParams = Pick<Deck, 'id'>

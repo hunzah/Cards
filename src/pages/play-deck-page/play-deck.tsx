@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -8,8 +8,12 @@ import backIcon from '@/assets/icons/back-arrow.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
-import { useGetLearnMutation } from '@/services/decks/decks.service.ts'
-import { learnRequest, learnResponse } from '@/services/decks/types.ts'
+import {
+  useGetCardsFromDeckQuery,
+  useGetLearnQuery,
+  // usePostLearnMutation,
+} from '@/services/decks/decks.service.ts'
+import { Card, LearnResponse } from '@/services/decks/types.ts'
 
 type PlayDeckProps = {
   closeModalCallback?: (value: boolean) => void
@@ -20,20 +24,47 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
   const navigate = useNavigate()
   const [isShowAnswerOpen] = useState<boolean>(false)
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
-  const cards = useAppSelector(state => state.decks.DeckCards)
+  const [cards, setCards] = useState<Card[] | null>(null)
+  const [cardId, setCardId] = useState<string>(cards ? cards[0].id : '')
+
+  const [learnInfo, setLearnInfo] = useState<LearnResponse | null>(null)
+  const { DeckId } = useAppSelector(state => state.decks)
+  // const dispatch = useAppDispatch()
+  // const { data: cardsResponse } = useGetCardsFromDeckQuery({
+  //   id: DeckId,
+  // })
+
+  const { data: cardsResponse } = useGetCardsFromDeckQuery({
+    id: DeckId,
+  })
+
+  useEffect(() => {
+    if (cardsResponse) {
+      setCards(cardsResponse.items)
+      setCardId(cardsResponse.items[0].id)
+    }
+  }, [cardsResponse])
+
+  // Запрос данных для обучения
+  const { data: learnResponse } = useGetLearnQuery({ id: cardId })
+
+  useEffect(() => {
+    if (learnResponse) {
+      setLearnInfo(learnResponse)
+    }
+  }, [learnResponse, cardId])
+
+  console.log(cards)
+  console.log(cardId)
+  console.log(learnInfo?.question)
   const closeLearnPage = () => {
     navigate(`/`)
   }
 
   const nextQuestionHandler = () => {
-    if (currentCardIndex < cards.length - 1) {
+    if (cards && currentCardIndex < cards.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1)
-      const nextCardId = cards[currentCardIndex + 1].id
-      const request: learnRequest = {
-        id: nextCardId,
-      }
-
-      // useGetLearnMutation(request) as learnResponse
+      setCardId(cards[currentCardIndex + 1].id)
     }
   }
 
@@ -47,6 +78,7 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
         <Typography variant={'h2'}>{`Learn "${PackName}"`}</Typography>
         <div className={s.questionContainer}>
           <Typography variant={'h3'}>Question</Typography>
+          <Typography variant={'h3'}>{learnInfo?.question}</Typography>
         </div>
         {isShowAnswerOpen && (
           <div className={s.answerContainer}>
