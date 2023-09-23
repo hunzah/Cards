@@ -16,6 +16,7 @@ import {
   initial,
   setMaxSliderValue,
 } from '@/components/ui/slider/slider.slice.ts'
+import { SliderLoader } from '@/components/ui/slider/sliderLoader'
 import { TabSwitcher } from '@/components/ui/tab-switcher'
 import {
   Table,
@@ -40,7 +41,6 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import {SliderLoader, sliderLoader} from "@/components/ui/slider/sliderLoader";
 
 type Sort = {
   key: string
@@ -201,7 +201,7 @@ export const DecksPage = () => {
             ]}
           />
         </div>
-        <div>{decks ? <Slider decks={decks} /> : <SliderLoader/>}</div>
+        <div>{decks ? <Slider decks={decks} /> : <SliderLoader />}</div>
 
         <Button className={s.buttonClearFilter} variant={'secondary'} onClick={clearHandler}>
           Clear Filter
@@ -284,13 +284,15 @@ export const DecksPage = () => {
         </TableBody>
       </Table>
       <div className={s.paginationContainer}>
-        <Pagination
-          elements={decks?.pagination.totalItems ?? 0}
-          setCurrentPage={setCurrentPageHandler}
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-          setItemsPerPage={setItemsPerPageHandler}
-        />
+        {filteredDecks && filteredDecks.length > 10 && (
+          <Pagination
+            elements={decks?.pagination.totalItems ?? 0}
+            setCurrentPage={setCurrentPageHandler}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPageHandler}
+          />
+        )}
       </div>
     </div>
   )
