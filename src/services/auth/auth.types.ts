@@ -23,7 +23,7 @@ export type meResponseType = {
   avatar: string
   id: string
   email: string
-  success: boolean
+  success?: boolean
   isEmailVerified: boolean
   name: string
   created: string
