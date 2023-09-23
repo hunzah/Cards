@@ -21,7 +21,7 @@ export const Slider = (props: PropsType) => {
   const { decks } = props
   const sliderValues = useAppSelector(state => state.slider)
   const dispatch = useAppDispatch()
-  //todo I Commented next line that the error doesn't appear
+  ///todo I Commented next line that the error doesn't appear
   /* const sliderValues1 = useAppSelector(state => state.slider.maxCurrentSliderValue)*/
   const [timerId, setTimerId] = useState<number | undefined>(undefined)
   const changeSliderValue = (values: number[]) => {
