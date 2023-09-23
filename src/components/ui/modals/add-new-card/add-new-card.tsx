@@ -54,22 +54,26 @@ export const AddNewCard = ({ closeModalCallback, id }: Props) => {
             buttonClassName={s.select}
           />
         </div>
-        <TextField
-          value={question}
-          onChangeValue={inputQuestion}
-          inputName="Question"
-          inputIsSearch={false}
-          inputType={'text'}
-          className={s.input}
-        />
-        <TextField
-          value={answer}
-          onChangeValue={inputAnswer}
-          inputName="Answer"
-          inputIsSearch={false}
-          inputType={'text'}
-          className={s.input}
-        />
+        {questionType === 'Text' && (
+          <div>
+            <TextField
+              value={question}
+              onChangeValue={inputQuestion}
+              inputName="Question"
+              inputIsSearch={false}
+              inputType={'text'}
+              className={s.input}
+            />
+            <TextField
+              value={answer}
+              onChangeValue={inputAnswer}
+              inputName="Answer"
+              inputIsSearch={false}
+              inputType={'text'}
+              className={s.input}
+            />
+          </div>
+        )}
       </div>
       {isLoading && (
         <div style={{ position: 'fixed', color: 'aqua', top: '50%', right: '50%' }}>Loading...</div>
