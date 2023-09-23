@@ -48,10 +48,7 @@ export const Slider = (props: PropsType) => {
     dispatch(setMaxSliderValue({ max: decks.maxCardsCount }))
   }, [])
 
-  /*if (decks && decks.maxCardsCount){
-            dispatch(setMaxSliderValue({max: decks.maxCardsCount}))
-        
-        }*/
+
 
   return (
     <div className={s.SliderContainer}>
