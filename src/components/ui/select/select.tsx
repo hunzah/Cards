@@ -20,13 +20,13 @@ type PropsType = {
   name?: string
   placeholder?: string
   required?: boolean
-  textStyle: TypographyVariantTypes
+  textStyle?: TypographyVariantTypes
 }
 
 type SelectItemPropsType = {
   options: number[] | string[]
   className: string
-  textStyle: TypographyVariantTypes
+  textStyle?: TypographyVariantTypes
 }
 
 export const Select = (props: PropsType) => {
@@ -84,7 +84,7 @@ const SelectItem = (props: SelectItemPropsType) => {
       {options.map((option, i) => (
         <SelectRadix.Item key={i} value={option.toString()} className={className} {...rest}>
           <SelectRadix.ItemText>
-            <Typography variant={textStyle}>{option}</Typography>
+            <Typography variant={textStyle ? textStyle : 'body1'}>{option}</Typography>
           </SelectRadix.ItemText>
         </SelectRadix.Item>
       ))}

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Meta, StoryObj } from '@storybook/react'
 
 import { Slider } from './'
@@ -9,11 +7,8 @@ const meta = {
   component: Slider,
   tags: ['autodocs'],
   argTypes: {
-    minSliderValue: {
-      control: 'number',
-    },
-    maxSliderValue: {
-      control: 'number',
+    decks: {
+      control: 'DecksResponse',
     },
   },
 } satisfies Meta<typeof Slider>
@@ -21,16 +16,34 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const SliderDefault: Story = () => {
-  const [maxSliderValue, setMaxSliderValue] = useState(48)
-  const [minSliderValue, setMinSliderValue] = useState(3)
-
-  return (
-    <Slider
-      minSliderValue={minSliderValue}
-      maxSliderValue={maxSliderValue}
-      setMinSliderValue={setMinSliderValue}
-      setMaxSliderValue={setMaxSliderValue}
-    />
-  )
+export const Default: Story = {
+  args: {
+    decks: {
+      items: [
+        {
+          author: {
+            id: 'string',
+            name: 'Cameron',
+          },
+          id: 'string',
+          userId: 'string',
+          name: 'string',
+          isPrivate: false,
+          shots: 3,
+          cover: null,
+          rating: 5,
+          created: 'string',
+          updated: 'string',
+          cardsCount: 53,
+        },
+      ],
+      pagination: {
+        currentPage: 1,
+        itemsPerPage: 10,
+        totalPages: 35,
+        totalItems: 350,
+      },
+      maxCardsCount: 62,
+    },
+  },
 }

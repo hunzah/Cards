@@ -8,10 +8,16 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     elements: {
-      control: Array<any>,
-    },
-    elemsOnPerPage: {
       control: 'number',
+    },
+    setItemsPerPage: {
+      control: '(value: number) => void',
+    },
+    currentPage: {
+      control: 'number',
+    },
+    setCurrentPage: {
+      control: '(value: number) => void',
     },
   },
 } satisfies Meta<typeof Pagination>
@@ -22,6 +28,6 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     elements: 500,
-    elemsOnPerPage: 10,
+    currentPage: 1,
   },
 }

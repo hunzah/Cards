@@ -18,7 +18,7 @@ import { Card, LearnResponse } from '@/services/decks/types.ts'
 type PlayDeckProps = {
   closeModalCallback?: (value: boolean) => void
   PackName?: string
-  mainPageUrl: string
+  mainPageUrl?: string
 }
 export const PlayDeck = ({ PackName }: PlayDeckProps) => {
   const navigate = useNavigate()

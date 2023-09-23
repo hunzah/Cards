@@ -1,15 +1,8 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, useState } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import { clsx } from 'clsx'
 
 import s from './table.module.scss'
-
-import {
-  useCreateDecksMutation,
-  useDeleteDeckMutation,
-  useGetDecksQuery,
-  useUpdateDeckMutation,
-} from '@/services/decks/decks.service.ts'
 
 export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
   ({ className, ...rest }, ref) => {
@@ -86,39 +79,39 @@ export const TableHead = forwardRef<ElementRef<'thead'>, ComponentPropsWithoutRe
     )
 }*/
 
-type Sort = {
-  key: string
-  direction: 'asc' | 'desc'
-} | null
+// type Sort = {
+//   key: string
+//   direction: 'asc' | 'desc'
+// } | null
 
 export const DeckTableContainer = (props: any) => {
   const headCells = props.headCells
 
-  type Columns = keyof (typeof headCells)[number]
-  const [sort, setSort] = useState<Sort>(null)
-  const [deleteDeck] = useDeleteDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
-  const columns = Object.keys(headCells[0])
+  // type Columns = keyof (typeof headCells)[number]
+  // const [sort, setSort] = useState<Sort>(null)
+  // const [deleteDeck] = useDeleteDeckMutation()
+  // const [updateDeck] = useUpdateDeckMutation()
+  // const columns = Object.keys(headCells[0])
 
   console.log(headCells)
 
-  const onclickHandler = (key: string) => {
-    if (sort && sort.key === key) {
-      setSort(sort.direction === 'asc' ? { key, direction: 'desc' } : null)
-    } else {
-      setSort({
-        key,
-        direction: 'asc',
-      })
-    }
-  }
+  // const onclickHandler = (key: string) => {
+  //   if (sort && sort.key === key) {
+  //     setSort(sort.direction === 'asc' ? { key, direction: 'desc' } : null)
+  //   } else {
+  //     setSort({
+  //       key,
+  //       direction: 'asc',
+  //     })
+  //   }
+  // }
 
-  const deleteDeckHandler = ({ id }) => {
-    deleteDeck({ id })
-  }
-  const updateDeckHandler = ({ id, params }) => {
-    updateDeck({ id: { id }, params: { params } })
-  }
+  // const deleteDeckHandler = ({ id }) => {
+  //   deleteDeck({ id })
+  // }
+  // const updateDeckHandler = ({ id, params }) => {
+  //   updateDeck({ id: { id }, params: { params } })
+  // }
 
   return (
     <Table>

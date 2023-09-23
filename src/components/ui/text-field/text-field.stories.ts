@@ -6,6 +6,9 @@ const meta = {
   title: 'Components/text-field',
   component: TextField,
   argTypes: {
+    value: {
+      options: 'string',
+    },
     inputType: {
       options: ['text', 'password'],
     },
@@ -20,6 +23,7 @@ type Story = StoryObj<typeof meta>
 
 export const TextFieldStandard: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputName: 'Input',
     inputIsSearch: false,
@@ -28,6 +32,7 @@ export const TextFieldStandard: Story = {
 
 export const TextFieldStandardError: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: false,
     errorMessage: 'Error!',
@@ -37,6 +42,7 @@ export const TextFieldStandardError: Story = {
 
 export const TextFieldLogin: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: false,
     placeholder: 'Enter login',
@@ -46,6 +52,7 @@ export const TextFieldLogin: Story = {
 
 export const TextFieldLoginError: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: false,
     inputName: 'Input',
@@ -55,6 +62,7 @@ export const TextFieldLoginError: Story = {
 
 export const TextFieldSearch: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: true,
     placeholder: 'Enter text',
@@ -63,6 +71,7 @@ export const TextFieldSearch: Story = {
 
 export const TextFieldSearchError: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: true,
     errorMessage: 'Error!',
@@ -71,6 +80,7 @@ export const TextFieldSearchError: Story = {
 
 export const TextFieldPassword: Story = {
   args: {
+    value: '',
     inputType: 'password',
     inputIsSearch: false,
     inputName: 'Input',
@@ -79,6 +89,7 @@ export const TextFieldPassword: Story = {
 
 export const TextFieldPasswordError: Story = {
   args: {
+    value: '',
     inputType: 'password',
     inputIsSearch: false,
     inputName: 'Input',

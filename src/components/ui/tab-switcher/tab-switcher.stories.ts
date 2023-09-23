@@ -8,7 +8,10 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     switches: {
-      control: 'switches: { id: number; switchTitle: string; disabled: boolean }[]',
+      control: '{ id: number; switchTitle: string; disabled: boolean }[]',
+    },
+    title: {
+      control: 'string',
     },
   },
 } satisfies Meta<typeof TabSwitcher>
@@ -19,21 +22,10 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     switches: [
-      { id: 1, switchTitle: 'first', disabled: false },
-      { id: 2, switchTitle: 'second', disabled: false },
-      { id: 3, switchTitle: 'third', disabled: true },
+      { id: '1', switchTitle: 'first' },
+      { id: '2', switchTitle: 'second' },
+      { id: '3', switchTitle: 'third' },
     ],
-  },
-}
-
-export const Active: Story = {
-  args: {
-    switches: [{ id: 1, switchTitle: 'first', disabled: false }],
-  },
-}
-
-export const Disabled: Story = {
-  args: {
-    switches: [{ id: 2, switchTitle: 'third', disabled: true }],
+    title: 'Pick one',
   },
 }
