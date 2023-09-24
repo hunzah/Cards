@@ -28,13 +28,25 @@ export const PlayDeck = () => {
   }
   const { data: deck } = useGetDeckQuery({ id: deckId })
   const { data: learnResponse } = useGetLearnQuery({ id: deckId })
-
-  if (!learnResponse) {
-    return <div>Loading....</div>
-  }
-
   const closeLearnPage = () => {
     navigate(`/`)
+  }
+
+  if (!learnResponse) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '46px',
+        }}
+      >
+        <Typography variant={'h2'}>This deck is probably empty</Typography>
+        <Button onClick={closeLearnPage}>back to main page</Button>
+      </div>
+    )
   }
 
   const nextQuestionHandler = () => {

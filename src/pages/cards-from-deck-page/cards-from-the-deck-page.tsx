@@ -73,8 +73,6 @@ export const CardsFromTheDeck = () => {
 
   const isMyDeck = me?.id === selectedDeck?.userId
 
-  // const isYourDeck = me.
-
   return (
     <div className={s.cardsPage}>
       {isAddModalOpen && (
@@ -126,10 +124,10 @@ export const CardsFromTheDeck = () => {
             ) : (
               <div>
                 <Button
+                  style={{ textDecoration: 'none', color: 'white' }}
                   variant={'primary'}
-                  onClick={() => {
-                    alert('Learn to Pack')
-                  }}
+                  as={Link}
+                  to={`/learn`}
                 >
                   Learn to Pack
                 </Button>
