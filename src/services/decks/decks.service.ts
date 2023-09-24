@@ -203,9 +203,9 @@ const decksApi = baseApi.injectEndpoints({
     postLearn: builder.mutation<void, PostLearn>({
       query: params => {
         return {
-          url: `v1/decks/${params.cardId}/learn`,
+          url: `v1/decks/${params.id}/learn`,
           method: 'POST',
-          body: params.grade,
+          body: { cardId: params.cardId, grade: params.grade },
         }
       },
       invalidatesTags: ['Learn'],

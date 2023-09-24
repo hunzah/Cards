@@ -6,8 +6,13 @@ import s from './play-deck.module.scss'
 
 import backIcon from '@/assets/icons/back-arrow.svg'
 import { Button } from '@/components/ui/button'
+import { RadioGroupUI } from '@/components/ui/radio-group/radio-group-form.tsx'
 import { Typography } from '@/components/ui/typography'
-import { useGetCardsFromDeckQuery, useGetLearnQuery } from '@/services/decks/decks.service.ts'
+import {
+  useGetCardsFromDeckQuery,
+  useGetLearnQuery,
+  usePostLearnMutation,
+} from '@/services/decks/decks.service.ts'
 import { Card, LearnResponse } from '@/services/decks/types.ts'
 
 type PlayDeckProps = {
@@ -17,7 +22,8 @@ type PlayDeckProps = {
 }
 export const PlayDeck = ({ PackName }: PlayDeckProps) => {
   const navigate = useNavigate()
-  const [isShowAnswerOpen] = useState<boolean>(false)
+  const [isShowAnswerOpen, setIsShowAnswerOpen] = useState<boolean>(false)
+  const [radioValue, setRadioValue] = useState<number>()
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
   const [cards, setCards] = useState<Card[] | null>(null)
   const [cardId, setCardId] = useState<string>(cards ? cards[0].id : '')
@@ -25,29 +31,9 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
   const [learnInfo, setLearnInfo] = useState<LearnResponse | null>(null)
   //const deckIdfromSlice = useAppSelector(state => state.decks.DeckId)
   const { deckId } = useParams()
+  const [postLearn] = usePostLearnMutation()
 
   console.log('sssssssssss', deckId)
-  // const dispatch = useAppDispatch()
-  // const { data: cardsResponse } = useGetCardsFromDeckQuery({
-  //   id: DeckId,
-  // })
-  const { data: cardsResponse } = useGetCardsFromDeckQuery({
-    id: deckId,
-  })
-
-  console.log('cardsResponse', cardsResponse)
-
-  /*
-  
-    if (!cardsResponse) {
-      return <div>Loading....</div>
-    }
-  
-    console.log('cardsResponse', cardsResponse)
-    const idForLearn = cardsResponse.items[0].id
-  */
-
-  /*console.log('idForLearn', idForLearn)*/
 
   const { data: learnResponse } = useGetLearnQuery({ id: deckId })
 
@@ -56,36 +42,22 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
   }
 
   console.log(learnResponse)
-  /* useEffect(() => {
-           if (cardsResponse) {
-             setCards(cardsResponse.items)
-             setCardId(cardsResponse.items[0].id)
-           }
-         }, [cardsResponse])
-       
-         // Запрос данных для обучения
-         const { data: learnResponse } = useGetLearnQuery({ id: cardId })
-       
-         useEffect(() => {
-           if (learnResponse) {
-             setLearnInfo(learnResponse)
-           }
-         }, [learnResponse, cardId])
-       
-         console.log(cards)
-         console.log(cardId)
-         console.log(learnInfo?.question)*/
+
   const closeLearnPage = () => {
     navigate(`/`)
   }
 
   const nextQuestionHandler = () => {
-    if (cards && currentCardIndex < cards.length - 1) {
-      setCurrentCardIndex(currentCardIndex + 1)
-      setCardId(cards[currentCardIndex + 1].id)
-    }
+    /*if (cards && currentCardIndex < cards.length - 1) {
+                                      setCurrentCardIndex(currentCardIndex + 1)
+                                      setCardId(cards[currentCardIndex + 1].id)
+                                    }*/
+    postLearn({ id: deckId, cardId: learnResponse.id, grade: radioValue })
   }
   const deckPath = `/decks/${deckId}`
+  const onChangeValueHandler = (value: number) => {
+    setRadioValue(value)
+  }
 
   return (
     <div className={s.root}>
@@ -106,9 +78,17 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
           <Typography variant={'h3'}>Question</Typography>
           <Typography variant={'h3'}>{learnResponse?.question}</Typography>
         </div>
+        <button
+          onClick={() => {
+            setIsShowAnswerOpen(true)
+          }}
+        >
+          show answer
+        </button>
         {isShowAnswerOpen && (
           <div className={s.answerContainer}>
             <Typography variant={'h3'}>Answer</Typography>
+            <RadioGroupUI onChangeValue={onChangeValueHandler} />
           </div>
         )}
         <div className={s.btnsContainer}>

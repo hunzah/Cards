@@ -134,8 +134,9 @@ export type LearnResponse = {
   updated: string
 }
 export type PostLearn = {
-  cardId: 'string'
-  grade: 5
+  id: string
+  cardId: string
+  grade: number | undefined
 }
 export type DeckRequestParams = { id: string | undefined }
 export type DeckDeleteParams = Pick<Deck, 'id'>
