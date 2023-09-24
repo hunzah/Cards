@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import s from './cards-page.module.scss'
 
+import backIcon from '@/assets/icons/back-arrow.svg'
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import { Button } from '@/components/ui/button'
@@ -92,11 +93,11 @@ export const CardsFromTheDeck = () => {
         </div>
       )}
 
-      <div className={s.back}>
-        <Button className={s.backButton} variant={'link'} type={'link'} as={Link} to="/decks">
-          Back to Packs List
-        </Button>
-      </div>
+      <Button className={s.backButton} variant={'link'} type={'link'} as={Link} to="/decks">
+        <img src={backIcon} alt={'back-icon'}></img>
+        Back to Packs List
+      </Button>
+
       <div className={s.deckServices}>
         <div className={s.nameDeck}>
           <Typography component={'div'} variant={'large'}>
@@ -161,7 +162,7 @@ export const CardsFromTheDeck = () => {
             </TableHead>
             <TableBody>
               {cardsFromThisDeck.items.map(card => (
-                <TableRow key={card.id}>
+                <TableRow key={card.id} className={s.row}>
                   <TableCell>{card.question}</TableCell>
                   <TableCell>{card.answer}</TableCell>
                   <TableCell>{card.updated}</TableCell>

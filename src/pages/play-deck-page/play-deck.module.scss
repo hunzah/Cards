@@ -4,20 +4,22 @@
   justify-content: center;
 }
 
-.backBtn {
-  position: absolute;
-  top: 70px;
-  left: 0;
-
-  display: flex;
+.backButton {
+  display: inline-flex;
+  gap: 10px;
   align-items: center;
 
+  margin: 24px 0 0;
+  padding: 0;
+
   color: var(--color-light-100);
+  text-decoration: none;
 
   background-color: inherit;
 
   &:hover {
-    color: white;
+    color: var(--color-light-100);
+    background-color: var(--color-dark-300);
   }
 }
 

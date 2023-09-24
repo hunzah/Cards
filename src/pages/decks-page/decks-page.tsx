@@ -250,7 +250,7 @@ export const DecksPage = () => {
         <TableBody>
           {filteredDecks?.map(deck => {
             return (
-              <TableRow key={deck.id}>
+              <TableRow key={deck.id} className={s.row}>
                 <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
                   {deck.name}
                 </TableCell>

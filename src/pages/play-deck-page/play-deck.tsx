@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import s from './play-deck.module.scss'
 
@@ -67,10 +67,18 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
       setCardId(cards[currentCardIndex + 1].id)
     }
   }
+  const deckPath = `/decks/${DeckId}`
 
   return (
     <div className={s.root}>
-      <Button variant={'link'} className={s.backBtn} onClick={closeLearnPage}>
+      <Button
+        variant={'link'}
+        type={'link'}
+        as={Link}
+        to={deckPath}
+        className={s.backButton}
+        onClick={closeLearnPage}
+      >
         <img src={backIcon} alt={'back-icon'}></img>
         back to Pack list
       </Button>

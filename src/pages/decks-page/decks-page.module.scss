@@ -48,8 +48,7 @@
   }
 
   .paginationContainer {
-    margin: 0 auto;
-    margin-top: 15px;
+    margin: 15px auto 0;
   }
 }
 
@@ -172,6 +171,7 @@
     transition: background-color 0.2s ease;
 
     &:hover {
+      cursor: pointer;
       background-color: var(--color-dark-100);
     }
 
@@ -185,10 +185,12 @@
       cursor: default;
       background-color: inherit;
     }
+  }
+}
 
-    img:hover {
-      cursor: default;
-      background-color: inherit;
-    }
+.row {
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-dark-500);
   }
 }
