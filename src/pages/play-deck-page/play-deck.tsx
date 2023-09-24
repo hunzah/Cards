@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import s from './play-deck.module.scss'
 
 import backIcon from '@/assets/icons/back-arrow.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
-import { useAppSelector } from '@/hooks.ts'
-import {
-  useGetCardsFromDeckQuery,
-  useGetLearnQuery,
-  // usePostLearnMutation,
-} from '@/services/decks/decks.service.ts'
+import { useGetCardsFromDeckQuery, useGetLearnQuery } from '@/services/decks/decks.service.ts'
 import { Card, LearnResponse } from '@/services/decks/types.ts'
 
 type PlayDeckProps = {
@@ -28,35 +23,58 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
   const [cardId, setCardId] = useState<string>(cards ? cards[0].id : '')
 
   const [learnInfo, setLearnInfo] = useState<LearnResponse | null>(null)
-  const { DeckId } = useAppSelector(state => state.decks)
+  //const deckIdfromSlice = useAppSelector(state => state.decks.DeckId)
+  const { deckId } = useParams()
+
+  console.log('sssssssssss', deckId)
   // const dispatch = useAppDispatch()
   // const { data: cardsResponse } = useGetCardsFromDeckQuery({
   //   id: DeckId,
   // })
-
   const { data: cardsResponse } = useGetCardsFromDeckQuery({
-    id: DeckId,
+    id: deckId,
   })
 
-  useEffect(() => {
-    if (cardsResponse) {
-      setCards(cardsResponse.items)
-      setCardId(cardsResponse.items[0].id)
+  console.log('cardsResponse', cardsResponse)
+
+  /*
+  
+    if (!cardsResponse) {
+      return <div>Loading....</div>
     }
-  }, [cardsResponse])
+  
+    console.log('cardsResponse', cardsResponse)
+    const idForLearn = cardsResponse.items[0].id
+  */
 
-  // Запрос данных для обучения
-  const { data: learnResponse } = useGetLearnQuery({ id: cardId })
+  /*console.log('idForLearn', idForLearn)*/
 
-  useEffect(() => {
-    if (learnResponse) {
-      setLearnInfo(learnResponse)
-    }
-  }, [learnResponse, cardId])
+  const { data: learnResponse } = useGetLearnQuery({ id: deckId })
 
-  console.log(cards)
-  console.log(cardId)
-  console.log(learnInfo?.question)
+  if (!learnResponse) {
+    return <div>Loading....</div>
+  }
+
+  console.log(learnResponse)
+  /* useEffect(() => {
+           if (cardsResponse) {
+             setCards(cardsResponse.items)
+             setCardId(cardsResponse.items[0].id)
+           }
+         }, [cardsResponse])
+       
+         // Запрос данных для обучения
+         const { data: learnResponse } = useGetLearnQuery({ id: cardId })
+       
+         useEffect(() => {
+           if (learnResponse) {
+             setLearnInfo(learnResponse)
+           }
+         }, [learnResponse, cardId])
+       
+         console.log(cards)
+         console.log(cardId)
+         console.log(learnInfo?.question)*/
   const closeLearnPage = () => {
     navigate(`/`)
   }
@@ -67,7 +85,7 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
       setCardId(cards[currentCardIndex + 1].id)
     }
   }
-  const deckPath = `/decks/${DeckId}`
+  const deckPath = `/decks/${deckId}`
 
   return (
     <div className={s.root}>
@@ -86,7 +104,7 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
         <Typography variant={'h2'}>{`Learn "${PackName}"`}</Typography>
         <div className={s.questionContainer}>
           <Typography variant={'h3'}>Question</Typography>
-          <Typography variant={'h3'}>{learnInfo?.question}</Typography>
+          <Typography variant={'h3'}>{learnResponse?.question}</Typography>
         </div>
         {isShowAnswerOpen && (
           <div className={s.answerContainer}>
