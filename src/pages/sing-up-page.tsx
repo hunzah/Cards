@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom'
 
 import { SignUpForm } from '@/components/auth/sign-up-form'
 import { useSingUpMutation } from '@/services/auth/auth.service.ts'
-import { CustomerError } from '@/services/auth/auth.types.ts'
+import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
 
 export const SingUpPage = () => {
   const [singUp, { data, isLoading, error }] = useSingUpMutation()
@@ -15,17 +15,15 @@ export const SingUpPage = () => {
   if (data?.id) {
     return <Navigate to={'/login'} />
   }
-  let newError
 
   if (error) {
-    const err = error as CustomerError
+    const err = error as GeneralErrorType
 
-    newError = <h1>{err.data.errorMessages[0]}</h1>
+    handleApiError(err)
   }
 
   return (
     <div>
-      {error && <div>{newError}</div>}
       <SignUpForm onSubmit={doIt} />
     </div>
   )
