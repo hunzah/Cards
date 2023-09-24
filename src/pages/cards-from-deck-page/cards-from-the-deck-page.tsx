@@ -79,7 +79,11 @@ export const CardsFromTheDeck = () => {
     <div className={s.cardsPage}>
       {isAddModalOpen && (
         <div className={s.modal}>
-          <AddNewCard closeModalCallback={closeAddCardModal} id={deckId ? deckId : ''} />
+          <AddNewCard
+            closeModalCallback={closeAddCardModal}
+            id={deckId ? deckId : ''}
+            isOpen={isAddModalOpen}
+          />
         </div>
       )}
       {isEditModalOpen && (

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import s from './add-new-pack.module.scss'
 
@@ -14,7 +14,8 @@ export const AddNewPack = ({ closeModalCallback }: Props) => {
   const [createDeck, { isLoading }] = useCreateDeckMutation() // Добавляем isLoading из мутации
   const [value, setValue] = useState<string>('')
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
-
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement>(null)
   const inputHandler = (e: string) => setValue(e)
 
   const checkboxHandler = (e: boolean) => setIsPrivate(e)
@@ -25,8 +26,25 @@ export const AddNewPack = ({ closeModalCallback }: Props) => {
     closeModalCallback(false)
   }
 
+  //logic to close the modal when clicked outside
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setClickedOutside(true)
+      closeModalCallback(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [clickedOutside])
+
   return (
     <TemplateModal
+      ref={menuRef}
       className={s.root}
       title="Add New Pack"
       buttonName="Add New Pack"

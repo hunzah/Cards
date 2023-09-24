@@ -39,7 +39,7 @@ export const DropDownMenuCard = (props: Props) => {
   const closeDeleteCardModal = () => setIsDeleteModalOpen(false)
   const openDeleteCardModal = () => setIsDeleteModalOpen(true)
 
-  // Add logic to close the modal when clicked outside
+  //logic to close the modal when clicked outside
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setClickedOutside(true)

@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
+
 import s from './edit-pack.module.scss'
 
 import { Checkbox } from '@/components/ui/checkbox'
@@ -17,6 +19,8 @@ export const EditPack = ({ closeModalCallback }: Props) => {
     DeckPrivacy: isPrivate,
     DeckName: value,
   } = useAppSelector(state => state.decks)
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
 
   const inputHandler = (e: string) => dispatch(setDeckName(e))
@@ -28,9 +32,25 @@ export const EditPack = ({ closeModalCallback }: Props) => {
     setDeckName('')
     closeModalCallback(false)
   }
+  //logic to close the modal when clicked outside
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setClickedOutside(true)
+      closeModalCallback(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [clickedOutside])
 
   return (
     <TemplateModal
+      ref={menuRef}
       value={value}
       className={s.root}
       title="Edit Pack"

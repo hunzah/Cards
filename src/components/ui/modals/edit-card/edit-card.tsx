@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import s from './edit-card.module.scss'
 
@@ -18,6 +18,8 @@ export const EditCard = ({ closeModalCallback }: Props) => {
   const [updateCard, { isLoading }] = useUpdateCardMutation()
   const { cardId, question, answer } = useAppSelector(state => state.decks)
   const dispatch = useAppDispatch()
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   // @ts-ignore
   const [questionType, setQuestionType] = useState<string>('Text')
@@ -28,9 +30,25 @@ export const EditCard = ({ closeModalCallback }: Props) => {
     closeModalCallback(false)
   }
   const QuestionType = (e: string) => setQuestionType(e)
+  //logic to close the modal when clicked outside
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setClickedOutside(true)
+      closeModalCallback(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [clickedOutside])
 
   return (
     <TemplateModal
+      ref={menuRef}
       className={s.root}
       title="Edit Card"
       buttonName="Save Changes"

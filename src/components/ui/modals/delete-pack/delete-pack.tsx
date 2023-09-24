@@ -1,10 +1,13 @@
+import { useEffect, useRef, useState } from 'react'
+
+import { useNavigate } from 'react-router-dom'
+
 import s from './delete-pack.module.scss'
 
 import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
-import { useNavigate } from 'react-router-dom'
 
 type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
@@ -13,6 +16,8 @@ export const DeletePack = ({ closeModalCallback }: Props) => {
   const [deleteDeck, { isLoading }] = useDeleteDeckMutation()
   const id = useAppSelector(state => state.decks.DeckId)
   const name = useAppSelector(state => state.decks.DeckName)
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
   const mainActionCallback = async () => {
@@ -20,9 +25,25 @@ export const DeletePack = ({ closeModalCallback }: Props) => {
     closeModalCallback(false)
     navigate('/decks')
   }
+  //logic to close the modal when clicked outside
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setClickedOutside(true)
+      closeModalCallback(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [clickedOutside])
 
   return (
     <TemplateModal
+      ref={menuRef}
       className={s.root}
       title="Delete Pack"
       buttonName="Delete Pack"

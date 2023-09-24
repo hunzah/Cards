@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import s from './add-new-card.module.scss'
 
@@ -15,15 +15,17 @@ import { setAnswer, setQuestion } from '@/services/decks/decks.slice.ts'
 type Props = {
   id: string
   closeModalCallback: (isAddNewPackOpen: boolean) => void
+  isOpen: boolean
 }
-export const AddNewCard = ({ closeModalCallback, id }: Props) => {
+export const AddNewCard = ({ closeModalCallback, id, isOpen }: Props) => {
   const [createCard, { isLoading }] = useCreateCardMutation()
   const { question, answer } = useAppSelector(state => state.decks)
   const dispatch = useAppDispatch()
   const [questionType, setQuestionType] = useState<string>('Text')
   const [questionImage, setQuestionImage] = useState<File | null>(null)
   const [answerImage, setAnswerImage] = useState<File | null>(null)
-
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+  const menuRef = useRef<HTMLDivElement>(null)
   const inputQuestion = (e: string) => dispatch(setQuestion(e))
   const inputAnswer = (e: string) => dispatch(setAnswer(e))
   const QuestionType = (e: string) => setQuestionType(e)
@@ -71,8 +73,25 @@ export const AddNewCard = ({ closeModalCallback, id }: Props) => {
     }
   }
 
+  //logic to close the modal when clicked outside
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setClickedOutside(true)
+      closeModalCallback(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen, clickedOutside])
+
   return (
     <TemplateModal
+      ref={menuRef}
       className={s.root}
       title="Add New Card"
       buttonName="Add New Card"

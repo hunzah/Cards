@@ -86,38 +86,39 @@ export const TableHead = forwardRef<ElementRef<'thead'>, ComponentPropsWithoutRe
 //   direction: 'asc' | 'desc'
 // } | null
 
-export const DeckTableContainer = (props: any) => {
-  // const headCells = props.headCells
+// export const DeckTableContainer = (props: any) => {
+// const headCells = props.headCells
 
-  // type Columns = keyof (typeof headCells)[number]
-  // const [sort, setSort] = useState<Sort>(null)
-  // const [deleteDeck] = useDeleteDeckMutation()
-  // const [updateDeck] = useUpdateDeckMutation()
-  // const columns = Object.keys(headCells[0])
+// type Columns = keyof (typeof headCells)[number]
+// const [sort, setSort] = useState<Sort>(null)
+// const [deleteDeck] = useDeleteDeckMutation()
+// const [updateDeck] = useUpdateDeckMutation()
+// const columns = Object.keys(headCells[0])
 
-  // console.log(headCells)
+// console.log(headCells)
 
-  // const onclickHandler = (key: string) => {
-  //   if (sort && sort.key === key) {
-  //     setSort(sort.direction === 'asc' ? { key, direction: 'desc' } : null)
-  //   } else {
-  //     setSort({
-  //       key,
-  //       direction: 'asc',
-  //     })
-  //   }
-  // }
+// const onclickHandler = (key: string) => {
+//   if (sort && sort.key === key) {
+//     setSort(sort.direction === 'asc' ? { key, direction: 'desc' } : null)
+//   } else {
+//     setSort({
+//       key,
+//       direction: 'asc',
+//     })
+//   }
+// }
 
-  // const deleteDeckHandler = ({ id }) => {
-  //   deleteDeck({ id })
-  // }
-  // const updateDeckHandler = ({ id, params }) => {
-  //   updateDeck({ id: { id }, params: { params } })
-  // }
+// const deleteDeckHandler = ({ id }) => {
+//   deleteDeck({ id })
+// }
+// const updateDeckHandler = ({ id, params }) => {
+//   updateDeck({ id: { id }, params: { params } })
+// }
 
-  return (
-    <Table>
-      {/*  <TableHead>
+// return (
+//   <Table>
+{
+  /*  <TableHead>
                 <TableRow><TableHeadCell onClick={()=>onclickHandler("name")}>Name</TableHeadCell>
                     <TableHeadCell onClick={()=>onclickHandler("cardsCount")}>Cards</TableHeadCell>
                     <TableHeadCell onClick={()=>onclickHandler("updated")}>Updated</TableHeadCell>
@@ -151,7 +152,14 @@ export const DeckTableContainer = (props: any) => {
                         <TableCell><Button onClick={()=>deleteDeckHandler({id:deck.id})}>delete</Button></TableCell>
                         <TableCell><Button onClick={()=>updateDeckHandler({id:deck.id,params: {name: "NEW1NAME"}})}>edit</Button></TableCell>
                     </TableRow>)
-            })}</TableBody>*/}
-    </Table>
-  )
+            })}</TableBody>*/
+}
+{
+  /*</Table>*/
+}
+{
+  /*)*/
+}
+{
+  /*}*/
 }
