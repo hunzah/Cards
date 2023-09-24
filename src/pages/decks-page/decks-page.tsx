@@ -254,9 +254,15 @@ export const DecksPage = () => {
                 <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
                   {deck.name}
                 </TableCell>
-                <TableCell>{deck.cardsCount}</TableCell>
-                <TableCell>{changeTime(deck.updated)}</TableCell>
-                <TableCell>{deck.author.name}</TableCell>
+                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
+                  {deck.cardsCount}
+                </TableCell>
+                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
+                  {changeTime(deck.updated)}
+                </TableCell>
+                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
+                  {deck.author.name}
+                </TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
                     <button className={s.iconBtns}>

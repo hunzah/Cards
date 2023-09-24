@@ -9,50 +9,37 @@ import { Button } from '@/components/ui/button'
 import { RadioGroupUI } from '@/components/ui/radio-group/radio-group-form.tsx'
 import { Typography } from '@/components/ui/typography'
 import {
-  useGetCardsFromDeckQuery,
+  useGetDeckQuery,
   useGetLearnQuery,
   usePostLearnMutation,
 } from '@/services/decks/decks.service.ts'
-import { Card, LearnResponse } from '@/services/decks/types.ts'
 
-type PlayDeckProps = {
-  closeModalCallback?: (value: boolean) => void
-  PackName?: string
-  mainPageUrl?: string
-}
-export const PlayDeck = ({ PackName }: PlayDeckProps) => {
+export const PlayDeck = () => {
   const navigate = useNavigate()
   const [isShowAnswerOpen, setIsShowAnswerOpen] = useState<boolean>(false)
   const [radioValue, setRadioValue] = useState<number>()
-  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0)
-  const [cards, setCards] = useState<Card[] | null>(null)
-  const [cardId, setCardId] = useState<string>(cards ? cards[0].id : '')
 
-  const [learnInfo, setLearnInfo] = useState<LearnResponse | null>(null)
-  //const deckIdfromSlice = useAppSelector(state => state.decks.DeckId)
   const { deckId } = useParams()
+
   const [postLearn] = usePostLearnMutation()
 
-  console.log('sssssssssss', deckId)
-
+  if (!deckId) {
+    return <div>Loading....</div>
+  }
+  const { data: deck } = useGetDeckQuery({ id: deckId })
   const { data: learnResponse } = useGetLearnQuery({ id: deckId })
 
   if (!learnResponse) {
     return <div>Loading....</div>
   }
 
-  console.log(learnResponse)
-
   const closeLearnPage = () => {
     navigate(`/`)
   }
 
   const nextQuestionHandler = () => {
-    /*if (cards && currentCardIndex < cards.length - 1) {
-                                      setCurrentCardIndex(currentCardIndex + 1)
-                                      setCardId(cards[currentCardIndex + 1].id)
-                                    }*/
-    postLearn({ id: deckId, cardId: learnResponse.id, grade: radioValue })
+    deckId && postLearn({ id: deckId, cardId: learnResponse.id, grade: radioValue })
+    setIsShowAnswerOpen(false)
   }
   const deckPath = `/decks/${deckId}`
   const onChangeValueHandler = (value: number) => {
@@ -73,29 +60,38 @@ export const PlayDeck = ({ PackName }: PlayDeckProps) => {
         back to Pack list
       </Button>
       <div className={s.modalContainer}>
-        <Typography variant={'h2'}>{`Learn "${PackName}"`}</Typography>
+        <Typography variant={'h2'}>{`Learn "${deck ? deck.name : 'No Name'}"`}</Typography>
         <div className={s.questionContainer}>
-          <Typography variant={'h3'}>Question</Typography>
-          <Typography variant={'h3'}>{learnResponse?.question}</Typography>
+          <Typography variant={'subtitle1'}>
+            Question: <Typography variant={'body1'}>{learnResponse?.question}</Typography>
+          </Typography>
+          <Typography className={s.attemptsText} variant={'body2'}>
+            Attempts to answer the: {learnResponse?.shots}
+          </Typography>
         </div>
-        <button
-          onClick={() => {
-            setIsShowAnswerOpen(true)
-          }}
-        >
-          show answer
-        </button>
-        {isShowAnswerOpen && (
+        {isShowAnswerOpen ? (
           <div className={s.answerContainer}>
-            <Typography variant={'h3'}>Answer</Typography>
+            <Typography variant={'subtitle1'}>
+              Answer: <Typography variant={'body1'}>{learnResponse?.answer}</Typography>
+            </Typography>
+            <Typography className={s.rateText} variant={'subtitle1'}>
+              Rate yourself:
+            </Typography>
             <RadioGroupUI onChangeValue={onChangeValueHandler} />
+            <Button className={s.nextButton} onClick={nextQuestionHandler}>
+              <Typography variant="subtitle2">NextQuestion</Typography>
+            </Button>
           </div>
-        )}
-        <div className={s.btnsContainer}>
-          <Button className={s.footBtn} onClick={nextQuestionHandler}>
-            <Typography variant="subtitle2">{'NextQuestion'}</Typography>
+        ) : (
+          <Button
+            className={s.showAnswerButton}
+            onClick={() => {
+              setIsShowAnswerOpen(true)
+            }}
+          >
+            <Typography variant="subtitle2">Show Answer</Typography>
           </Button>
-        </div>
+        )}
       </div>
     </div>
   )

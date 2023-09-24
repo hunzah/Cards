@@ -4,6 +4,7 @@
 
 .menuContainer {
   position: absolute;
+  z-index: 100;
   top: 60px;
   right: 115px;
 
@@ -17,7 +18,7 @@
   background-color: var(--color-dark-500);
   border: 1px solid var(--color-dark-300);
   border-radius: 4px;
-z-index: 100;
+
   &::before {
     content: '';
 

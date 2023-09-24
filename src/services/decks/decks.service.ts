@@ -173,7 +173,6 @@ const decksApi = baseApi.injectEndpoints({
     }),
     updateCard: builder.mutation<Card, updateCardRequest>({
       query: params => {
-        console.log(params)
         const { id, ...requestBodyWithoutId } = params
 
         return {
@@ -198,7 +197,7 @@ const decksApi = baseApi.injectEndpoints({
           url: `v1/decks/${params.id}/learn`,
         }
       },
-      providesTags: ['Learn'],
+      providesTags: ['Decks'],
     }),
     postLearn: builder.mutation<void, PostLearn>({
       query: params => {
@@ -208,7 +207,7 @@ const decksApi = baseApi.injectEndpoints({
           body: { cardId: params.cardId, grade: params.grade },
         }
       },
-      invalidatesTags: ['Learn'],
+      invalidatesTags: ['Decks'],
     }),
     clearFilter: builder.mutation<any, any>({
       query: () => {
@@ -231,7 +230,6 @@ export const {
   useCreateCardMutation,
   useDeleteCardMutation,
   useUpdateCardMutation,
-  useClearFilterMutation,
   useGetLearnQuery,
   usePostLearnMutation,
 } = decksApi
