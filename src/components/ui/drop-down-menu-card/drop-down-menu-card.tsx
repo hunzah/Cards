@@ -83,7 +83,7 @@ export const DropDownMenuCard = (props: Props) => {
           <div>
             {isPlayModalOpen && (
               <div className={s.modal}>
-                <PlayDeck mainPageUrl={currentUrl} />
+                <PlayDeck />
               </div>
             )}
             {isEditModalOpen && (

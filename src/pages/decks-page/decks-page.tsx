@@ -171,6 +171,10 @@ export const DecksPage = () => {
     return navigate(`/decks/${id}`)
   }
 
+  const openPlayCardModal = (id: string) => {
+    navigate(`${id}/learn`)
+  }
+
   return (
     <div className={s.decksPage}>
       <div className={s.headerDecks}>
@@ -265,7 +269,7 @@ export const DecksPage = () => {
                 </TableCell>
                 <TableCell>
                   <div className={s.creatorWithButton}>
-                    <button className={s.iconBtns}>
+                    <button className={s.iconBtns} onClick={() => openPlayCardModal(deck.id)}>
                       <img src={playPackIcon} alt="delete-pack-icon" />
                     </button>
                     <button
