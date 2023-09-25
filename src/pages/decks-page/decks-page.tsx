@@ -31,7 +31,7 @@ import { Typography } from '@/components/ui/typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import s from '@/pages/decks-page/decks-page.module.scss'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import { setEmail, setMeUserId, setName } from '@/services/auth/auth.slice.ts'
+import { setAvatar, setEmail, setMeUserId, setName } from '@/services/auth/auth.slice.ts'
 import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
@@ -109,6 +109,7 @@ export const DecksPage = () => {
     dispatch(setMeUserId({ userId: me.id }))
     dispatch(setName({ name: me.name }))
     dispatch(setEmail({ email: me.email }))
+    dispatch(setAvatar({ avatar: me.avatar }))
   }
 
   if (DecksIsLoading) {

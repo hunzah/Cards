@@ -4,8 +4,9 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     userId: '',
-    name: "",
-    email:""
+    name: '',
+    email: '',
+    avatar: '',
   },
   reducers: {
     setMeUserId: (state, action: PayloadAction<{ userId: string }>) => {
@@ -17,7 +18,10 @@ export const authSlice = createSlice({
     setEmail: (state, action: PayloadAction<{ email: string }>) => {
       state.email = action.payload.email
     },
+    setAvatar: (state, action: PayloadAction<{ avatar: string }>) => {
+      state.email = action.payload.avatar
+    },
   },
 })
 
-export const { setMeUserId , setName, setEmail} = authSlice.actions
+export const { setMeUserId, setName, setEmail, setAvatar } = authSlice.actions
