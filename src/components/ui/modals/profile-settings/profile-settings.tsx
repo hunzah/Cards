@@ -6,8 +6,9 @@ import edit from '@/assets/icons/edit-pack.svg'
 import profDefaultPicture from '@/assets/images/prof-picture.jpg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
-import { useAppSelector } from '@/hooks.ts'
+import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useLogOutMutation, usePatchMeMutation } from '@/services/auth/auth.service.ts'
+import { setMe } from '@/services/auth/auth.slice.ts'
 
 type Props = {
   isOpen: boolean
@@ -22,6 +23,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
   const [isChangeNameInputOpen, setIsChangeNameInputOpen] = useState<boolean>(false)
   const [patchMe] = usePatchMeMutation()
   const [logOut] = useLogOutMutation()
+  const dispatch = useAppDispatch()
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
   }
@@ -31,6 +33,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
 
   useEffect(() => {
     patchMe({ name: name, email: me.email })
+    dispatch(setMe({ name: name }))
   }, [name])
 
   const logOutButtonHandler = () => {

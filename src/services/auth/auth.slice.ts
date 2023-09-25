@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type MeType = {
-  avatar: string
-  id: string
-  email: string
-  isEmailVerified: boolean
-  name: string
-  created: string
-  updated: string
+  avatar?: string
+  id?: string
+  email?: string
+  isEmailVerified?: boolean
+  name?: string
+  created?: string
+  updated?: string
 }
 
 export const authSlice = createSlice({
@@ -25,7 +25,7 @@ export const authSlice = createSlice({
   },
   reducers: {
     setMe: (state, action: PayloadAction<MeType>) => {
-      state.me = { ...action.payload }
+      state.me = { ...state.me, ...action.payload }
     },
   },
 })
