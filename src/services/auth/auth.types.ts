@@ -1,6 +1,7 @@
 export type LoginArgs = { email: string; password: string; rememberMe?: boolean }
 export type LoginResponse = { accessToken: string }
 export type SingUpType = { email: string; password: string }
+export type PatchMeRequest = { name: string; email: string }
 export type SingUpResponseType = {
   avatar: string
   id: string

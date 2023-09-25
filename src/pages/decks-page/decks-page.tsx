@@ -31,7 +31,7 @@ import { Typography } from '@/components/ui/typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import s from '@/pages/decks-page/decks-page.module.scss'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
-import { setEmail, setMeUserId, setName } from '@/services/auth/auth.slice.ts'
+import { setMe } from '@/services/auth/auth.slice.ts'
 import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import {
@@ -51,7 +51,7 @@ type Sort = {
 export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
-  const userId = useAppSelector(state => state.auth.userId)
+  const userId = useAppSelector(state => state.auth.me.id)
   const [sortId, setSortId] = useState('')
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
@@ -114,9 +114,7 @@ export const DecksPage = () => {
   const { data: me } = useGetMeQuery()
 
   if (me) {
-    dispatch(setMeUserId({ userId: me.id }))
-    dispatch(setName({ name: me.name }))
-    dispatch(setEmail({ email: me.email }))
+    dispatch(setMe({ ...me }))
   }
 
   if (DecksIsLoading) {

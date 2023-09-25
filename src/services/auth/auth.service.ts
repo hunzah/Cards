@@ -2,6 +2,7 @@ import {
   LoginArgs,
   LoginResponse,
   meResponseType,
+  PatchMeRequest,
   resetPasswordRequest,
   SingUpResponseType,
   SingUpType,
@@ -27,6 +28,14 @@ const authService = baseApi.injectEndpoints({
       extraOptions: { maxRetries: 0 },
       providesTags: ['Me'],
     }),
+    patchMe: builder.mutation<SingUpResponseType, PatchMeRequest>({
+      query: data => ({
+        url: 'v1/auth/me',
+        method: 'PATCH',
+        body: data,
+      }),
+    }),
+
     login: builder.mutation<LoginResponse, LoginArgs>({
       query: data => ({
         url: 'v1/auth/login',
@@ -56,7 +65,7 @@ const authService = baseApi.injectEndpoints({
         body: { password: data.password },
       }),
     }),
-    logOut: builder.mutation({
+    logOut: builder.mutation<any, void>({
       query: () => ({
         url: 'v1/auth/logout',
         method: 'POST',
@@ -68,6 +77,7 @@ const authService = baseApi.injectEndpoints({
 
 export const {
   useResetPasswordMutation,
+  usePatchMeMutation,
   useForgotPasswordMutation,
   useSingUpMutation,
   useGetMeQuery,
