@@ -1,11 +1,10 @@
-import { ChangeEvent, ChangeEventHandler, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import s from './profile.settings.module.scss'
 
 import edit from '@/assets/icons/edit-pack.svg'
 import profDefaultPicture from '@/assets/images/prof-picture.jpg'
 import { Button } from '@/components/ui/button'
-import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
 import { useLogOutMutation, usePatchMeMutation } from '@/services/auth/auth.service.ts'
@@ -16,13 +15,13 @@ type Props = {
 }
 export const ProfileSettings = ({ closeModal }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null)
-  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
   const { me } = useAppSelector(state => state.auth)
-  const [photo, setPhoto] = useState<string | File>(me.avatar ? me.avatar : profDefaultPicture)
+  const [clickedOutside, setClickedOutside] = useState<boolean>(false)
+  const [photo, setPhoto] = useState<string>(me.avatar ? me.avatar : profDefaultPicture)
   const [name, setName] = useState<string>(me.name)
-  const [email, setEmail] = useState<string>(me.email)
   const [isChangeNameInputOpen, setIsChangeNameInputOpen] = useState<boolean>(false)
   const [patchMe] = usePatchMeMutation()
+  const [logOut] = useLogOutMutation()
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
   }
@@ -31,9 +30,9 @@ export const ProfileSettings = ({ closeModal }: Props) => {
   }
 
   useEffect(() => {
-    patchMe({ name: name, email: email, avatar: me.avatar })
+    patchMe({ name: name, email: me.email })
   }, [name])
-  const [logOut] = useLogOutMutation()
+
   const logOutButtonHandler = () => {
     logOut()
     closeModal(false)
@@ -97,7 +96,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
         )}
       </div>
       <Typography className={s.email} variant={'caption'}>
-        {email}
+        {me.email}
       </Typography>
       <Button variant={'secondary'} onClick={logOutButtonHandler}>
         <Typography variant={'subtitle2'}>Log Out</Typography>

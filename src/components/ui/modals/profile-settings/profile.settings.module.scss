@@ -13,11 +13,11 @@
   width: 420px;
   padding: 33px 0 41px;
 
-  //height: 348px;
-
   background-color: var(--color-dark-700);
+  border-radius: 2px;
 
   .email {
+    padding-bottom: 13px;
     color: var(--color-dark-100);
   }
 
@@ -45,6 +45,7 @@
 
 .avatarContainer {
   position: relative;
+  padding-top: 27px;
 
   .avatar {
     cursor: pointer;
