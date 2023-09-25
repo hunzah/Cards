@@ -32,7 +32,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
 
   useEffect(() => {
     patchMe({ name: name, email: email, avatar: me.avatar })
-  }, [])
+  }, [name])
   const [logOut] = useLogOutMutation()
   const logOutButtonHandler = () => {
     logOut()
@@ -82,6 +82,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
       <div onClick={() => setIsChangeNameInputOpen(true)}>
         {isChangeNameInputOpen ? (
           <input
+            className={s.nameInput}
             type="text"
             value={name}
             onChange={handleNameChange}
@@ -89,10 +90,10 @@ export const ProfileSettings = ({ closeModal }: Props) => {
             autoFocus
           />
         ) : (
-          <>
-            <img src={edit} className={s.editIcon} alt="Edit" />
+          <div className={s.nameAndEditContainer}>
             <Typography variant={'h1'}>{name}</Typography>
-          </>
+            <img src={edit} className={s.editNameIcon} alt="Edit" />
+          </div>
         )}
       </div>
       <Typography className={s.email} variant={'caption'}>
