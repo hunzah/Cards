@@ -1,27 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export type MeType = {
+  avatar: string
+  id: string
+  email: string
+  isEmailVerified: boolean
+  name: string
+  created: string
+  updated: string
+}
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    userId: '',
-    name: '',
-    email: '',
-    avatar: '',
+    me: {
+      avatar: '',
+      id: '',
+      email: '',
+      isEmailVerified: false,
+      name: '',
+      created: '',
+      updated: '',
+    },
   },
   reducers: {
-    setMeUserId: (state, action: PayloadAction<{ userId: string }>) => {
-      state.userId = action.payload.userId
-    },
-    setName: (state, action: PayloadAction<{ name: string }>) => {
-      state.name = action.payload.name
-    },
-    setEmail: (state, action: PayloadAction<{ email: string }>) => {
-      state.email = action.payload.email
-    },
-    setAvatar: (state, action: PayloadAction<{ avatar: string }>) => {
-      state.email = action.payload.avatar
+    setMe: (state, action: PayloadAction<MeType>) => {
+      state.me = { ...action.payload }
     },
   },
 })
 
-export const { setMeUserId, setName, setEmail, setAvatar } = authSlice.actions
+export const { setMe } = authSlice.actions

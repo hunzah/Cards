@@ -10,7 +10,7 @@ import { useLogOutMutation } from '@/services/auth/auth.service'
 
 export const Header = () => {
   const [open, setOpen] = useState(false)
-  const name = useAppSelector(state => state.auth.name)
+  const me = useAppSelector(state => state.auth.me)
   const [isAuthorized] = useState(true)
   const [logout] = useLogOutMutation()
 
@@ -25,8 +25,8 @@ export const Header = () => {
         <Button />
       ) : (
         <div className={s.profileContainer}>
-          <div className={s.name}>{name}</div>
-          <DropDownMenu name={name} callback={handler} open={open} setOpen={setOpen} />
+          <div className={s.name}>{me.name}</div>
+          <DropDownMenu name={me.name} callback={handler} open={open} setOpen={setOpen} />
         </div>
       )}
     </div>

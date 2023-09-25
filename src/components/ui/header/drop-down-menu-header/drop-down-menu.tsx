@@ -20,10 +20,11 @@ type Props = {
 export const DropDownMenu = (props: Props) => {
   const { name, open, callback, setOpen } = props
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false)
-  const { email, avatar } = useAppSelector(state => state.auth)
+  const me = useAppSelector(state => state.auth.me)
   const menuRef = useRef<HTMLDivElement>(null)
   const [clickedOutside, setClickedOutside] = useState<boolean>(false)
 
+  // close when its click outside logic
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setClickedOutside(true)
@@ -32,16 +33,12 @@ export const DropDownMenu = (props: Props) => {
   }
 
   useEffect(() => {
-    if (open) {
-      document.addEventListener('mousedown', handleClickOutside)
-    } else {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-
-    if (open && clickedOutside) {
-      setClickedOutside(false)
-    }
-  }, [open, clickedOutside])
+  }, [clickedOutside])
   const toggleMenu = () => {
     setOpen(!open)
   }
@@ -55,7 +52,7 @@ export const DropDownMenu = (props: Props) => {
     <div ref={menuRef}>
       {isSettingsOpen && <ProfileSettings closeModal={setIsSettingsOpen} isOpen={isSettingsOpen} />}
       <img
-        src={avatar ? avatar : profDefaultPicture}
+        src={me.avatar ? me.avatar : profDefaultPicture}
         onClick={toggleMenu}
         className={s.avatar}
         alt={'avatar'}
@@ -65,7 +62,7 @@ export const DropDownMenu = (props: Props) => {
           <ul className={s.itemsContainer}>
             <li className={s.infoContainer}>
               <img
-                src={avatar ? avatar : profDefaultPicture}
+                src={me.avatar ? me.avatar : profDefaultPicture}
                 className={s.avatar}
                 onClick={toggleMenu}
                 alt={'avatar'}
@@ -73,7 +70,7 @@ export const DropDownMenu = (props: Props) => {
               <div className={s.nameAndEmailContainer}>
                 <Typography variant={'subtitle2'}>{name}</Typography>
                 <Typography className={s.email} variant={'caption'}>
-                  {email}
+                  {me.email}
                 </Typography>
               </div>
             </li>

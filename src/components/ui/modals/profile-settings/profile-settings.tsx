@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 
 import s from './profile.settings.module.scss'
 
+import profDefaultPicture from '@/assets/images/prof-picture.jpg'
 import { Button } from '@/components/ui/button'
-import { usePatchMeMutation } from '@/services/auth/auth.service.ts'
+import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
+import { usePatchMeMutation } from '@/services/auth/auth.service.ts'
 
 type Props = {
   isOpen: boolean
@@ -13,7 +15,7 @@ type Props = {
 export const ProfileSettings = ({ closeModal }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null)
   const [clickedOutside, setClickedOutside] = useState<boolean>(false)
-  const { name, email, avatar } = useAppSelector(state => state.auth)
+  const { me } = useAppSelector(state => state.auth)
   const [patchMe, { data: patchMeData }] = usePatchMeMutation()
   const closeButtonHandler = () => closeModal(false)
 
@@ -35,7 +37,10 @@ export const ProfileSettings = ({ closeModal }: Props) => {
 
   return (
     <div className={s.root} ref={menuRef}>
-      aaaaa
+      <Typography variant={'large'}>Personal information</Typography>
+      <img src={me.avatar ? me.avatar : profDefaultPicture} className={s.avatar} alt={'avatar'} />
+      <Typography variant={'h1'}>{me.name}</Typography>
+      <Typography variant={'body2'}>{me.email}</Typography>
       <Button onClick={closeButtonHandler} />
     </div>
   )

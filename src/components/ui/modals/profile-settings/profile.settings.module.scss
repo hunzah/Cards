@@ -4,11 +4,20 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 542px;
-  height: 23%;
-}
-.content {
   display: flex;
   flex-direction: column;
-  padding: 24px 0;
+  align-items: center;
+  justify-content: center;
+
+  width: 420px;
+  height: 348px;
+
+  background-color: var(--color-dark-700);
+}
+
+.avatar {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 }
