@@ -172,7 +172,7 @@ export const DecksPage = () => {
   }
 
   const openPlayCardModal = (id: string) => {
-    navigate(`${id}/learn`)
+    navigate(`/decks/${id}/learn`)
   }
 
   return (

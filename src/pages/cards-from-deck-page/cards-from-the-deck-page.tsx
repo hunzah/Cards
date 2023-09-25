@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 
 import s from './cards-page.module.scss'
 
@@ -44,6 +44,7 @@ export const CardsFromTheDeck = () => {
     itemsPerPage: itemsPerPage,
   })
   const { data: me } = useGetMeQuery()
+  const currentUrl = useLocation().pathname
 
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
@@ -127,7 +128,7 @@ export const CardsFromTheDeck = () => {
                   style={{ textDecoration: 'none', color: 'white' }}
                   variant={'primary'}
                   as={Link}
-                  to={`/learn`}
+                  to={`${currentUrl}/learn`}
                 >
                   Learn to Pack
                 </Button>
