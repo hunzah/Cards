@@ -65,7 +65,7 @@ const authService = baseApi.injectEndpoints({
         body: { password: data.password },
       }),
     }),
-    logOut: builder.mutation({
+    logOut: builder.mutation<any, void>({
       query: () => ({
         url: 'v1/auth/logout',
         method: 'POST',
