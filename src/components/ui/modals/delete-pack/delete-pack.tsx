@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import s from './delete-pack.module.scss'
 
@@ -13,13 +14,25 @@ type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
 }
 export const DeletePack = ({ closeModalCallback }: Props) => {
-  const [deleteDeck, { isLoading }] = useDeleteDeckMutation()
+  const [deleteDeck, { isLoading, isSuccess }] = useDeleteDeckMutation()
   const id = useAppSelector(state => state.decks.DeckId)
   const name = useAppSelector(state => state.decks.DeckName)
   const [clickedOutside, setClickedOutside] = useState<boolean>(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
+  if (isSuccess) {
+    toast.success('🦄 Completed successfully!', {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    })
+  }
   const mainActionCallback = async () => {
     await deleteDeck({ id: id })
     closeModalCallback(false)

@@ -13,6 +13,7 @@ import {
   useGetLearnQuery,
   usePostLearnMutation,
 } from '@/services/decks/decks.service.ts'
+import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
 
 export const PlayDeck = () => {
   const navigate = useNavigate()
@@ -21,7 +22,13 @@ export const PlayDeck = () => {
 
   const { deckId } = useParams()
 
-  const [postLearn] = usePostLearnMutation()
+  const [postLearn, { error }] = usePostLearnMutation()
+
+  if (error) {
+    const err = error as GeneralErrorType
+
+    handleApiError(err)
+  }
 
   if (!deckId) {
     return <div>Loading....</div>

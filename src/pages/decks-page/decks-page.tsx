@@ -41,6 +41,7 @@ import {
   setItemsPerPage,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
 
 type Sort = {
   key: string
@@ -78,6 +79,7 @@ export const DecksPage = () => {
     currentData: decks,
     isLoading: DecksIsLoading,
     isSuccess,
+    error,
   } = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
@@ -86,6 +88,12 @@ export const DecksPage = () => {
     maxCardsCount: sliderValues.maxCurrentSliderValue,
     authorId: sortId,
   })
+
+  if (error) {
+    const err = error as GeneralErrorType
+
+    handleApiError(err)
+  }
 
   if (isSuccess && decks) {
     dispatch(setMaxSliderValue({ max: decks.maxCardsCount }))

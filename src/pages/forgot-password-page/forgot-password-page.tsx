@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import { ForgotPasswordForm } from '@/components/auth/forgot-password-form'
 import { useForgotPasswordMutation } from '@/services/auth/auth.service.ts'
@@ -14,6 +15,17 @@ export const ForgotPasswordPage = () => {
   // const notify = () => toast('Wow so easy!')
 
   if (isSuccess) {
+    toast.success('🦄 Completed! Please check your email!', {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    })
+
     return <Navigate to={'/check-email'} />
   }
   if (isLoading) {

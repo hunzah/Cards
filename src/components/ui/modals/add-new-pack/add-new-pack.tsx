@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { toast } from 'react-toastify'
+
 import s from './add-new-pack.module.scss'
 
 import { Checkbox } from '@/components/ui/checkbox'
@@ -11,11 +13,24 @@ type Props = {
   closeModalCallback: (isAddNewPackOpen: boolean) => void
 }
 export const AddNewPack = ({ closeModalCallback }: Props) => {
-  const [createDeck, { isLoading }] = useCreateDeckMutation() // Добавляем isLoading из мутации
+  const [createDeck, { isLoading, isSuccess }] = useCreateDeckMutation() // Добавляем isLoading из мутации
   const [value, setValue] = useState<string>('')
   const [isPrivate, setIsPrivate] = useState<boolean>(false)
   const [clickedOutside, setClickedOutside] = useState<boolean>(false)
   const menuRef = useRef<HTMLDivElement>(null)
+
+  if (isSuccess) {
+    toast.success('🦄 Completed successfully!', {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    })
+  }
   const inputHandler = (e: string) => setValue(e)
 
   const checkboxHandler = (e: boolean) => setIsPrivate(e)
