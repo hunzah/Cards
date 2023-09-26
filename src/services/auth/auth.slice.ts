@@ -25,8 +25,10 @@ export const authSlice = createSlice({
   },
   reducers: {
     setMe: (state, action: PayloadAction<MeType>) => {
+
       state.me = { ...state.me, ...action.payload }
-    },
+    }, /*setAvatar: (state, action: PayloadAction<MeType>) => {
+      state.ava = { ...state.me, ...action.payload }*/
   },
 })
 

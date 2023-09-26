@@ -75,7 +75,7 @@ export const DropDownMenu = (props: Props) => {
               <div className={s.nameAndEmailContainer}>
                 <Typography variant={'subtitle2'}>{cutName}</Typography>
                 <Typography className={s.email} variant={'caption'}>
-                  {me.email}
+                  {me.email }
                 </Typography>
               </div>
             </li>
