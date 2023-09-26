@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import s from './edit-card.module.scss'
 
-import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
+import { TemplateModal } from '@/components/ui/modals/template'
 import { Select } from '@/components/ui/select'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'

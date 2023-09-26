@@ -4,7 +4,7 @@ import s from './add-new-card.module.scss'
 
 import addPhotoCover from '@/assets/icons/cover-add-photo.svg'
 import imageNotFound from '@/assets/images/image-not-found.jpg'
-import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
+import { TemplateModal } from '@/components/ui/modals/template/'
 import { Select } from '@/components/ui/select'
 import { TextField } from '@/components/ui/text-field'
 import { Typography } from '@/components/ui/typography'

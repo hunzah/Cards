@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import s from './edit-pack.module.scss'
 
 import { Checkbox } from '@/components/ui/checkbox'
-import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
+import { TemplateModal } from '@/components/ui/modals/template'
 import { TextField } from '@/components/ui/text-field'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useUpdateDeckMutation } from '@/services/decks/decks.service.ts'

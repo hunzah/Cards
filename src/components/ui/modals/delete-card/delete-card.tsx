@@ -1,6 +1,6 @@
 import s from './delete-card.module.scss'
 
-import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
+import { TemplateModal } from '@/components/ui/modals/template'
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
 import { useDeleteCardMutation } from '@/services/decks/decks.service.ts'

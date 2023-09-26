@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import s from './add-new-pack.module.scss'
 
 import { Checkbox } from '@/components/ui/checkbox'
-import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
+import { TemplateModal } from '@/components/ui/modals/template'
 import { TextField } from '@/components/ui/text-field'
 import { useCreateDeckMutation } from '@/services/decks/decks.service.ts'
 

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import s from './delete-pack.module.scss'
 
-import { TemplateModal } from '@/components/ui/modals/template/template-modal.tsx'
+import { TemplateModal } from '@/components/ui/modals/template'
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks.ts'
 import { useDeleteDeckMutation } from '@/services/decks/decks.service.ts'
