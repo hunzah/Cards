@@ -10,6 +10,7 @@ import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import { Button } from '@/components/ui/button'
 import { DropDownMenuCard } from '@/components/ui/drop-down-menu-card/drop-down-menu-card.tsx'
+import { Loader } from '@/components/ui/loader/loader.tsx'
 import { AddNewCard } from '@/components/ui/modals/add-new-card/add-new-card.tsx'
 import { DeleteCard } from '@/components/ui/modals/delete-card/delete-card.tsx'
 import { EditCard } from '@/components/ui/modals/edit-card/edit-card.tsx'
@@ -38,8 +39,8 @@ import { changerForTime } from '@/utils/func-helper/func-helper.ts'
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
   const { currentPage, itemsPerPage } = useAppSelector(state => state.decks)
-  const { data: selectedDeck } = useGetDeckQuery({ id: deckId })
-  const { data: cardsFromThisDeck } = useGetCardsFromDeckQuery({
+  const { data: selectedDeck, status: deckStatus } = useGetDeckQuery({ id: deckId })
+  const { data: cardsFromThisDeck, status: cardsStatus } = useGetCardsFromDeckQuery({
     id: deckId,
     currentPage: currentPage,
     itemsPerPage: itemsPerPage,
@@ -74,6 +75,10 @@ export const CardsFromTheDeck = () => {
   // pagination logic
 
   const isMyDeck = me?.id === selectedDeck?.userId
+
+  if (deckStatus === 'pending' || cardsStatus === 'pending') {
+    return <Loader />
+  }
 
   return (
     <div className={s.cardsPage}>
