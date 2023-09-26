@@ -33,6 +33,7 @@ import {
   setQuestion,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import { changerForTime } from '@/utils/func-helper/func-helper.ts'
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
@@ -168,7 +169,7 @@ export const CardsFromTheDeck = () => {
                 <TableRow key={card.id} className={s.row}>
                   <TableCell>{card.question}</TableCell>
                   <TableCell>{card.answer}</TableCell>
-                  <TableCell>{card.updated}</TableCell>
+                  <TableCell>{changerForTime(card.updated)}</TableCell>
                   <TableCell>{card.grade}</TableCell>
                   <TableCell>
                     <div className={s.creatorWithButton}>
