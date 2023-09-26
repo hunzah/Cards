@@ -44,7 +44,7 @@ import {
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
-import { changerForTime, debounce } from '@/utils/func-helper/func-helper.ts'
+import { changerForTime } from '@/utils/func-helper/func-helper.ts'
 
 type Sort = {
   key: string
@@ -64,6 +64,7 @@ export const DecksPage = () => {
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
+  const [timerId, setTimerId] = useState<ReturnType<typeof setTimeout> | null>(null)
   const navigate = useNavigate()
 
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
@@ -146,10 +147,15 @@ export const DecksPage = () => {
 
   const searchInputHandle = (e: string) => {
     setSearchText(e)
-
-    debounce(() => {
+    if (timerId !== null) {
+      clearTimeout(timerId)
+    }
+    const newTimerId = setTimeout(() => {
       dispatch(setName(e))
-    }, 1000)()
+    }, 500)
+
+    // Сохраняем новый timerId в состоянии
+    setTimerId(newTimerId)
   }
 
   const setItemsPerPageHandler = (value: number) => dispatch(setItemsPerPage(value))
@@ -160,6 +166,7 @@ export const DecksPage = () => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(DeckName))
     dispatch(setDeckPrivacy(isPrivate))
+    dispatch(updateCurrentPage(1))
 
     return navigate(`/decks/${id}`)
   }
