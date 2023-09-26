@@ -39,9 +39,11 @@ import {
   setDeckName,
   setDeckPrivacy,
   setItemsPerPage,
+  setName,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
+import { changerForTime, debounce } from '@/utils/func-helper/func-helper.ts'
 
 type Sort = {
   key: string
@@ -52,6 +54,7 @@ export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
   const userId = useAppSelector(state => state.auth.me.id)
+  const searchCardName = useAppSelector(state => state.decks.name)
   const [sortId, setSortId] = useState('')
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
@@ -60,7 +63,6 @@ export const DecksPage = () => {
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
-  const [isMyPackShow] = useState<boolean>(false)
   const navigate = useNavigate()
 
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
@@ -87,6 +89,7 @@ export const DecksPage = () => {
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
     authorId: sortId,
+    name: searchCardName,
   })
 
   if (error) {
@@ -116,7 +119,7 @@ export const DecksPage = () => {
   if (me) {
     dispatch(setMe({ ...me }))
   }
-
+  //console.log('DecksIsLoading', DecksIsLoading)
   if (DecksIsLoading) {
     return <div>Loading....</div>
   }
@@ -144,29 +147,20 @@ export const DecksPage = () => {
     }
   }
 
-  const searchFilterDecks = decks?.items.filter(deck =>
-    deck.name.toLowerCase().startsWith(searchText.toLowerCase())
-  )
-  const filteredDecks = isMyPackShow
-    ? decks?.items.filter(deck => userId === deck.author.id)
-    : searchFilterDecks
+  const searchInputHandle = (e: string) => {
+    setSearchText(e)
 
-  const searchInputHandle = (e: string) => setSearchText(e)
+    debounce(() => {
+      dispatch(setName(e))
+    }, 1000)()
+  }
+
   const setItemsPerPageHandler = (value: number) => dispatch(setItemsPerPage(value))
 
   const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
 
   if (DecksIsLoading) {
     return <div>Decks Fetching....</div>
-  }
-
-  const changeTime = (time: string) => {
-    const date = new Date(time)
-    const day = date.getDate().toString().padStart(2, '0')
-    const month = (date.getMonth() + 1).toString().padStart(2, '0')
-    const year = date.getFullYear()
-
-    return `${day}.${month}.${year}`
   }
 
   const goToDeck = (id: string, DeckName: string, isPrivate: boolean) => {
@@ -258,7 +252,7 @@ export const DecksPage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredDecks?.map(deck => {
+          {decks?.items?.map(deck => {
             return (
               <TableRow key={deck.id} className={s.row}>
                 <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
@@ -268,7 +262,7 @@ export const DecksPage = () => {
                   {deck.cardsCount}
                 </TableCell>
                 <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
-                  {changeTime(deck.updated)}
+                  {changerForTime(deck.updated)}
                 </TableCell>
                 <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
                   {deck.author.name}
@@ -300,7 +294,7 @@ export const DecksPage = () => {
         </TableBody>
       </Table>
       <div className={s.paginationContainer}>
-        {filteredDecks && filteredDecks.length > 10 && (
+        {decks && decks.pagination.totalPages > 1 && (
           <Pagination
             elements={decks?.pagination.totalItems ?? 0}
             setCurrentPage={setCurrentPageHandler}
