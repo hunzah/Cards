@@ -6,6 +6,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 
+import { Loader } from '@/components/ui/loader/loader.tsx'
 import { PageNotFound } from '@/pages/404-page/404-page.tsx'
 import { CardsFromTheDeck } from '@/pages/cards-from-deck-page/cards-from-the-deck-page.tsx'
 import { CheckEmailPage } from '@/pages/check-email-page/check-email-page.tsx'
@@ -75,18 +76,18 @@ export const Router = () => {
   const { isLoading: isMeLoading } = useGetMeQuery()
 
   if (isMeLoading) {
-    return <>MELsOAD</>
+    return <Loader />
   }
 
   return <RouterProvider router={router} />
 }
 
 function PrivateRoutes() {
-  const { data: me, isLoading: ssss } = useGetMeQuery()
+  const { data: me, isLoading } = useGetMeQuery()
   const isAuthenticated = me && me?.success !== false
 
-  if (ssss) {
-    return <div>MELOAD</div>
+  if (isLoading) {
+    return <Loader />
   }
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
