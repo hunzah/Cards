@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { ProfileSettings } from '@/components/ui/modals/profile-settings'
 import { Typography } from '@/components/ui/typography'
 import { useAppSelector } from '@/hooks'
+import { useLogOutMutation } from '@/services/auth/auth.service.ts'
 
 type Props = {
   avatar?: string
@@ -21,13 +22,17 @@ export const DropDownMenu = (props: Props) => {
   const me = useAppSelector(state => state.auth.me)
   const menuRef = useRef<HTMLDivElement>(null)
   const [clickedOutside, setClickedOutside] = useState<boolean>(false)
-
+  const [logOut] = useLogOutMutation()
   // close when its click outside logic
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setClickedOutside(true)
       setOpen(false)
     }
+  }
+  const logOutButtonHandler = () => {
+    logOut()
+    setOpen(false)
   }
 
   useEffect(() => {
@@ -45,6 +50,7 @@ export const DropDownMenu = (props: Props) => {
     setIsSettingsOpen(true)
     setOpen(false)
   }
+
   const cutName = me.name.length > 10 ? `${me.name.slice(0, 10)}...` : me.name
 
   return (
@@ -86,7 +92,13 @@ export const DropDownMenu = (props: Props) => {
             </li>
             <li className={s.rectangle}></li>
             <li>
-              <Button as={'a'} className={s.button} variant="secondary" img={logOut}>
+              <img src={logOut} />
+              <Button
+                as={'a'}
+                className={s.button}
+                variant="secondary"
+                onClick={logOutButtonHandler}
+              >
                 <Typography variant={'caption'}>Sign Out</Typography>
               </Button>
             </li>
