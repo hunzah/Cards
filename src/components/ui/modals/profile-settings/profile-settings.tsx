@@ -87,6 +87,11 @@ export const ProfileSettings = ({ closeModal }: Props) => {
             value={name}
             onChange={handleNameChange}
             onBlur={handleBlurNameChange}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                handleBlurNameChange()
+              }
+            }}
             autoFocus
           />
         ) : (

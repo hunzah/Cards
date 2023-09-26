@@ -4,7 +4,7 @@ import s from './header.module.scss'
 
 import logo from '@/assets/images/incubator_logo.png'
 import { Button } from '@/components/ui/button'
-import { DropDownMenu } from '@/components/ui/header/drop-down-menu-header/drop-down-menu.tsx'
+import { DropDownMenu } from '@/components/ui/header/drop-down-menu-header'
 import { useAppSelector } from '@/hooks'
 
 export const Header = () => {
