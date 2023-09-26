@@ -1,0 +1,22 @@
+.root {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 542px;
+  height: 311px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 0;
+}
+
+.input {
+  width: 484px;
+  height: 60px;
+}

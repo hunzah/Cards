@@ -1,5 +1,7 @@
 import { ComponentProps, ElementType, JSXElementConstructor, ReactNode } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './typography.module.scss'
 
 export type PropsOf<TTag extends ReactTag> = TTag extends ElementType
@@ -8,7 +10,7 @@ export type PropsOf<TTag extends ReactTag> = TTag extends ElementType
 
 export type ReactTag = keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 
-type TypographyVariantTypes =
+export type TypographyVariantTypes =
   | 'large'
   | 'h1'
   | 'h2'
@@ -38,13 +40,10 @@ export const Typography = ({
 }: TypographyPropsType) => {
   const Component = component || 'span'
 
-  const classNames = className || ''
-  const variantClassName = variant ? s[variant] : ''
-
-  const combinedClassNames = `${classNames} ${variantClassName}`
+  const classNames = { textClassName: clsx(variant && s[variant], className && className) }
 
   return (
-    <Component className={combinedClassNames} {...rest}>
+    <Component className={classNames.textClassName} {...rest}>
       {children}
     </Component>
   )

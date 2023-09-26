@@ -1,0 +1,196 @@
+.decksPage {
+  max-width: 1008px;
+  margin: 0 auto;
+
+  .headerDecks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 36px;
+    margin-top: 36px;
+
+    .headerDecksButton {
+      width: 148px;
+      height: 36px;
+      padding: 0;
+      font-weight: 700;
+    }
+  }
+
+  .decksServices {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    height: 65px;
+    margin-top: 7px;
+
+    .textField {
+      width: 299px;
+    }
+
+    .decksTamSwitcher {
+      width: 229px;
+      padding: 0;
+    }
+
+    .buttonClearFilter {
+      width: 144px;
+      height: 36px;
+    }
+  }
+
+  .decksTable {
+    margin-top: 36px;
+  }
+
+  .paginationContainer {
+    margin: 15px auto 0;
+  }
+}
+
+.modal {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+.editModalContainer {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100px;
+  height: 100px;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  color: var(--color-light-100);
+  border: 1px solid var(--color-dark-500);
+}
+
+:is(td, th) > span {
+  overflow-x: hidden;
+  display: block;
+
+  max-width: 99%;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headCell {
+  width: 20%;
+  max-width: min-content;
+  padding: 6px 24px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-m);
+
+  background-color: var(--color-dark-500);
+
+  /* &:nth-child(4){
+  width: 20ch;
+  }&:nth-child(2){
+  width: min(100px, 20%);
+  } */
+  > span {
+    user-select: none;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  &.sortable > span {
+    cursor: pointer;
+  }
+
+  svg {
+    transition: transform 0.2s ease-in-out;
+  }
+}
+
+.tableCell {
+  padding: 6px 24px;
+
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+
+  background-color: var(--color-bg-table);
+  border-bottom: 1px solid var(--color-dark-500);
+}
+
+.chevronDown {
+  transform: rotate(180deg);
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.creatorWithButton {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  .iconBtns {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 16px;
+    height: 16px;
+
+    background-color: inherit;
+    border: none;
+    border-radius: 50%;
+
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-dark-100);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+      background-color: inherit;
+    }
+
+    &:disabled:hover {
+      cursor: default;
+      background-color: inherit;
+    }
+  }
+}
+
+.row {
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-dark-500);
+  }
+}

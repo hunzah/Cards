@@ -1,0 +1,78 @@
+.card {
+  display: flex;
+  flex-direction: column;
+
+  width: 420px;
+  height: 528px;
+  margin: 0 auto;
+  padding: 33px 36px 29px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-bottom: 27px;
+
+  text-align: center;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.input {
+  width: 346px;
+  height: 58px;
+  background-color: var(--color-accent-500);
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 60px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 348px;
+  height: 36px;
+  padding: 6px 28px;
+}
+
+.buttonLink {
+  padding: 0;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-m);
+  color: var(--color-accent-500);
+  text-decoration-line: underline;
+
+  background-color: var(--color-dark-700);
+}
+
+.text {
+  padding: 20px 0 11px;
+  color: var(--color-dark-100);
+}

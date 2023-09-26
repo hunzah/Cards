@@ -1,0 +1,74 @@
+.root {
+  display: flex;
+  justify-content: center;
+  padding-top: 5%;
+}
+
+.backButton {
+  position: fixed;
+  top: 7%;
+  left: 7%;
+
+  display: flex;
+  align-items: center;
+
+  color: var(--color-light-100);
+  text-decoration: none;
+
+  background-color: inherit;
+
+  &:hover {
+    color: var(--color-light-100);
+    background-color: var(--color-dark-300);
+  }
+}
+
+.modalContainer {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 420px;
+  height: 540px;
+  padding: 33px 36px 48px;
+
+  background-color: var(--color-dark-700);
+}
+
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  width: 100%;
+  padding-top: 45px;
+}
+
+.attemptsText {
+  color: var(--color-dark-100);
+}
+
+.answerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  width: 100%;
+  padding-top: 35px;
+
+  .rateText {
+    padding: 12px 0 13px;
+  }
+}
+
+.nextButton {
+  width: 100%;
+  margin-top: 29px;
+}
+
+.showAnswerButton {
+  width: 100%;
+  margin-top: 41px;
+}

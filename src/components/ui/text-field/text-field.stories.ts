@@ -5,14 +5,17 @@ import { TextField } from './text-field.tsx'
 const meta = {
   title: 'Components/text-field',
   component: TextField,
-  /*argTypes: {
-                                inputType: {
-                                  options: ['text', 'password'],
-                                },
-                                inputIsSearch: {
-                                  options: [true, false],
-                                },
-                              },*/
+  argTypes: {
+    value: {
+      options: 'string',
+    },
+    inputType: {
+      options: ['text', 'password'],
+    },
+    inputIsSearch: {
+      options: [true, false],
+    },
+  },
 } satisfies Meta<typeof TextField>
 
 export default meta
@@ -20,79 +23,77 @@ type Story = StoryObj<typeof meta>
 
 export const TextFieldStandard: Story = {
   args: {
+    value: '',
     inputType: 'text',
-    placeholder: 'Enter text',
+    inputName: 'Input',
     inputIsSearch: false,
   },
 }
 
 export const TextFieldStandardError: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: false,
-    errorMessage: 'Some error',
+    errorMessage: 'Error!',
+    inputName: 'Error',
   },
 }
 
 export const TextFieldLogin: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: false,
     placeholder: 'Enter login',
-    inputName: 'Login',
+    inputName: 'Input',
   },
 }
 
 export const TextFieldLoginError: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: false,
-    inputName: 'Login',
-    errorMessage: 'Some error',
+    inputName: 'Input',
+    errorMessage: 'Error!',
   },
 }
 
 export const TextFieldSearch: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: true,
     placeholder: 'Enter text',
-  },
-}
-
-export const KeyDownEnterTextFieldSearch: Story = {
-  args: {
-    inputType: 'text',
-    inputIsSearch: true,
-    placeholder: 'Enter text',
-    onEnter: e => {
-      alert(e.key)
-    },
   },
 }
 
 export const TextFieldSearchError: Story = {
   args: {
+    value: '',
     inputType: 'text',
     inputIsSearch: true,
-    errorMessage: 'Some error',
+    errorMessage: 'Error!',
   },
 }
 
 export const TextFieldPassword: Story = {
   args: {
+    value: '',
     inputType: 'password',
     inputIsSearch: false,
-    inputName: 'Password',
+    inputName: 'Input',
   },
 }
 
 export const TextFieldPasswordError: Story = {
   args: {
+    value: '',
     inputType: 'password',
     inputIsSearch: false,
-    inputName: 'Password',
+    inputName: 'Input',
     placeholder: 'Enter password',
-    errorMessage: 'Some error',
+    errorMessage: 'Error!',
   },
 }

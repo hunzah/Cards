@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 60px;
+  padding: 0 136px;
+
+  background: var(--dark-700, #171717);
+  border-bottom: 1px solid var(--dark-500, #333);
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  padding-right: 14px;
+
+  color: var(--color-light-100);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.3em;
+}

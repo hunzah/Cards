@@ -7,42 +7,45 @@ import s from './text-field.module.scss'
 import closeImg from '@/assets/icons/close.svg'
 import eyeImg from '@/assets/icons/eye-outline.svg'
 import searchImg from '@/assets/icons/searchOutline.svg'
+import { Label } from '@/components/ui/label'
+import { Typography } from '@/components/ui/typography'
 
 export type TextFieldProps = {
   inputIsSearch: boolean
-  inputType: string
-  value?: string
+  inputType?: 'text' | 'password'
+  label?: string
+  value: string
   inputName?: string
+  className?: string
   errorMessage?: string
   onClearClick?: () => void
-  onEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void
-  onChangeValue?: (newValue: string) => void
+  onChangeValue?: (e: string) => void
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = (
   props: TextFieldProps & Omit<ComponentPropsWithoutRef<'input'>, keyof TextFieldProps>
 ) => {
   const {
-    inputType,
-    inputName,
+    inputType = 'text',
+    label,
+    className,
     inputIsSearch,
     errorMessage = false,
     onClearClick,
-    onEnter,
     onChangeValue,
   } = props
 
-  const [inputValue, setInputValue] = useState<string>('')
+  //const [inputValue, setInputValue] = useState<string>('')
   const [internalInput, setInternalInput] = useState<string>(inputType)
 
-  const isShowClearButton = inputIsSearch && onClearClick && inputValue
+  const isShowClearButton = inputIsSearch && onClearClick && props.value
   const inputIsPassword = inputType === 'password'
   const showError = errorMessage && errorMessage.length > 0
 
   const inputClassName = {
-    standardInput: clsx(s.inputStandard, showError && s.error),
-    searchInput: clsx(s.inputSearch, showError && s.error),
-    passwordInput: clsx(s.inputPassword, showError && s.error),
+    standardInput: clsx(s.inputStandard, showError && s.error, className),
+    searchInput: clsx(s.inputSearch, showError && s.error, className),
+    passwordInput: clsx(s.inputPassword, showError && s.error, className),
   }
 
   function getStyleNameForInput(isPassword: boolean, isSearch: boolean) {
@@ -59,17 +62,12 @@ export const TextField = (
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue: string = e.target.value
 
-    setInputValue(newValue)
+    //setInputValue(newValue)
     onChangeValue && onChangeValue(newValue)
   }
-  //todo need to fix function with change input value
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isShowClearButton && e.key === 'Enter' && onEnter) {
-      onEnter(e)
-    }
-  }
+
   const onClickHandler = () => {
-    onClearClick && !inputIsPassword && setInputValue('')
+    onClearClick && !inputIsPassword && props.value?.length
     inputIsPassword &&
       setInternalInput(previousValue => (previousValue === 'password' ? 'text' : 'password'))
   }
@@ -77,11 +75,15 @@ export const TextField = (
   return (
     <div className={s.inputMain}>
       <div className={s.internalBlock}>
-        <label>
-          {inputName && !inputIsSearch && <span className={s.inputName}>{inputName}</span>}
+        {props.inputName && !inputIsSearch && (
+          <Typography className={s.inputName} variant="body2">
+            {props.inputName}
+          </Typography>
+        )}
+        <Label label={label && label}>
           <div className={s.inputContainer}>
             {inputIsSearch && (
-              <button className={s.searchButton}>
+              <button className={s.searchButton} type={'button'}>
                 <img src={searchImg} alt={'search logo'} />
               </button>
             )}
@@ -89,22 +91,21 @@ export const TextField = (
               className={styleNameForInput}
               type={internalInput}
               placeholder={props.placeholder}
-              value={inputValue}
-              onKeyDown={handleKeyDown}
+              value={props.value}
               onChange={onChangeHandler}
             />
             {isShowClearButton && (
-              <button onClick={onClickHandler} className={s.clearSearchButton}>
+              <button onClick={onClickHandler} className={s.clearSearchButton} type={'button'}>
                 <img src={closeImg} alt={'search logo'} />
               </button>
             )}
             {inputIsPassword && (
-              <button onClick={onClickHandler} className={s.showPasswordButton}>
+              <button onClick={onClickHandler} className={s.showPasswordButton} type={'button'}>
                 <img src={eyeImg} alt={'search logo'} />
               </button>
             )}
           </div>
-        </label>
+        </Label>
         {showError && <div className={s.error}>{errorMessage}</div>}
       </div>
     </div>
