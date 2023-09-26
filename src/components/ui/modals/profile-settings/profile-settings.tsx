@@ -9,6 +9,7 @@ import { Typography } from '@/components/ui/typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useLogOutMutation, usePatchMeMutation } from '@/services/auth/auth.service.ts'
 import { setMe } from '@/services/auth/auth.slice.ts'
+import {InputTypeFile} from "@/components/ui/modals/profile-settings/InputTypeFile";
 
 type Props = {
   isOpen: boolean
@@ -36,6 +37,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
     logOut()
     closeModal(false)
   }
+  console.log(me)
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
 
@@ -72,12 +74,15 @@ export const ProfileSettings = ({ closeModal }: Props) => {
   return (
     <div className={s.root} ref={menuRef}>
       <Typography variant={'large'}>Personal information</Typography>
+
       <div className={s.avatarContainer}>
         <img src={photo} className={s.avatar} alt="avatar" />
         <label htmlFor="avatarInput" className={s.editLabel}>
-          <img src={edit} className={s.editIcon} alt="Edit" />
+         {/* <img src={edit} className={s.editIcon} alt="Edit" />*/}
+          <InputTypeFile/>
         </label>
-        <input type="file" accept="image/*" id="avatarInput" onChange={handlePhotoChange} />
+
+       {/*<input type="file" accept="image/*" id="avatarInput" onChange={handlePhotoChange} />*/}
       </div>
       <div onClick={() => setIsChangeNameInputOpen(true)}>
         {isChangeNameInputOpen ? (
