@@ -12,13 +12,11 @@ import { useAppSelector } from '@/hooks'
 
 type Props = {
   avatar?: string
-  name?: string
   open?: boolean
-  callback: () => void
   setOpen: (open: boolean) => void
 }
 export const DropDownMenu = (props: Props) => {
-  const { name, open, callback, setOpen } = props
+  const { open, setOpen } = props
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false)
   const me = useAppSelector(state => state.auth.me)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -47,6 +45,7 @@ export const DropDownMenu = (props: Props) => {
     setIsSettingsOpen(true)
     setOpen(false)
   }
+  const cutName = me.name.length > 10 ? `${me.name.slice(0, 10)}...` : me.name
 
   return (
     <div ref={menuRef}>
@@ -68,7 +67,7 @@ export const DropDownMenu = (props: Props) => {
                 alt={'avatar'}
               />
               <div className={s.nameAndEmailContainer}>
-                <Typography variant={'subtitle2'}>{name}</Typography>
+                <Typography variant={'subtitle2'}>{cutName}</Typography>
                 <Typography className={s.email} variant={'caption'}>
                   {me.email}
                 </Typography>
@@ -87,13 +86,7 @@ export const DropDownMenu = (props: Props) => {
             </li>
             <li className={s.rectangle}></li>
             <li>
-              <Button
-                as={'a'}
-                className={s.button}
-                onClick={callback}
-                variant="secondary"
-                img={logOut}
-              >
+              <Button as={'a'} className={s.button} variant="secondary" img={logOut}>
                 <Typography variant={'caption'}>Sign Out</Typography>
               </Button>
             </li>

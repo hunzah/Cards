@@ -28,14 +28,10 @@ export const ProfileSettings = ({ closeModal }: Props) => {
     setName(e.target.value)
   }
   const handleBlurNameChange = () => {
+    dispatch(setMe({ name: name }))
+    patchMe({ name: name, email: me.email })
     setIsChangeNameInputOpen(false)
   }
-
-  useEffect(() => {
-    patchMe({ name: name, email: me.email })
-    dispatch(setMe({ name: name }))
-  }, [name])
-
   const logOutButtonHandler = () => {
     logOut()
     closeModal(false)
@@ -71,6 +67,8 @@ export const ProfileSettings = ({ closeModal }: Props) => {
     }
   }, [clickedOutside])
 
+  const cutName = me.name.length > 10 ? `${me.name.slice(0, 10)}...` : me.name
+
   return (
     <div className={s.root} ref={menuRef}>
       <Typography variant={'large'}>Personal information</Typography>
@@ -93,7 +91,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
           />
         ) : (
           <div className={s.nameAndEditContainer}>
-            <Typography variant={'h1'}>{name}</Typography>
+            <Typography variant={'h1'}>{cutName}</Typography>
             <img src={edit} className={s.editNameIcon} alt="Edit" />
           </div>
         )}
