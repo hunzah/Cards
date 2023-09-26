@@ -6,6 +6,7 @@ import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import playPackIcon from '@/assets/icons/play-pack.svg'
 import { Button } from '@/components/ui/button'
+import { Loader } from '@/components/ui/loader/loader.tsx'
 import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
 import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
 import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
@@ -79,9 +80,9 @@ export const DecksPage = () => {
   }
   let {
     currentData: decks,
-    isLoading: DecksIsLoading,
     isSuccess,
     error,
+    status,
   } = useGetDecksQuery({
     orderBy: orderBy,
     currentPage: currentPage,
@@ -119,10 +120,6 @@ export const DecksPage = () => {
   if (me) {
     dispatch(setMe({ ...me }))
   }
-  //console.log('DecksIsLoading', DecksIsLoading)
-  if (DecksIsLoading) {
-    return <div>Loading....</div>
-  }
 
   const onclickHandler = (key: string) => {
     if (sort && sort.key === key) {
@@ -159,10 +156,6 @@ export const DecksPage = () => {
 
   const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
 
-  if (DecksIsLoading) {
-    return <div>Decks Fetching....</div>
-  }
-
   const goToDeck = (id: string, DeckName: string, isPrivate: boolean) => {
     dispatch(setDeckId(id))
     dispatch(setDeckName(DeckName))
@@ -173,6 +166,10 @@ export const DecksPage = () => {
 
   const openPlayCardModal = (id: string) => {
     navigate(`/decks/${id}/learn`)
+  }
+
+  if (status === 'pending') {
+    return <Loader />
   }
 
   return (

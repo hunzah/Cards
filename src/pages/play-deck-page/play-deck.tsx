@@ -6,6 +6,7 @@ import s from './play-deck.module.scss'
 
 import backIcon from '@/assets/icons/back-arrow.svg'
 import { Button } from '@/components/ui/button'
+import { Loader } from '@/components/ui/loader/loader.tsx'
 import { RadioGroupUI } from '@/components/ui/radio-group/radio-group-form.tsx'
 import { Typography } from '@/components/ui/typography'
 import {
@@ -34,7 +35,7 @@ export const PlayDeck = () => {
     return <div>Loading....</div>
   }
   const { data: deck } = useGetDeckQuery({ id: deckId })
-  const { data: learnResponse } = useGetLearnQuery({ id: deckId })
+  const { data: learnResponse, status: learnStatus } = useGetLearnQuery({ id: deckId })
   const closeLearnPage = () => {
     navigate(`/`)
   }
@@ -63,6 +64,10 @@ export const PlayDeck = () => {
   const deckPath = `/decks/${deckId}`
   const onChangeValueHandler = (value: number) => {
     setRadioValue(value)
+  }
+
+  if (learnStatus === 'pending') {
+    return <Loader />
   }
 
   return (
