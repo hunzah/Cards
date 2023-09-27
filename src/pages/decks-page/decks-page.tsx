@@ -5,30 +5,30 @@ import { useNavigate } from 'react-router-dom'
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import playPackIcon from '@/assets/icons/play-pack.svg'
-import { Button } from '@/components/ui/button'
-import { Loader } from '@/components/ui/loader/loader.tsx'
-import { AddNewPack } from '@/components/ui/modals/add-new-pack/add-new-pack.tsx'
-import { DeletePack } from '@/components/ui/modals/delete-pack/delete-pack.tsx'
-import { EditPack } from '@/components/ui/modals/edit-pack/edit-pack.tsx'
-import { Pagination } from '@/components/ui/pagination/pagination.tsx'
-import { Slider } from '@/components/ui/slider'
 import {
-  changeSliderCurrentValues,
-  initial,
-  setMaxSliderValue,
-} from '@/components/ui/slider/slider.slice.ts'
-import { SliderLoader } from '@/components/ui/slider/sliderLoader'
-import { TabSwitcher } from '@/components/ui/tab-switcher'
-import {
+  AddNewPack,
+  Button,
+  DeletePack,
+  EditPack,
+  Loader,
+  Pagination,
+  Slider,
+  SliderLoader,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeadCell,
   TableRow,
-} from '@/components/ui/table'
-import { TextField } from '@/components/ui/text-field'
-import { Typography } from '@/components/ui/typography'
+  TabSwitcher,
+  TextField,
+  Typography,
+} from '@/components'
+import {
+  changeSliderCurrentValues,
+  initial,
+  setMaxSliderValue,
+} from '@/components/ui/slider/slider.slice.ts'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import s from '@/pages/decks-page/decks-page.module.scss'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'

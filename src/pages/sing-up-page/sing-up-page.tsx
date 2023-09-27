@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
 
-import { SignUpForm } from '@/components/auth/sign-up-form'
+import { SignUpForm } from '@/components'
 import { useSingUpMutation } from '@/services/auth/auth.service.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
 

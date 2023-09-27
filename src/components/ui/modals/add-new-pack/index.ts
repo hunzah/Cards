@@ -1,1 +1,1 @@
-export * from './add-new-pack.tsx'
+export * from './add-new-pack'

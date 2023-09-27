@@ -14,8 +14,8 @@ import { DecksPage } from '@/pages/decks-page/decks-page.tsx'
 import { ForgotPasswordPage } from '@/pages/forgot-password-page/forgot-password-page.tsx'
 import { NewPasswordPage } from '@/pages/new-password-page/new-password-page.tsx'
 import { PlayDeck } from '@/pages/play-deck-page/play-deck.tsx'
-import { SignInPage } from '@/pages/signIn-page.tsx'
-import { SingUpPage } from '@/pages/sing-up-page.tsx'
+import { SignInPage } from '@/pages/sing-in-page/signIn-page.tsx'
+import { SingUpPage } from '@/pages/sing-up-page/sing-up-page.tsx'
 import { useGetMeQuery } from '@/services/auth/auth.service'
 
 const publicRoutes: RouteObject[] = [

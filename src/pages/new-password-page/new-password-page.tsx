@@ -1,7 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { CreateNewPasswordForm } from '@/components/auth/create-new-password-form'
+import { CreateNewPasswordForm } from '@/components'
 import { useResetPasswordMutation } from '@/services/auth/auth.service.ts'
 
 export type PasswordData = {

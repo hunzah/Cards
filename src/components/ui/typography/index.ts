@@ -1,1 +1,1 @@
-export * from '../typography/typography.tsx'
+export * from './typography'

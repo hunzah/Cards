@@ -1,1 +1,1 @@
-export * from './create-new-password-form.tsx'
+export * from './create-new-password-form'

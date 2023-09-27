@@ -8,22 +8,22 @@ import s from './cards-page.module.scss'
 import backIcon from '@/assets/icons/back-arrow.svg'
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
-import { Button } from '@/components/ui/button'
-import { DropDownMenuCard } from '@/components/ui/drop-down-menu-card/drop-down-menu-card.tsx'
-import { Loader } from '@/components/ui/loader/loader.tsx'
-import { AddNewCard } from '@/components/ui/modals/add-new-card/add-new-card.tsx'
-import { DeleteCard } from '@/components/ui/modals/delete-card/delete-card.tsx'
-import { EditCard } from '@/components/ui/modals/edit-card/edit-card.tsx'
-import { Pagination } from '@/components/ui/pagination/pagination.tsx'
 import {
+  AddNewCard,
+  Button,
+  DeleteCard,
+  DropDownMenuCard,
+  EditCard,
+  Loader,
+  Pagination,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeadCell,
   TableRow,
-} from '@/components/ui/table'
-import { Typography } from '@/components/ui/typography'
+  Typography,
+} from '@/components'
 import { useAppSelector } from '@/hooks.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/decks.service.ts'
