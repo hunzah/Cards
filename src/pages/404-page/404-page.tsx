@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import s from './404-page.module.scss'
 
 import pageNotFoundImg from '@/assets/images/404.svg'
-import { Button } from '@/components/ui/button'
-import { Typography } from '@/components/ui/typography'
+import { Button, Typography } from '@/components'
 
 export const PageNotFound = () => {
   const navigate = useNavigate()

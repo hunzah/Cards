@@ -1,1 +1,1 @@
-export * from './template-modal.tsx'
+export * from './template-modal'

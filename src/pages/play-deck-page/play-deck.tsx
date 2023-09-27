@@ -5,10 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import s from './play-deck.module.scss'
 
 import backIcon from '@/assets/icons/back-arrow.svg'
-import { Button } from '@/components/ui/button'
-import { Loader } from '@/components/ui/loader/loader.tsx'
-import { RadioGroupUI } from '@/components/ui/radio-group/radio-group-form.tsx'
-import { Typography } from '@/components/ui/typography'
+import { Button, Loader, RadioGroupUI, Typography } from '@/components'
 import {
   useGetDeckQuery,
   useGetLearnQuery,

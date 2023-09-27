@@ -1,4 +1,4 @@
-import { CheckEmailForm } from '@/components/auth/check-email-form/check-email-form.tsx'
+import { CheckEmailForm } from '@/components'
 
 export const CheckEmailPage = () => {
   return (

@@ -1,1 +1,1 @@
-export * from './delete-pack.tsx'
+export * from './delete-pack'

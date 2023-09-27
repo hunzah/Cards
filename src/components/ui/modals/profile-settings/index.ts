@@ -1,1 +1,2 @@
-export * from './profile-settings.tsx'
+export * from './profile-settings'
+export * from './InputTypeFile.tsx'

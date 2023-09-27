@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { ForgotPasswordForm } from '@/components/auth/forgot-password-form'
+import { ForgotPasswordForm } from '@/components'
 import { useForgotPasswordMutation } from '@/services/auth/auth.service.ts'
 import 'react-toastify/dist/ReactToastify.css'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
@@ -12,7 +12,6 @@ type ArgType = {
 
 export const ForgotPasswordPage = () => {
   const [forgotPassword, { isLoading, error, isSuccess }] = useForgotPasswordMutation()
-  // const notify = () => toast('Wow so easy!')
 
   if (isSuccess) {
     toast.success('🦄 Completed! Please check your email!', {

@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
 
-import { SignInForm } from '@/components/auth/sing-in-form'
+import { SignInForm } from '@/components'
 import { useGetMeQuery, useLoginMutation } from '@/services/auth/auth.service.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
 
