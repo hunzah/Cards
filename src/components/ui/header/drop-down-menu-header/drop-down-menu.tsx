@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import s from './drop-down-menu.module.scss'
 
-import logOut from '@/assets/icons/log-out.svg'
+import logOutIcon from '@/assets/icons/log-out-button.svg'
 import myProfIcon from '@/assets/icons/My-profile-icon.svg'
 import profDefaultPicture from '@/assets/images/prof-picture.jpg'
 import { Button } from '@/components/ui/button'
@@ -75,30 +75,26 @@ export const DropDownMenu = (props: Props) => {
               <div className={s.nameAndEmailContainer}>
                 <Typography variant={'subtitle2'}>{cutName}</Typography>
                 <Typography className={s.email} variant={'caption'}>
-                  {me.email }
+                  {me.email}
                 </Typography>
               </div>
             </li>
             <li className={s.rectangle}></li>
             <li>
-              <Button
-                onClick={myProfileSettingOpen}
-                className={s.button}
-                variant="secondary"
-                img={myProfIcon}
-              >
+              <Button onClick={myProfileSettingOpen} className={s.button} variant="secondary">
+                <img src={myProfIcon} alt="profile-icon" />
                 <Typography variant={'caption'}>My Profile</Typography>
               </Button>
             </li>
             <li className={s.rectangle}></li>
             <li>
-              <img src={logOut} />
               <Button
                 as={'a'}
                 className={s.button}
                 variant="secondary"
                 onClick={logOutButtonHandler}
               >
+                <img src={logOutIcon} alt="log-out-icon" />
                 <Typography variant={'caption'}>Sign Out</Typography>
               </Button>
             </li>
