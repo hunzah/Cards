@@ -66,14 +66,22 @@ export type CardsFromDeckRequest = {
   itemsPerPage?: number
 }
 
+export type FormDataType = {
+  question?: string | undefined
+  answer?: string | undefined
+  questionImg?: string | undefined
+  answerImg?: string | undefined
+  questionVideo?: string | undefined
+  answerVideo?: string | undefined
+}
 export type createCardRequest = {
   id: string
-  question: string
-  answer: string
-  questionImg?: string
-  answerImg?: string
-  questionVideo?: string
-  answerVideo?: string
+  formData: FormDataType
+}
+
+export type createCardWithFormDataRequest = {
+  id: string
+  formData: Omit<createCardRequest, 'id'>
 }
 
 export type updateCardRequest = {
@@ -138,6 +146,8 @@ export type PostLearn = {
   cardId: string
   grade: number | undefined
 }
-export type DeckRequestParams = { id: string | undefined }
+export type DeckRequestParams = {
+  id: string | undefined
+}
 export type DeckDeleteParams = Pick<Deck, 'id'>
 export type CardTypeType = 'Text' | 'Image' | 'Video'

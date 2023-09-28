@@ -72,7 +72,12 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    deleteDeck: builder.mutation<void, { id: string }>({
+    deleteDeck: builder.mutation<
+      void,
+      {
+        id: string
+      }
+    >({
       query: params => ({
         url: `v1/decks/${params['id']}`,
         method: 'DELETE',
@@ -151,17 +156,22 @@ const decksApi = baseApi.injectEndpoints({
     }),
     createCard: builder.mutation<Card, createCardRequest>({
       query: params => {
-        const { id, ...requestBodyWithoutId } = params
+        //const { id, ...requestBodyWithoutId } = params
 
         return {
-          url: `v1/decks/${id}/cards`,
+          url: `v1/decks/${params.id}/cards`,
           method: 'POST',
-          body: { ...requestBodyWithoutId },
+          body: params.formData /*{ ...requestBodyWithoutId }*/,
         }
       },
       invalidatesTags: ['Cards'],
     }),
-    deleteCard: builder.mutation<void, { id: string }>({
+    deleteCard: builder.mutation<
+      void,
+      {
+        id: string
+      }
+    >({
       query: params => {
         return {
           url: `v1/cards/${params.id}`,
