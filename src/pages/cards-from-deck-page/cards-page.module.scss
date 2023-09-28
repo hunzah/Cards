@@ -110,8 +110,49 @@
 }
 
 .row {
+  max-width: 1007px;
+  max-height: 200px;
+
+  .cell {
+    width: 20%;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+
+    .img {
+      max-width: 99%;
+      height: auto;
+
+      img {
+        max-width: 90%;
+        height: auto;
+      }
+    }
+
+    .textQuesAnsw {
+      overflow: hidden;
+
+      max-width: 90%;
+      height: auto;
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    button {
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+  }
+
   &:hover {
-    cursor: pointer;
     background-color: var(--color-dark-500);
   }
+}
+
+:is(.cell:nth-child(-n + 2)) > span {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

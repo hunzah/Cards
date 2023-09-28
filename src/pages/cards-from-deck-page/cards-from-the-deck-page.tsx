@@ -162,21 +162,36 @@ export const CardsFromTheDeck = () => {
         <>
           <Table className={s.tableCards}>
             <TableHead>
-              <TableRow>
-                <TableHeadCell>Question</TableHeadCell>
-                <TableHeadCell>Answer</TableHeadCell>
-                <TableHeadCell>Last Updated</TableHeadCell>
-                <TableHeadCell>Grade</TableHeadCell>
+              <TableRow className={s.row}>
+                <TableHeadCell className={s.HeadCell}>Question</TableHeadCell>
+                <TableHeadCell className={s.HeadCell}>Answer</TableHeadCell>
+                <TableHeadCell className={s.HeadCell}>Last Updated</TableHeadCell>
+                <TableHeadCell className={s.HeadCell}>Grade</TableHeadCell>
+                <TableHeadCell className={s.HeadCell}></TableHeadCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {cardsFromThisDeck.items.map(card => (
                 <TableRow key={card.id} className={s.row}>
-                  <TableCell>{card.question}</TableCell>
-                  <TableCell>{card.answer}</TableCell>
-                  <TableCell>{changerForTime(card.updated)}</TableCell>
-                  <TableCell>{card.grade}</TableCell>
-                  <TableCell>
+                  <TableCell className={s.cell}>
+                    {card.questionImg && (
+                      <div className={s.img}>
+                        <img src={card.questionImg} alt="questionImg" />
+                      </div>
+                    )}
+                    {<div className={s.textQuesAnsw}>{card.question}</div>}
+                  </TableCell>
+                  <TableCell className={s.cell}>
+                    {card.answerImg && (
+                      <div className={s.img}>
+                        <img src={card.answerImg} alt="questionImg" />
+                      </div>
+                    )}
+                    {<div className={s.textQuesAnsw}>{card.answer}</div>}
+                  </TableCell>
+                  <TableCell className={s.cell}>{changerForTime(card.updated)}</TableCell>
+                  <TableCell className={s.cell}>{card.grade}</TableCell>
+                  <TableCell className={s.cell}>
                     <div className={s.creatorWithButton}>
                       <button
                         onClick={() => openEditCardModal(card.id, card.question, card.answer)}

@@ -61,9 +61,11 @@
   } */
   > span {
     user-select: none;
+
     display: flex;
     gap: 4px;
     align-items: center;
+    justify-content: center;
   }
 
   &.sortable > span {

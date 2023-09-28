@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 
 import s from './drop-down-menu.module.scss'
 
-import logOut from '@/assets/icons/log-out.svg'
 import myProfIcon from '@/assets/icons/My-profile-icon.svg'
 import profDefaultPicture from '@/assets/images/prof-picture.jpg'
 import { Button } from '@/components/ui/button'
@@ -75,7 +74,7 @@ export const DropDownMenu = (props: Props) => {
               <div className={s.nameAndEmailContainer}>
                 <Typography variant={'subtitle2'}>{cutName}</Typography>
                 <Typography className={s.email} variant={'caption'}>
-                  {me.email }
+                  {me.email}
                 </Typography>
               </div>
             </li>
@@ -92,7 +91,7 @@ export const DropDownMenu = (props: Props) => {
             </li>
             <li className={s.rectangle}></li>
             <li>
-              <img src={logOut} />
+              <img src={''} alt={'logOut'} />
               <Button
                 as={'a'}
                 className={s.button}
