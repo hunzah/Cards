@@ -1,10 +1,5 @@
 import { useState } from 'react'
 
-import { useNavigate } from 'react-router-dom'
-
-import deletePackIcon from '@/assets/icons/delete-pack.svg'
-import editPackIcon from '@/assets/icons/edit-pack.svg'
-import playPackIcon from '@/assets/icons/play-pack.svg'
 import {
   AddNewPack,
   Button,
@@ -16,13 +11,13 @@ import {
   SliderLoader,
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeadCell,
   TableRow,
   TabSwitcher,
   TextField,
   Typography,
+  Deck,
 } from '@/components'
 import {
   changeSliderCurrentValues,
@@ -35,16 +30,8 @@ import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { setMe } from '@/services/auth/auth.slice.ts'
 import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import {
-  setDeckId,
-  setDeckName,
-  setDeckPrivacy,
-  setItemsPerPage,
-  setName,
-  updateCurrentPage,
-} from '@/services/decks/decks.slice.ts'
+import { setItemsPerPage, setName, updateCurrentPage } from '@/services/decks/decks.slice.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
-import { changerForTime } from '@/utils/func-helper/func-helper.ts'
 
 type Sort = {
   key: string
@@ -65,20 +52,8 @@ export const DecksPage = () => {
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
   const [isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
   const [timerId, setTimerId] = useState<ReturnType<typeof setTimeout> | null>(null)
-  const navigate = useNavigate()
 
   const openAddNewPackHandler = () => setIsAddNewPackModalOpen(true)
-  const openEditPackHandler = (id: string, isPrivate: boolean, name: string) => {
-    setIsEditPackModalOpen(true)
-    dispatch(setDeckId(id))
-    dispatch(setDeckPrivacy(isPrivate))
-    dispatch(setDeckName(name))
-  }
-  const openDeletePackHandler = (id: string, name: string) => {
-    setIsDeletePackModalOpen(true)
-    dispatch(setDeckId(id))
-    dispatch(setDeckName(name))
-  }
   let {
     currentData: decks,
     isSuccess,
@@ -161,19 +136,6 @@ export const DecksPage = () => {
   const setItemsPerPageHandler = (value: number) => dispatch(setItemsPerPage(value))
 
   const setCurrentPageHandler = (value: number) => dispatch(updateCurrentPage(value))
-
-  const goToDeck = (id: string, DeckName: string, isPrivate: boolean) => {
-    dispatch(setDeckId(id))
-    dispatch(setDeckName(DeckName))
-    dispatch(setDeckPrivacy(isPrivate))
-    dispatch(updateCurrentPage(1))
-
-    return navigate(`/decks/${id}`)
-  }
-
-  const openPlayCardModal = (id: string) => {
-    navigate(`/decks/${id}/learn`)
-  }
 
   if (status === 'pending') {
     return <Loader />
@@ -258,41 +220,13 @@ export const DecksPage = () => {
         <TableBody>
           {decks?.items?.map(deck => {
             return (
-              <TableRow key={deck.id} className={s.row}>
-                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
-                  {deck.name}
-                </TableCell>
-                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
-                  {deck.cardsCount}
-                </TableCell>
-                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
-                  {changerForTime(deck.updated)}
-                </TableCell>
-                <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
-                  {deck.author.name}
-                </TableCell>
-                <TableCell>
-                  <div className={s.creatorWithButton}>
-                    <button className={s.iconBtns} onClick={() => openPlayCardModal(deck.id)}>
-                      <img src={playPackIcon} alt="delete-pack-icon" />
-                    </button>
-                    <button
-                      disabled={!(me?.id === deck.author.id)}
-                      onClick={() => openEditPackHandler(deck.id, deck.isPrivate, deck.name)}
-                      className={s.iconBtns}
-                    >
-                      <img src={editPackIcon} alt="edit-pack-icon" />
-                    </button>
-                    <button
-                      disabled={!(me?.id === deck.author.id)}
-                      onClick={() => openDeletePackHandler(deck.id, deck.name)}
-                      className={s.iconBtns}
-                    >
-                      <img src={deletePackIcon} alt="delete-pack-icon" />
-                    </button>
-                  </div>
-                </TableCell>
-              </TableRow>
+              <Deck
+                key={deck.id}
+                deck={deck}
+                me={me}
+                setIsEditPackModalOpen={setIsEditPackModalOpen}
+                setIsDeletePackModalOpen={setIsDeletePackModalOpen}
+              />
             )
           })}
         </TableBody>
