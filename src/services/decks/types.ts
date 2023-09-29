@@ -1,10 +1,10 @@
 export type DecksResponse = {
-  items: Deck[]
+  items: DeckType[]
   pagination: Pagination
   maxCardsCount: number
 }
 export type DeckPostResponse = Omit<DecksResponse, 'maxCardsCount'>
-export type DeckDeleteResponse = Omit<Deck, 'author'>
+export type DeckDeleteResponse = Omit<DeckType, 'author'>
 
 export type Pagination = {
   currentPage: number
@@ -13,7 +13,7 @@ export type Pagination = {
   totalItems: number
 }
 
-export type Deck = {
+export type DeckType = {
   author: Author
   id: string
   userId: string
@@ -149,5 +149,5 @@ export type PostLearn = {
 export type DeckRequestParams = {
   id: string | undefined
 }
-export type DeckDeleteParams = Pick<Deck, 'id'>
+export type DeckDeleteParams = Pick<DeckType, 'id'>
 export type CardTypeType = 'Text' | 'Image' | 'Video'

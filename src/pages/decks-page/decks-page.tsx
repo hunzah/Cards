@@ -218,17 +218,15 @@ export const DecksPage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {decks?.items?.map(deck => {
-            return (
-              <Deck
-                key={deck.id}
-                deck={deck}
-                me={me}
-                setIsEditPackModalOpen={setIsEditPackModalOpen}
-                setIsDeletePackModalOpen={setIsDeletePackModalOpen}
-              />
-            )
-          })}
+          {decks?.items?.map(deck => (
+            <Deck
+              key={deck.id}
+              deck={deck}
+              me={me}
+              setIsEditPackModalOpen={setIsEditPackModalOpen}
+              setIsDeletePackModalOpen={setIsDeletePackModalOpen}
+            />
+          ))}
         </TableBody>
       </Table>
       <div className={s.paginationContainer}>

@@ -6,7 +6,7 @@ import {
   CardsFromDeckRequest,
   CardsFromDeckResponse,
   createCardRequest,
-  Deck,
+  DeckType,
   DeckRequestParams,
   DecksParams,
   DecksPatchParams,
@@ -30,7 +30,7 @@ const decksApi = baseApi.injectEndpoints({
       },
       providesTags: ['Decks'],
     }),
-    getDeck: builder.query<Deck, DeckRequestParams>({
+    getDeck: builder.query<DeckType, DeckRequestParams>({
       query: params => {
         return {
           url: `v1/decks/${params.id}`,
@@ -38,7 +38,7 @@ const decksApi = baseApi.injectEndpoints({
       },
       providesTags: ['Decks'],
     }),
-    createDeck: builder.mutation<Deck, DecksPostParams>({
+    createDeck: builder.mutation<DeckType, DecksPostParams>({
       query: params => ({
         url: 'v1/decks',
         method: 'POST',
@@ -110,7 +110,7 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Decks'],
     }),
-    updateDeck: builder.mutation<Deck, DecksPatchParams>({
+    updateDeck: builder.mutation<DeckType, DecksPatchParams>({
       query: params => ({
         url: `v1/decks/${params.id}`,
         method: 'PATCH',

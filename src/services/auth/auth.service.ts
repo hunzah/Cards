@@ -1,7 +1,7 @@
 import {
   LoginArgs,
   LoginResponse,
-  meResponseType,
+  MeResponseType,
   PatchMeRequest,
   resetPasswordRequest,
   SingUpResponseType,
@@ -11,7 +11,7 @@ import { baseApi } from '@/services/base-api'
 
 const authService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getMe: builder.query<meResponseType, void>({
+    getMe: builder.query<MeResponseType, void>({
       // @ts-ignore
       async queryFn(_name, _api, _extraOptions, baseQuery) {
         const result = await baseQuery({

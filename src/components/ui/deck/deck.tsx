@@ -6,15 +6,24 @@ import playPackIcon from '@/assets/icons/play-pack.svg'
 import { TableCell, TableRow } from '@/components'
 import { useAppDispatch } from '@/hooks.ts'
 import s from '@/pages/decks-page/decks-page.module.scss'
+import { MeResponseType } from '@/services/auth/auth.types.ts'
 import {
   setDeckId,
   setDeckName,
   setDeckPrivacy,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
+import { DeckType } from '@/services/decks/types.ts'
 import { changerForTime } from '@/utils/func-helper/func-helper.ts'
 
-export const Deck = ({ deck, me, setIsEditPackModalOpen, setIsDeletePackModalOpen }: any) => {
+type Props = {
+  deck: DeckType
+  me: MeResponseType | undefined
+  setIsEditPackModalOpen: (value: boolean) => void
+  setIsDeletePackModalOpen: (value: boolean) => void
+}
+export const Deck = (props: Props) => {
+  const { deck, me, setIsEditPackModalOpen, setIsDeletePackModalOpen } = props
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const goToDeck = (id: string, DeckName: string, isPrivate: boolean) => {
@@ -44,7 +53,7 @@ export const Deck = ({ deck, me, setIsEditPackModalOpen, setIsDeletePackModalOpe
   }
 
   return (
-    <TableRow key={deck.id} className={s.row}>
+    <TableRow className={s.row}>
       <TableCell onClick={() => goToDeck(deck.id, deck.name, deck.isPrivate)}>
         {deck.name}
       </TableCell>
