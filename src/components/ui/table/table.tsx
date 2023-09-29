@@ -7,7 +7,7 @@ import s from './table.module.scss'
 export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
   ({ className, ...rest }, ref) => {
     const classNames = {
-      table: clsx(className, s.table),
+      table: clsx(s.table, className),
     }
 
     return <table className={classNames.table} {...rest} ref={ref} />
@@ -16,7 +16,7 @@ export const Table = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'tabl
 export const TableHeadCell = forwardRef<ElementRef<'th'>, ComponentPropsWithoutRef<'th'>>(
   ({ className, children, ...rest }, ref) => {
     const classNames = {
-      headCell: clsx(className, s.headCell),
+      headCell: clsx(s.headCell, className),
     }
 
     return (
@@ -29,7 +29,7 @@ export const TableHeadCell = forwardRef<ElementRef<'th'>, ComponentPropsWithoutR
 export const TableCell = forwardRef<ElementRef<'td'>, ComponentPropsWithoutRef<'td'>>(
   ({ className, children, ...rest }, ref) => {
     const classNames = {
-      cell: clsx(className, s.tableCell),
+      cell: clsx(s.tableCell, className),
     }
 
     return (
@@ -42,7 +42,7 @@ export const TableCell = forwardRef<ElementRef<'td'>, ComponentPropsWithoutRef<'
 
 export const TableRow = forwardRef<ElementRef<'tr'>, ComponentPropsWithoutRef<'tr'>>(
   ({ className, ...rest }, ref) => {
-    const classNames = { tableRow: clsx(className, s.TableRow) }
+    const classNames = { tableRow: clsx(s.TableRow, className) }
 
     return <tr {...rest} className={classNames.tableRow} ref={ref} />
   }

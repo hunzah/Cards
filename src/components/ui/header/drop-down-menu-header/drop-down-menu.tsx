@@ -88,6 +88,7 @@ export const DropDownMenu = (props: Props) => {
             </li>
             <li className={s.rectangle}></li>
             <li>
+              <img src={logOut}  alt={'logOut'}/>
               <Button
                 as={'a'}
                 className={s.button}
