@@ -20,7 +20,7 @@ export type ForgetPasswordError = {
   status: number
 }
 
-export type meResponseType = {
+export type MeResponseType = {
   avatar: string
   id: string
   email: string

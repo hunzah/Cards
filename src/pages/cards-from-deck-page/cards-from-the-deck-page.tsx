@@ -6,11 +6,10 @@ import { Link, useLocation, useParams } from 'react-router-dom'
 import s from './cards-page.module.scss'
 
 import backIcon from '@/assets/icons/back-arrow.svg'
-import deletePackIcon from '@/assets/icons/delete-pack.svg'
-import editPackIcon from '@/assets/icons/edit-pack.svg'
 import {
   AddNewCard,
   Button,
+  CardFromDeck,
   DeleteCard,
   DropDownMenuCard,
   EditCard,
@@ -18,7 +17,6 @@ import {
   Pagination,
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeadCell,
   TableRow,
@@ -34,7 +32,6 @@ import {
   setQuestion,
   updateCurrentPage,
 } from '@/services/decks/decks.slice.ts'
-import { changerForTime } from '@/utils/func-helper/func-helper.ts'
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
@@ -172,43 +169,13 @@ export const CardsFromTheDeck = () => {
             </TableHead>
             <TableBody>
               {cardsFromThisDeck.items.map(card => (
-                <TableRow key={card.id} className={s.row}>
-                  <TableCell className={s.cell}>
-                    {card.questionImg && (
-                      <div className={s.img}>
-                        <img src={card.questionImg} alt="questionImg" />
-                      </div>
-                    )}
-                    {<div className={s.textQuesAnsw}>{card.question}</div>}
-                  </TableCell>
-                  <TableCell className={s.cell}>
-                    {card.answerImg && (
-                      <div className={s.img}>
-                        <img src={card.answerImg} alt="questionImg" />
-                      </div>
-                    )}
-                    {<div className={s.textQuesAnsw}>{card.answer}</div>}
-                  </TableCell>
-                  <TableCell className={s.cell}>{changerForTime(card.updated)}</TableCell>
-                  <TableCell className={s.cell}>{card.grade}</TableCell>
-                  <TableCell className={s.cell}>
-                    <div className={s.creatorWithButton}>
-                      <button
-                        onClick={() => openEditCardModal(card.id, card.question, card.answer)}
-                        className={s.iconBtns}
-                      >
-                        <img src={editPackIcon} alt="edit-pack-icon" />
-                      </button>
-                      <button
-                        disabled={!isMyDeck}
-                        onClick={() => openDeleteCardModal(card.id)}
-                        className={s.iconBtns}
-                      >
-                        <img src={deletePackIcon} alt="delete-pack-icon" />
-                      </button>
-                    </div>
-                  </TableCell>
-                </TableRow>
+                <CardFromDeck
+                  key={card.id}
+                  card={card}
+                  openEditCardModal={openEditCardModal}
+                  isMyDeck={isMyDeck}
+                  openDeleteCardModal={openDeleteCardModal}
+                />
               ))}
             </TableBody>
           </Table>
