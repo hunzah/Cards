@@ -5,11 +5,11 @@ import s from './profile.settings.module.scss'
 import edit from '@/assets/icons/edit-pack.svg'
 import profDefaultPicture from '@/assets/images/prof-picture.jpg'
 import { Button } from '@/components/ui/button'
+import { InputTypeFile } from '@/components/ui/modals/profile-settings/InputTypeFile'
 import { Typography } from '@/components/ui/typography'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useLogOutMutation, usePatchMeMutation } from '@/services/auth/auth.service.ts'
 import { setMe } from '@/services/auth/auth.slice.ts'
-import {InputTypeFile} from "@/components/ui/modals/profile-settings/InputTypeFile";
 
 type Props = {
   isOpen: boolean
@@ -37,6 +37,7 @@ export const ProfileSettings = ({ closeModal }: Props) => {
     logOut()
     closeModal(false)
   }
+
   console.log(me)
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -78,11 +79,11 @@ export const ProfileSettings = ({ closeModal }: Props) => {
       <div className={s.avatarContainer}>
         <img src={photo} className={s.avatar} alt="avatar" />
         <label htmlFor="avatarInput" className={s.editLabel}>
-         {/* <img src={edit} className={s.editIcon} alt="Edit" />*/}
-          <InputTypeFile/>
+          {/* <img src={edit} className={s.editIcon} alt="Edit" />*/}
+          <InputTypeFile />
         </label>
 
-       {/*<input type="file" accept="image/*" id="avatarInput" onChange={handlePhotoChange} />*/}
+        <input type="file" accept="image/*" id="avatarInput" onChange={handlePhotoChange} />
       </div>
       <div onClick={() => setIsChangeNameInputOpen(true)}>
         {isChangeNameInputOpen ? (
