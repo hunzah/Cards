@@ -7,7 +7,7 @@ import s from './cards-page.module.scss'
 
 import backIcon from '@/assets/icons/back-arrow.svg'
 import {
-  AddNewCard,
+  AddNewCardWithForm,
   Button,
   CardFromDeck,
   DeleteCard,
@@ -81,7 +81,7 @@ export const CardsFromTheDeck = () => {
     <div className={s.cardsPage}>
       {isAddModalOpen && (
         <div className={s.modal}>
-          <AddNewCard
+          <AddNewCardWithForm
             closeModalCallback={closeAddCardModal}
             id={deckId ? deckId : ''}
             isOpen={isAddModalOpen}
