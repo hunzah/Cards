@@ -84,6 +84,11 @@ export type createCardWithFormDataRequest = {
   formData: Omit<createCardRequest, 'id'>
 }
 
+export type UpdateCardWithFormDataRequest = {
+  id: string
+  formData: FormDataType
+}
+
 export type updateCardRequest = {
   id: string
   question?: string
@@ -126,6 +131,11 @@ export type LearnRequest = {
   id: string
   previousCardId?: string
 }
+
+export type GetCardById = {
+  id: string
+}
+
 export type LearnResponse = {
   id: string
   deckId: string

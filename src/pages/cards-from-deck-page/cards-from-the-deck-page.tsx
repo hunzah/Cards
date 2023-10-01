@@ -12,7 +12,7 @@ import {
   CardFromDeck,
   DeleteCard,
   DropDownMenuCard,
-  EditCard,
+  EditCardWithForm,
   Loader,
   Pagination,
   Table,
@@ -90,7 +90,7 @@ export const CardsFromTheDeck = () => {
       )}
       {isEditModalOpen && (
         <div className={s.modal}>
-          <EditCard closeModalCallback={closeEditCardModal} />
+          <EditCardWithForm closeModalCallback={closeEditCardModal} />
         </div>
       )}
       {isMyDeck && isDeleteModalOpen && (
