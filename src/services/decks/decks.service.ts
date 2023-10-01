@@ -6,16 +6,17 @@ import {
   CardsFromDeckRequest,
   CardsFromDeckResponse,
   createCardRequest,
-  DeckType,
   DeckRequestParams,
   DecksParams,
   DecksPatchParams,
   DecksPostParams,
   DecksResponse,
+  DeckType,
+  GetCardById,
   LearnRequest,
   LearnResponse,
   PostLearn,
-  updateCardRequest,
+  UpdateCardWithFormDataRequest,
 } from '@/services/decks/types'
 import { RootState } from '@/services/store.ts'
 
@@ -181,22 +182,20 @@ const decksApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['Cards'],
     }),
-    updateCard: builder.mutation<Card, updateCardRequest>({
+    updateCard: builder.mutation<Card, UpdateCardWithFormDataRequest>({
       query: params => {
-        const { id, ...requestBodyWithoutId } = params
-
         return {
-          url: `v1/cards/${id}`,
+          url: `v1/cards/${params.id}`,
           method: 'PATCH',
-          body: { ...requestBodyWithoutId },
+          body: params.formData,
         }
       },
       invalidatesTags: ['Cards'],
     }),
-    getCard: builder.query<LearnResponse, LearnRequest>({
+    getCard: builder.query<Card, GetCardById>({
       query: params => {
         return {
-          url: `v1/decks/${params.id}/learn`,
+          url: `/v1/cards/${params.id}`,
         }
       },
       providesTags: ['Learn'],
@@ -242,4 +241,5 @@ export const {
   useUpdateCardMutation,
   useGetLearnQuery,
   usePostLearnMutation,
+  useGetCardQuery,
 } = decksApi
