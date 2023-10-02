@@ -1,60 +1,68 @@
-import { ChangeEvent } from 'react'
-
-import s from './profile.settings.module.scss'
-
+import { ChangeEvent, useRef } from 'react';
+import {Button} from "@/components/ui/button";
 import edit from '@/assets/icons/edit-pack.svg'
-import ComponentWithSvg from '@/components/ComponentWithSVG'
-import { Button } from '@/components/ui/button'
-import { useAppDispatch } from '@/hooks'
-import { setMe } from '@/services/auth/auth.slice'
+import ComponentWithSvg from "@/components/ComponentWithSVG";
+import s from './profile.settings.module.scss'
+import {setMe} from "@/services/auth/auth.slice";
+import {useAppDispatch} from "@/hooks";
 
-export const InputTypeFile = () => {
-  const dispatch = useAppDispatch()
-  // const inputRef = useRef<HTMLInputElement>(null)
+type ADd = {
+    addPhoto:(a:any)=>void
+}
 
-  // const selectFileHandler = () => {
-  //   inputRef && inputRef.current?.click()
-  // }
+export const InputTypeFile = (props:ADd) => {
+const dispatch = useAppDispatch()
+    const inputRef = useRef<HTMLInputElement>(null)
 
-  const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length) {
-      const file = e.target.files[0]
+    const selectFileHandler = () => {
+        inputRef && inputRef.current?.click();
+    };
 
-      console.log('file: ', file)
+    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            const file = e.target.files[0]
+            props.addPhoto(file)
+            convertFileToBase64(file, (file64: string) => {
+                dispatch(setMe({avatar:file64 }))
+            })
+          /*  console.log('file: ', file)
 
-      if (file.size < 4000000) {
-        convertFileToBase64(file, (file64: string) => {
-          dispatch(setMe({ avatar: file64 }))
-          console.log('file64: ', file64)
-        })
-      } else {
-        console.error('Error: ', 'Файл слишком большого размера')
-      }
+            if (file.size < 4000000) {
+                convertFileToBase64(file, (file64: string) => {
+
+                    dispatch(setMe({avatar:file64 }))
+                    props.addPhoto(file64)
+
+                })*/
+            } else {
+                console.error('Error: ', 'Файл слишком большого размера')
+            }
+        }
+
+
+    const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const file64 = reader.result as string
+            callBack(file64)
+        }
+        reader.readAsDataURL(file)
     }
-  }
 
-  const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
-    const reader = new FileReader()
+    return (
+        <label className={s.editIcon} style={{width:"50px"}}>
+            <input type="file"
+                   onChange={uploadHandler}
+                   style={{display: 'none'}}
+            />
 
-    reader.onloadend = () => {
-      const file64 = reader.result as string
+            <Button as={"span"} variant={"secondary"} style={{ position:"absolute",width:"30px", bottom:"8px", padding:"6px 14px"}}>
 
-      callBack(file64)
-    }
-    reader.readAsDataURL(file)
-  }
+            <ComponentWithSvg svg={edit}/>
 
-  return (
-    <label className={s.editIcon} style={{ width: '50px' }}>
-      <input type="file" onChange={uploadHandler} style={{ display: 'none' }} />
+        </Button>
 
-      <Button
-        as={'span'}
-        variant={'secondary'}
-        style={{ position: 'absolute', width: '30px', bottom: '8px', padding: '6px 14px' }}
-      >
-        <ComponentWithSvg svg={edit} />
-      </Button>
-    </label>
-  )
+
+        </label>
+    )
 }
