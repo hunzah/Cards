@@ -9,13 +9,14 @@ import {Typography} from '@/components/ui/typography'
 import {setMyAuthorId, updateCurrentPage} from '@/services/decks/decks.slice'
 import {useAppSelector} from "@/hooks";
 import {Button} from "@/components/ui/button";
+import {log} from "util";
 
 type PropsType = {
     className?: string
 }
 //todo sortId on 20 line I Commented it out so the error doesn't appear
 export const TabSwitcher = (props: PropsType) => {
-    const {title, className} = props
+    const { className} = props
     const dispatch = useDispatch()
     const myAuthorId = useAppSelector(state => state.decks.myAuthorId)
     const userId = useAppSelector(state => state.auth.me.id)
@@ -29,7 +30,6 @@ export const TabSwitcher = (props: PropsType) => {
     const classNames = {
         tabSwitchersContainer: clsx(s.tabSwitchersContainer, className),
     }
-    console.log(active)
     return (
         <div className={classNames.tabSwitchersContainer}>
             <Typography variant="body2" component={'h3'}>
