@@ -2,12 +2,13 @@ import { ChangeEvent, useRef } from 'react';
 import {Button} from "@/components/ui/button";
 import edit from '@/assets/icons/edit-pack.svg'
 import ComponentWithSvg from "@/components/ComponentWithSVG";
-import s from './profile.settings.module.scss'
+import s from './inputTypeFile.module.scss'
 import {setMe} from "@/services/auth/auth.slice";
 import {useAppDispatch} from "@/hooks";
-
+import profDefaultPicture from '@/assets/images/prof-picture.jpg'
 type ADd = {
     addPhoto:(a:any)=>void
+    photo:string
 }
 
 export const InputTypeFile = (props:ADd) => {
@@ -21,24 +22,23 @@ const dispatch = useAppDispatch()
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
-            props.addPhoto(file)
             convertFileToBase64(file, (file64: string) => {
-                dispatch(setMe({avatar:file64 }))
-            })
-          /*  console.log('file: ', file)
 
+                props.addPhoto(file)
+                dispatch(setMe({avatar: file64}))
+            })
+            console.log('file: ', file)
             if (file.size < 4000000) {
                 convertFileToBase64(file, (file64: string) => {
 
-                    dispatch(setMe({avatar:file64 }))
-                    props.addPhoto(file64)
+                    dispatch(setMe({avatar: file64}))
 
-                })*/
+                })
             } else {
                 console.error('Error: ', 'Файл слишком большого размера')
             }
         }
-
+    }
 
     const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
         const reader = new FileReader();
@@ -48,21 +48,26 @@ const dispatch = useAppDispatch()
         }
         reader.readAsDataURL(file)
     }
-
+    const errorHandler = () => {
+        dispatch(setMe({avatar: profDefaultPicture}))
+    }
     return (
-        <label className={s.editIcon} style={{width:"50px"}}>
+        <div>
+            <img src={props.photo} className={s.avatar} onError={errorHandler}/>
+            <label className={s.editIcon} style={{width: "50px"}}>
             <input type="file"
                    onChange={uploadHandler}
                    style={{display: 'none'}}
             />
 
-            <Button as={"span"} variant={"secondary"} style={{ position:"absolute",width:"30px", bottom:"8px", padding:"6px 14px"}}>
+            <Button as={"span"} variant={"secondary"}
+                    style={{position: "absolute", width: "30px", bottom: "8px", padding: "6px 14px"}}>
 
-            <ComponentWithSvg svg={edit}/>
+                <ComponentWithSvg svg={edit}/>
 
-        </Button>
+            </Button>
 
 
-        </label>
+        </label></div>
     )
 }

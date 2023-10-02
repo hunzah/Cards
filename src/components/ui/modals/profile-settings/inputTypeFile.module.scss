@@ -1,0 +1,20 @@
+.avatar {
+  cursor: pointer;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+.editIcon {
+  position: relative;
+  right: 30px;
+
+  width: 24px;
+
+  background-color: var(--color-dark-300);
+  border-radius: 4px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-dark-100);
+  }
+}

@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks.ts'
 import { useLogOutMutation, usePatchMeMutation } from '@/services/auth/auth.service.ts'
 import { setMe } from '@/services/auth/auth.slice.ts'
 import {InputTypeFile} from "@/components/ui/modals/profile-settings/InputTypeFile";
+import {PatchMeRequest} from "@/services/auth/auth.types";
 
 type Props = {
     isOpen: boolean
@@ -19,7 +20,6 @@ export const ProfileSettings = ({ closeModal }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null)
   const { me } = useAppSelector(state => state.auth)
   const [clickedOutside, setClickedOutside] = useState<boolean>(false)
-  const [photo, setPhoto] = useState<string>(me.avatar ? me.avatar : profDefaultPicture)
   const [name, setName] = useState<string>(me.name)
   const [isChangeNameInputOpen, setIsChangeNameInputOpen] = useState<boolean>(false)
   const [patchMe] = usePatchMeMutation()
@@ -37,22 +37,8 @@ export const ProfileSettings = ({ closeModal }: Props) => {
     logOut()
     closeModal(false)
   }
-  console.log(me)
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
 
-    if (file) {
-      const reader = new FileReader()
 
-      reader.onload = event => {
-        const fileContentAsString = event.target?.result
-
-        file && setPhoto(fileContentAsString as string)
-      }
-
-      reader.readAsText(file)
-    }
-  }
   // close when its click outside logic
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -74,7 +60,6 @@ export const ProfileSettings = ({ closeModal }: Props) => {
 
     const addPhoto = (avatar: any) => {
 
-        console.log(avatar)
         const formData = new FormData()
 
         formData.append('name', name)
@@ -82,33 +67,13 @@ export const ProfileSettings = ({ closeModal }: Props) => {
         formData.append('email',me.email)
 
         patchMe(formData as unknown as PatchMeRequest)
-        setPhoto(avatar)
-    }
-    const addPhotoHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const maybeFile = e.target.files?.[0]
-
-        if (maybeFile) {
-            if (maybeFile.type === 'image/jpeg' || maybeFile.type === 'image/jpg') {
-                setReq(maybeFile)
-
-                return
-            } else alert('not .jpg!')
-        }
-        setReq('')
     }
     return (
         <div className={s.root} ref={menuRef}>
             <Typography variant={'large'}>Personal information</Typography>
-
             <div className={s.avatarContainer}>
-                <img src={me.avatar} className={s.avatar} alt="avatar"/>
                 <label htmlFor="avatarInput" className={s.editLabel}>
-                    <input
-                        type="file"
-                        id="fileInput"
-                        onChange={addPhotoHandler}
-                    />
-                    <InputTypeFile addPhoto={addPhoto}/>
+                    <InputTypeFile addPhoto={addPhoto} photo={me.avatar}/>
                 </label>
             </div>
             <div onClick={() => setIsChangeNameInputOpen(true)}>
