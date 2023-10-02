@@ -32,21 +32,20 @@ import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { setItemsPerPage, setName, updateCurrentPage } from '@/services/decks/decks.slice.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
+import TableRowWithSort from "@/components/ui/table/TableRowWithSort";
 
-type Sort = {
+/*type Sort = {
   key: string
   direction: 'asc' | 'desc'
-} | null
+} | null*/
 
 export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
-  const userId = useAppSelector(state => state.auth.me.id)
+  const myAuthorId = useAppSelector(state => state.decks.myAuthorId)
   const searchCardName = useAppSelector(state => state.decks.name)
-  const [sortId, setSortId] = useState('')
   const dispatch = useAppDispatch()
-  const [sort, setSort] = useState<Sort | null>(null)
-  const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
+  const orderBy =useAppSelector(state => state.decks.orderBy)
   const [searchText, setSearchText] = useState('')
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
@@ -65,10 +64,9 @@ export const DecksPage = () => {
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
-    authorId: sortId,
+    authorId: myAuthorId,
     name: searchCardName,
   })
-
   if (error) {
     const err = error as GeneralErrorType
 
@@ -97,29 +95,6 @@ export const DecksPage = () => {
     dispatch(setMe({ ...me }))
   }
 
-  const onclickHandler = (key: string) => {
-    if (sort && sort.key === key) {
-      setSort(sort.direction === 'asc' ? { key, direction: 'desc' } : null)
-    } else {
-      setSort({
-        key,
-        direction: 'asc',
-      })
-    }
-  }
-
-  const sortArrow = (orderBy: string) => {
-    if (!sort || sort.key !== orderBy) {
-      return <span>•</span>
-    }
-    if (sort.direction === 'asc' && sort.key === orderBy) {
-      return <span>↑</span>
-    }
-    if (sort.direction === 'desc' && sort.key === orderBy) {
-      return <span>↓</span>
-    }
-  }
-
   const searchInputHandle = (e: string) => {
     setSearchText(e)
     if (timerId !== null) {
@@ -140,7 +115,6 @@ export const DecksPage = () => {
   if (status === 'pending') {
     return <Loader />
   }
-
   return (
     <div className={s.decksPage}>
       <div className={s.headerDecks}>
@@ -162,13 +136,6 @@ export const DecksPage = () => {
         <div>
           <TabSwitcher
             className={s.decksTamSwitcher}
-            title={'Show packs cards'}
-            sortId={sortId}
-            setSortId={setSortId}
-            switches={[
-              { id: '', switchTitle: 'all' },
-              { id: userId, switchTitle: 'my' },
-            ]}
           />
         </div>
         <div>{decks ? <Slider decks={decks} /> : <SliderLoader />}</div>
@@ -201,21 +168,7 @@ export const DecksPage = () => {
       )}
       <Table className={s.decksTable}>
         <TableHead className={s.decksTableHead}>
-          <TableRow>
-            <TableHeadCell onClick={() => onclickHandler('name')}>
-              {sortArrow('name')} Name
-            </TableHeadCell>
-            <TableHeadCell onClick={() => onclickHandler('cardsCount')}>
-              {sortArrow('cardsCount')} Cards
-            </TableHeadCell>
-            <TableHeadCell onClick={() => onclickHandler('updated')}>
-              {sortArrow('updated')} Updated
-            </TableHeadCell>
-            <TableHeadCell onClick={() => onclickHandler('created')}>
-              {sortArrow('created')} created by
-            </TableHeadCell>
-            <TableHeadCell></TableHeadCell>
-          </TableRow>
+          <TableRowWithSort/>
         </TableHead>
         <TableBody>
           {decks?.items?.map(deck => (
