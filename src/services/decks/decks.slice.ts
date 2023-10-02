@@ -16,6 +16,7 @@ export const decksSlice = createSlice({
     answer: '',
     question: '',
     name: '',
+    myAuthorId: ''
   },
   reducers: {
     updateCurrentPage: (state, action: PayloadAction<number>) => {
@@ -51,6 +52,9 @@ export const decksSlice = createSlice({
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
+    setMyAuthorId: (state, action: PayloadAction<string>) => {
+      state.myAuthorId = action.payload
+    },
   },
 })
 
@@ -66,4 +70,5 @@ export const {
   setQuestion,
   setAnswer,
   setName,
+  setMyAuthorId
 } = decksSlice.actions

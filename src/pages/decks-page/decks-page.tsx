@@ -41,9 +41,8 @@ type Sort = {
 export const DecksPage = () => {
   const { itemsPerPage, currentPage } = useAppSelector(state => state.decks)
   const sliderValues = useAppSelector(state => state.slider)
-  const userId = useAppSelector(state => state.auth.me.id)
   const searchCardName = useAppSelector(state => state.decks.name)
-  const [sortId, setSortId] = useState('')
+  const myAuthorId = useAppSelector(state => state.decks.myAuthorId)
   const dispatch = useAppDispatch()
   const [sort, setSort] = useState<Sort | null>(null)
   const orderBy = sort !== null ? `${sort.key}-${sort.direction}` : undefined
@@ -65,7 +64,7 @@ export const DecksPage = () => {
     itemsPerPage: itemsPerPage,
     minCardsCount: sliderValues.minCurrentSliderValue,
     maxCardsCount: sliderValues.maxCurrentSliderValue,
-    authorId: sortId,
+    authorId: myAuthorId,
     name: searchCardName,
   })
 
@@ -162,13 +161,6 @@ export const DecksPage = () => {
         <div>
           <TabSwitcher
             className={s.decksTamSwitcher}
-            title={'Show packs cards'}
-            sortId={sortId}
-            setSortId={setSortId}
-            switches={[
-              { id: '', switchTitle: 'all' },
-              { id: userId, switchTitle: 'my' },
-            ]}
           />
         </div>
         <div>{decks ? <Slider decks={decks} /> : <SliderLoader />}</div>
