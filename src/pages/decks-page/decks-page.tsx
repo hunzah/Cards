@@ -9,15 +9,9 @@ import {
   Pagination,
   Slider,
   SliderLoader,
-  Table,
-  TableBody,
-  TableHead,
-  TableHeadCell,
-  TableRow,
   TabSwitcher,
   TextField,
   Typography,
-  Deck,
 } from '@/components'
 import {
   changeSliderCurrentValues,
@@ -25,14 +19,20 @@ import {
   setMaxSliderValue,
 } from '@/components/ui/slider/slider.slice.ts'
 import { useAppDispatch, useAppSelector } from '@/hooks.ts'
+import { Deck } from '@/pages/decks-page/deck'
 import s from '@/pages/decks-page/decks-page.module.scss'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { setMe } from '@/services/auth/auth.slice.ts'
 import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import {setItemsPerPage, setMyAuthorId, setName, setOrderBy, updateCurrentPage} from '@/services/decks/decks.slice.ts'
+import {
+  setItemsPerPage,
+  setMyAuthorId,
+  setName,
+  setOrderBy,
+  updateCurrentPage,
+} from '@/services/decks/decks.slice.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
-import TableRowWithSort from "@/components/ui/table/TableRowWithSort";
 
 /*type Sort = {
   key: string
@@ -45,7 +45,7 @@ export const DecksPage = () => {
   const myAuthorId = useAppSelector(state => state.decks.myAuthorId)
   const searchCardName = useAppSelector(state => state.decks.name)
   const dispatch = useAppDispatch()
-  const orderBy =useAppSelector(state => state.decks.orderBy)
+  const orderBy = useAppSelector(state => state.decks.orderBy)
   const [searchText, setSearchText] = useState('')
   const [isAddNewPackModalOpen, setIsAddNewPackModalOpen] = useState<boolean>(false)
   const [isEditPackModalOpen, setIsEditPackModalOpen] = useState<boolean>(false)
@@ -67,6 +67,7 @@ export const DecksPage = () => {
     authorId: myAuthorId,
     name: searchCardName,
   })
+
   if (error) {
     const err = error as GeneralErrorType
 
@@ -85,7 +86,7 @@ export const DecksPage = () => {
     )
     dispatch(initial())
     dispatch(updateCurrentPage(1))
-    dispatch(setMyAuthorId(""))
+    dispatch(setMyAuthorId(''))
     dispatch(setItemsPerPage(10))
     dispatch(setOrderBy(null))
     dispatch(baseApi.util.resetApiState())
@@ -117,6 +118,7 @@ export const DecksPage = () => {
   if (status === 'pending') {
     return <Loader />
   }
+
   return (
     <div className={s.decksPage}>
       <div className={s.headerDecks}>
@@ -136,9 +138,7 @@ export const DecksPage = () => {
           />
         </div>
         <div>
-          <TabSwitcher
-            className={s.decksTamSwitcher}
-          />
+          <TabSwitcher className={s.decksTamSwitcher} />
         </div>
         <div>{decks ? <Slider decks={decks} /> : <SliderLoader />}</div>
 
@@ -168,22 +168,14 @@ export const DecksPage = () => {
           </div>
         </div>
       )}
-      <Table className={s.decksTable}>
-        <TableHead className={s.decksTableHead}>
-          <TableRowWithSort/>
-        </TableHead>
-        <TableBody>
-          {decks?.items?.map(deck => (
-            <Deck
-              key={deck.id}
-              deck={deck}
-              me={me}
-              setIsEditPackModalOpen={setIsEditPackModalOpen}
-              setIsDeletePackModalOpen={setIsDeletePackModalOpen}
-            />
-          ))}
-        </TableBody>
-      </Table>
+      {decks && me && (
+        <Deck
+          decks={decks}
+          me={me}
+          setIsEditPackModalOpen={setIsEditPackModalOpen}
+          setIsDeletePackModalOpen={setIsDeletePackModalOpen}
+        />
+      )}
       <div className={s.paginationContainer}>
         {decks && decks.pagination.totalPages > 1 && (
           <Pagination

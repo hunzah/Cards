@@ -32,7 +32,7 @@ const authService = baseApi.injectEndpoints({
       query: data => ({
         url: 'v1/auth/me',
         method: 'PATCH',
-        body:data,
+        body: data,
       }),
     }),
 
