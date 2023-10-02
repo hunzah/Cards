@@ -103,7 +103,6 @@ export const ProfileSettings = ({ closeModal }: Props) => {
             <div className={s.avatarContainer}>
                 <img src={me.avatar} className={s.avatar} alt="avatar"/>
                 <label htmlFor="avatarInput" className={s.editLabel}>
-                    {/* <img src={edit} className={s.editIcon} alt="Edit" />*/}
                     <input
                         type="file"
                         id="fileInput"
@@ -111,8 +110,6 @@ export const ProfileSettings = ({ closeModal }: Props) => {
                     />
                     <InputTypeFile addPhoto={addPhoto}/>
                 </label>
-
-                {/*<input type="file" accept="image/*" id="avatarInput" onChange={handlePhotoChange} />*/}
             </div>
             <div onClick={() => setIsChangeNameInputOpen(true)}>
                 {isChangeNameInputOpen ? (
