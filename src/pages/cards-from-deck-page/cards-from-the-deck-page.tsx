@@ -24,6 +24,7 @@ import {
 } from '@/components'
 import { useAppSelector } from '@/hooks.ts'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
+import { setEditCardModalIsOpen } from '@/services/cards/cards.slice.ts'
 import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/decks.service.ts'
 import {
   setAnswer,
@@ -35,6 +36,7 @@ import {
 
 export const CardsFromTheDeck = () => {
   const { deckId } = useParams()
+  const editCardModalIsOpen = useAppSelector(state => state.cards.editCardModalIsOpen)
   const { currentPage, itemsPerPage } = useAppSelector(state => state.decks)
   const { data: selectedDeck, status: deckStatus } = useGetDeckQuery({ id: deckId })
   const { data: cardsFromThisDeck, status: cardsStatus } = useGetCardsFromDeckQuery({
@@ -47,14 +49,14 @@ export const CardsFromTheDeck = () => {
 
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
-  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
+  //const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false)
   const [isDropDownMenuOpen, setIsDropDownMenuOpen] = useState<boolean>(false)
 
   const dispatch = useDispatch()
   const closeAddCardModal = () => setIsAddModalOpen(false)
   const openAddCardModal = () => setIsAddModalOpen(true)
   const closeDeleteCardModal = () => setIsDeleteModalOpen(false)
-  const closeEditCardModal = () => setIsEditModalOpen(false)
+  // const closeEditCardModal = () => setIsEditModalOpen(false)
   const openDeleteCardModal = (cardId: string) => {
     dispatch(setCardId(cardId))
     setIsDeleteModalOpen(true)
@@ -63,7 +65,8 @@ export const CardsFromTheDeck = () => {
     dispatch(setCardId(cardId))
     dispatch(setQuestion(question))
     dispatch(setAnswer(answer))
-    setIsEditModalOpen(true)
+    dispatch(setEditCardModalIsOpen(false))
+    //setIsEditModalOpen(true)
   }
 
   // pagination logic
@@ -88,9 +91,9 @@ export const CardsFromTheDeck = () => {
           />
         </div>
       )}
-      {isEditModalOpen && (
+      {editCardModalIsOpen && (
         <div className={s.modal}>
-          <EditCardWithForm closeModalCallback={closeEditCardModal} />
+          <EditCardWithForm closeModalCallback={() => {}} />
         </div>
       )}
       {isMyDeck && isDeleteModalOpen && (
