@@ -32,7 +32,7 @@ import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
 import { setItemsPerPage, setName, updateCurrentPage } from '@/services/decks/decks.slice.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
-import TableRowWithSort from "@/components/TableRowWithSort";
+import TableRowWithSort from "@/components/ui/table/TableRowWithSort";
 
 /*type Sort = {
   key: string
