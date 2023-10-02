@@ -101,7 +101,7 @@ export const ProfileSettings = ({closeModal}: Props) => {
             <Typography variant={'large'}>Personal information</Typography>
 
             <div className={s.avatarContainer}>
-                <img src={photo} className={s.avatar} alt="avatar"/>
+                <img src={me.avatar} className={s.avatar} alt="avatar"/>
                 <label htmlFor="avatarInput" className={s.editLabel}>
                     {/* <img src={edit} className={s.editIcon} alt="Edit" />*/}
                     <input
