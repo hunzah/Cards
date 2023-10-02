@@ -15,7 +15,7 @@ export const cardsSlice = createSlice({
     editCardModalIsOpen: false,
   },
   reducers: {
-    updateCurrentPageForDeck: (state, action: PayloadAction<number>) => {
+    setCurrentPageForDeck: (state, action: PayloadAction<number>) => {
       state.currentPageForDeck = action.payload
     },
     setItemsPerPageForDeck: (state, action: PayloadAction<number>) => {
@@ -27,11 +27,11 @@ export const cardsSlice = createSlice({
     setCardIdFromDeck: (state, action: PayloadAction<string>) => {
       state.cardIdFromDeck = action.payload
     },
-    setAnswerCard: (state, action: PayloadAction<string>) => {
-      state.answerCard = action.payload
-    },
     setQuestionCard: (state, action: PayloadAction<string>) => {
       state.questionCard = action.payload
+    },
+    setAnswerCard: (state, action: PayloadAction<string>) => {
+      state.answerCard = action.payload
     },
     setQuestionImgCard: (state, action: PayloadAction<string>) => {
       state.questionImgCard = action.payload
@@ -49,7 +49,7 @@ export const cardsSlice = createSlice({
 })
 
 export const {
-  updateCurrentPageForDeck,
+  setCurrentPageForDeck,
   setItemsPerPageForDeck,
   setDeckIdWithCards,
   setCardIdFromDeck,

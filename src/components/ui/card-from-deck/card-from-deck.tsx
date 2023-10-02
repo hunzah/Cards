@@ -1,7 +1,17 @@
+import { useDispatch } from 'react-redux'
+
 import deletePackIcon from '@/assets/icons/delete-pack.svg'
 import editPackIcon from '@/assets/icons/edit-pack.svg'
 import { TableCell, TableRow } from '@/components'
 import s from '@/pages/cards-from-deck-page/cards-page.module.scss'
+import {
+  setAnswerCard,
+  setAnswerImgCard,
+  setCardIdFromDeck,
+  setEditCardModalIsOpen,
+  setQuestionCard,
+  setQuestionImgCard,
+} from '@/services/cards/cards.slice.ts'
 import { Card } from '@/services/decks/types.ts'
 import { changerForTime } from '@/utils/func-helper/func-helper.ts'
 
@@ -13,7 +23,17 @@ type Props = {
 }
 
 export const CardFromDeck = (props: Props) => {
-  const { card, openEditCardModal, isMyDeck, openDeleteCardModal } = props
+  const { card, isMyDeck, openDeleteCardModal } = props
+  const dispatch = useDispatch()
+
+  const openEditCardModalHandler = () => {
+    dispatch(setEditCardModalIsOpen(true))
+    dispatch(setCardIdFromDeck(card.id))
+    dispatch(setQuestionCard(card.question))
+    dispatch(setAnswerCard(card.answer))
+    dispatch(setQuestionImgCard(card.questionImg))
+    dispatch(setAnswerImgCard(card.answerImg))
+  }
 
   return (
     <TableRow className={s.row}>
@@ -37,10 +57,7 @@ export const CardFromDeck = (props: Props) => {
       <TableCell className={s.cell}>{card.grade}</TableCell>
       <TableCell className={s.cell}>
         <div className={s.creatorWithButton}>
-          <button
-            onClick={() => openEditCardModal(card.id, card.question, card.answer)}
-            className={s.iconBtns}
-          >
+          <button onClick={openEditCardModalHandler} className={s.iconBtns}>
             <img src={editPackIcon} alt="edit-pack-icon" />
           </button>
           <button
