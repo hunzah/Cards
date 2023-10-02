@@ -11,12 +11,12 @@ export const decksSlice = createSlice({
     DeckId: '',
     DeckPrivacy: false,
     DeckName: '',
-    orderBy: null,
+    orderBy: null as string | null,
     cardId: '',
     answer: '',
     question: '',
     name: '',
-    myAuthorId: ''
+    myAuthorId: '',
   },
   reducers: {
     updateCurrentPage: (state, action: PayloadAction<number>) => {
@@ -37,7 +37,7 @@ export const decksSlice = createSlice({
     setDeckName: (state, action: PayloadAction<string>) => {
       state.DeckName = action.payload
     },
-    setOrderBy: (state, action: PayloadAction<string>) => {
+    setOrderBy: (state, action: PayloadAction<string | null>) => {
       state.orderBy = action.payload
     },
     setCardId: (state, action: PayloadAction<string>) => {
@@ -70,5 +70,5 @@ export const {
   setQuestion,
   setAnswer,
   setName,
-  setMyAuthorId
+  setMyAuthorId,
 } = decksSlice.actions

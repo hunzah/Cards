@@ -9,20 +9,15 @@ import backIcon from '@/assets/icons/back-arrow.svg'
 import {
   AddNewCardWithForm,
   Button,
-  CardFromDeck,
   DeleteCard,
   DropDownMenuCard,
   EditCardWithForm,
   Loader,
   Pagination,
-  Table,
-  TableBody,
-  TableHead,
-  TableHeadCell,
-  TableRow,
   Typography,
 } from '@/components'
 import { useAppSelector } from '@/hooks.ts'
+import { CardFromDeck } from '@/pages/cards-from-deck-page/card-from-deck'
 import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { setEditCardModalIsOpen } from '@/services/cards/cards.slice.ts'
 import { useGetCardsFromDeckQuery, useGetDeckQuery } from '@/services/decks/decks.service.ts'
@@ -160,29 +155,12 @@ export const CardsFromTheDeck = () => {
         </div>
       ) : (
         <>
-          <Table className={s.tableCards}>
-            <TableHead>
-              <TableRow className={s.row}>
-                <TableHeadCell className={s.HeadCell}>Question</TableHeadCell>
-                <TableHeadCell className={s.HeadCell}>Answer</TableHeadCell>
-                <TableHeadCell className={s.HeadCell}>Last Updated</TableHeadCell>
-                <TableHeadCell className={s.HeadCell}>Grade</TableHeadCell>
-                <TableHeadCell className={s.HeadCell}></TableHeadCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cardsFromThisDeck.items.map(card => (
-                <CardFromDeck
-                  key={card.id}
-                  card={card}
-                  openEditCardModal={openEditCardModal}
-                  isMyDeck={isMyDeck}
-                  openDeleteCardModal={openDeleteCardModal}
-                />
-              ))}
-            </TableBody>
-          </Table>
-
+          <CardFromDeck
+            cardsFromThisDeck={cardsFromThisDeck}
+            openEditCardModal={openEditCardModal}
+            isMyDeck={isMyDeck}
+            openDeleteCardModal={openDeleteCardModal}
+          />
           {cardsFromThisDeck.pagination.totalItems > 10 && (
             <Pagination
               elements={cardsFromThisDeck?.pagination.totalItems ?? 0}

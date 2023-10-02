@@ -48,9 +48,7 @@ export const Select = (props: PropsType) => {
     item: clsx(s.item, itemClassName && itemClassName),
   }
 
-  const [selectedValue, setSelectedValue] = useState(
-    defaultValue ? options[defaultValue] : options[0]
-  )
+  const [selectedValue, setSelectedValue] = useState(defaultValue ? defaultValue : options[0])
 
   const setSelectedValueHandler = (e: string) => {
     setSelectedValue(e)
