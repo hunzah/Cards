@@ -30,7 +30,7 @@ import { useGetMeQuery } from '@/services/auth/auth.service.ts'
 import { setMe } from '@/services/auth/auth.slice.ts'
 import { baseApi } from '@/services/base-api.ts'
 import { useGetDecksQuery } from '@/services/decks/decks.service.ts'
-import { setItemsPerPage, setName, updateCurrentPage } from '@/services/decks/decks.slice.ts'
+import {setItemsPerPage, setMyAuthorId, setName, setOrderBy, updateCurrentPage} from '@/services/decks/decks.slice.ts'
 import { GeneralErrorType, handleApiError } from '@/utils/error-helpers/error-helpers.ts'
 import TableRowWithSort from "@/components/ui/table/TableRowWithSort";
 
@@ -85,7 +85,9 @@ export const DecksPage = () => {
     )
     dispatch(initial())
     dispatch(updateCurrentPage(1))
+    dispatch(setMyAuthorId(""))
     dispatch(setItemsPerPage(10))
+    dispatch(setOrderBy(null))
     dispatch(baseApi.util.resetApiState())
   }
 
