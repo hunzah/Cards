@@ -11,7 +11,6 @@ type PropsType = {
   onChange: (page: number) => void
   elementsPerPage: number
   setCurrentPage: (currentPage: number) => void
-  setPerPage: (value: number) => void
 }
 
 export const PagLogic = (props: PropsType) => {
