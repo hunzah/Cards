@@ -27,7 +27,7 @@
 }
 
 .content {
-  position: fixed;
+  position: relative;
   z-index: 1;
   transform-origin: var(--radix-select-content-transform-origin);
 
@@ -39,7 +39,6 @@
 
   background-color: var(--color-dark-900);
   border: 2px solid var(--color-dark-100);
-  border-top: none;
 }
 
 .item {

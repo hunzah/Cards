@@ -19,12 +19,13 @@ export const Pagination = (props: PropsType) => {
   const [perPage, setPerPage] = useState(itemsPerPage ? itemsPerPage : 10)
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
-  const setPerPageHandler = (value: number) => {
-    setItemsPerPage(value)
-    setPerPage(value)
-  }
+  // const setPerPageHandler = (value: number) => {
+  //   setItemsPerPage(value)
+  //   setPerPage(value)
+  // }
 
   const selectCallback = (e: string) => {
+    setPerPage(Number(e))
     setItemsPerPage(Number(e))
     setCurrentPage(1)
   }
@@ -38,7 +39,6 @@ export const Pagination = (props: PropsType) => {
         onChange={paginate}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        setPerPage={setPerPageHandler}
       />
       <div className={s.selectContainer}>
         <Typography variant="body2">Показать</Typography>

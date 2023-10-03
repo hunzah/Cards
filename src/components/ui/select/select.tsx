@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import * as SelectRadix from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
@@ -48,10 +46,7 @@ export const Select = (props: PropsType) => {
     item: clsx(s.item, itemClassName && itemClassName),
   }
 
-  const [selectedValue, setSelectedValue] = useState(defaultValue ? defaultValue : options[0])
-
   const setSelectedValueHandler = (e: string) => {
-    setSelectedValue(e)
     callback(e)
   }
 
@@ -62,7 +57,10 @@ export const Select = (props: PropsType) => {
       onValueChange={e => setSelectedValueHandler(e.toString())}
     >
       <SelectRadix.Trigger className={classNames.button}>
-        <SelectRadix.Value placeholder={selectedValue} className={s.placeholder} />
+        <SelectRadix.Value
+          placeholder={defaultValue ? defaultValue : options[0]}
+          className={s.placeholder}
+        />
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
       </SelectRadix.Trigger>
 
