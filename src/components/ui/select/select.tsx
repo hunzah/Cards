@@ -9,6 +9,7 @@ import { Typography, TypographyVariantTypes } from '@/components/ui/typography'
 
 type PropsType = {
   options: number[] | string[]
+  value?: string
   callback: (e: string) => void
   contentClassName?: string
   itemClassName?: string
@@ -35,9 +36,9 @@ export const Select = (props: PropsType) => {
     contentClassName,
     itemClassName,
     required,
-    defaultValue,
     textStyle,
     buttonClassName,
+    value,
   } = props
 
   const classNames = {
@@ -55,10 +56,11 @@ export const Select = (props: PropsType) => {
       required={required}
       disabled={isDisabled}
       onValueChange={e => setSelectedValueHandler(e.toString())}
+      value={value ? value : '10'}
     >
       <SelectRadix.Trigger className={classNames.button}>
         <SelectRadix.Value
-          placeholder={defaultValue ? defaultValue : options[0]}
+          /*placeholder={defaultValue ? defaultValue : options[0]}*/
           className={s.placeholder}
         />
         <img src={selectArrow} alt="sellect-arrow-icon" className={s.arrowImg} />
