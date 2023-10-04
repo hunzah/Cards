@@ -45,7 +45,7 @@ export const Pagination = (props: PropsType) => {
         <Select
           callback={selectCallback}
           options={[10, 20, 30, 50, 100]}
-          defaultValue={10}
+          value={`${itemsPerPage}`}
           textStyle="body2"
         />
         <Typography variant="body2"> на странице</Typography>
