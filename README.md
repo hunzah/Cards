@@ -1,27 +1,41 @@
-# React + TypeScript + Vite
+# Cards Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The "Cards" project is a dynamic web application designed to help you learn and memorize information efficiently. Similar to Quizlet, this project focuses on creating and managing flashcards for a wide range of subjects.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Create and Manage Flashcards**: Easily create, edit, and organize your flashcards.
 
-## Expanding the ESLint configuration
+- **Study Mode**: Dive into study mode, where you can review and test your knowledge.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Data Persistence**: Your flashcards are securely stored and retrieved with Redux Toolkit (RTK Query) for data management.
 
-- Configure the top-level `parserOptions` property like this:
+- **Form Handling**: Robust form handling using libraries such as `react-hook-form` and `zod`.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## Technologies Used
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **React & TypeScript**: The project is built using React and TypeScript for robust and maintainable code.
+
+- **Redux Toolkit (RTK Query)**: State and data management are handled by RTK Query, ensuring efficient data retrieval.
+
+- **Form Handling**: Libraries like `react-hook-form` and `zod` are used for form handling and validation.
+
+- **Styling**: Styling is achieved with SCSS, providing a clean and modern design.
+
+- **Routing**: Navigation is powered by `react-router-dom` for seamless page transitions.
+
+- **User Feedback**: User feedback is enhanced with `react-toastify` for notifications.
+
+- **Data Transformation**: Data is effectively transformed with the help of `remeda`.
+
+## Get Started
+
+Explore the project by running it locally:
+
+1. Clone this repository.
+2. Install dependencies with `npm install` or `yarn install`.
+3. Run the development server with `npm start` or `yarn start`.
+
+Contributions, issue reports, and feedback are welcome. Your engagement will help improve and expand this learning platform.
+
+Thank you for exploring the "Cards" project!
